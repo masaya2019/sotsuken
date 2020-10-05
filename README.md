@@ -1,2 +1,3 @@
 # sotsuken
 aiueo
+aiueo
