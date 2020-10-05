@@ -1,5 +1,8 @@
 # sotsuken
 
+aiueo
+
+
 renofujimoto
 
 HONGO
@@ -7,4 +10,5 @@ HONGO
 shimada
 
 # masaya
+
 
