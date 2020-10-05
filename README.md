@@ -2,6 +2,8 @@
 
 nnn
 
+aiueo
+
 renofujimoto
 
 HONGO
@@ -9,4 +11,5 @@ HONGO
 shimada
 
 # masaya
+
 
