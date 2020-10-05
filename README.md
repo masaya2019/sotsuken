@@ -1,7 +1,8 @@
 # sotsuken
 
-aiueo
+nnn
 
+aiueo
 
 renofujimoto
 
