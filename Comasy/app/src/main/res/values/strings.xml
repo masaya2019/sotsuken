@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Comasy</string>
-    <string name="memberRegistrationTitle">新規会員登録</string>
-    <string name="transitionMemberRegistrationButtonText">新規会員登録はこちら</string>
-    <string name="mailAddressText">メールアドレス</string>
-    <string name="transitionMemberRegistrationFormButtonText">仮登録</string>
-</resources>
