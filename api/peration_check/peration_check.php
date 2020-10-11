@@ -8,10 +8,13 @@
 </head>
 
 <body>
-  <form action="pre_registration.php" method="post">
+  <p>メールアドレスの入力　/　pre_registration.php</p>
+  <form action="../pre_registration.php" method="post">
     <input type="email" name="mail_address" id="mail_address">
     <input type="submit" value="Go">
   </form>
+
+  <p></p>
 
 </body>
 
