@@ -4,4 +4,6 @@
     <string name="MemberRegistrationTitleText">新規会員登録</string>
     <string name="mailAddressText">メールアドレス</string>
     <string name="transitionMemberRegistrationFormButtonText">仮登録</string>
+    <string name="passwordText">パスワード</string>
+    <string name="loginText">ログイン</string>
 </resources>
