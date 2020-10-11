@@ -10,8 +10,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // 新規会員登録はこちらボタン（transitionMemberRegistrationButton）をクリックしたら、
-        transitionMemberRegistrationButton.setOnClickListener {
+        // 新規会員登録はこちらボタン（transitionMemberRegistrationActivityButton）をクリックしたら、
+        transitionMemberRegistrationActivityButton.setOnClickListener {
             // 新規会員登録画面（MemberRegistrationActivity.kt）へ遷移する
             val intent = Intent(this, MemberRegistrationActivity::class.java)
             startActivity(intent)
