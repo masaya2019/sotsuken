@@ -27,7 +27,7 @@ require('not_api/query_sql.php');
 
 // mail_addressが存在し、メールアドレスの形式になっているなら
 if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
-    $mail_address = htmlspecialchars($_POST['mail_address']);
+    $mail_address = $_POST['mail_address'];
 
     // 仮登録日時を作成
     require('not_api/get_now_datetime.php');
