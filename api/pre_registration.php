@@ -116,7 +116,7 @@ if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
     } elseif ($row["cnt"] == 1 && checkFlag($mail_address, $db) == 1) {
 
         // 既に使用されている（登録済）アドレス
-        // statusをr_errorに変更
+        // statusをused_address_errorに変更
         $status = "used_address_error";
     }
 
@@ -125,7 +125,7 @@ if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
 
 // メールアドレスが不正な場合
 } else {
-    // statusをm_errorに変更
+    // statusをaddress_type_errorに変更
     $status = "address_type_error";
 }
 
