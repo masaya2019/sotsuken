@@ -1,14 +1,9 @@
 package com.example.comasyapp
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_member_registration.*
 import okhttp3.*
 import org.json.JSONObject
@@ -21,10 +16,8 @@ class MemberRegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_registration)
 
-        // 仮登録ボタン（transitionMemberRegistrationFormButton）をクリックしたら、
-        transitionMemberRegistrationFormButton.setOnClickListener {
-
-            val errorText = findViewById<TextView>(R.id.errorText)
+        // 仮登録ボタン（transitionMemberRegistrationFormActivityButton）をクリックしたら、
+        transitionMemberRegistrationFormActivityButton.setOnClickListener {
 
             val handler = Handler()
 
@@ -33,6 +26,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
 
 //            Log.i("入力されたメールアドレス", mailAddress)
 
+            // メールアドレスから認証用トークンを生成し、認証用トークンをメールで送るAPIにリクエストを投げる
             sendMailApi(mailAddress, handler, errorText)
 
 //            Log.i("sendMailApi", "終了")
@@ -75,7 +69,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
 
 //                Log.i("apiStatus", apiStatus)
 
-                // エラーテキストをセットする
+                // responseのstatusによって次の画面に進むorエラーを表示する
                 when (apiStatus) {
 
                     //  アドレスが正常で、メールを送った場合
