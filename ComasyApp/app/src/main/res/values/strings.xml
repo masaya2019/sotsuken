@@ -6,4 +6,8 @@
     <string name="transitionMemberRegistrationFormButtonText">仮登録</string>
     <string name="passwordText">パスワード</string>
     <string name="loginText">ログイン</string>
+    <string name="userNameText">ニックネーム</string>
+    <string name="reEnterPasswordText">パスワード（再入力）</string>
+    <string name="tokenText">認証コード</string>
+    <string name="transitionMemberRegistrationConfirmActivityButtonText">次へ</string>
 </resources>
