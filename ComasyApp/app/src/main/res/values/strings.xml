@@ -10,4 +10,5 @@
     <string name="reEnterPasswordText">パスワード（再入力）</string>
     <string name="tokenText">認証コード</string>
     <string name="transitionMemberRegistrationConfirmActivityButtonText">次へ</string>
+    <string name="errorPasswordText">パスワードが違います！\nパスワードを再入力してください</string>
 </resources>
