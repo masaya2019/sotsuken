@@ -1,13 +1,16 @@
 package com.example.comasyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_member_registration.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import kotlin.math.log
 
 
 class MemberRegistrationActivity : AppCompatActivity() {
@@ -74,12 +77,9 @@ class MemberRegistrationActivity : AppCompatActivity() {
 
                     //  アドレスが正常で、メールを送った場合
                     "yes" -> {
-                        // 新規会員登録画面（MemberRegistrationActivity.kt）へ遷移する
-
-                        // 【次の画面を作っていないので、テキストを仮に表示させています】
-                        handler.post {
-                            errorText.text = "認証コードを\n${mail_address}に送りました！"
-                        }
+                        // 会員登録画面詳細（MemberRegistrationActivityForm.kt）へ遷移する
+                        val intent = Intent(applicationContext, MemberRegistrationFormActivity::class.java)
+                        startActivity(intent)
                     }
                     // すでに登録されているアドレスの場合
                     "used_address_error" -> {
