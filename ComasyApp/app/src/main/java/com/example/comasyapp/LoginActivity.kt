@@ -16,5 +16,16 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MemberRegistrationActivity::class.java)
             startActivity(intent)
         }
+
+        // ログインボタン（transitionHomeActivityButton）をクリックしたら、
+        transitionHomeActivityButton.setOnClickListener {
+
+            // 入力されたメールアドレスを取得
+            var mailAddress = inputEmailAddress.text
+
+            // 入力されたパスワードを取得
+            var inputPassword = inputPassword.text
+        }
+
     }
 }
