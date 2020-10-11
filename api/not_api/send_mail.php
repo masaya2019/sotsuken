@@ -41,8 +41,9 @@ function sendTokenMail($mail_address, $token)
         // ★★★ Gmail ユーザ名
         $mail->Username   = 'info.comasy@gmail.com';
 
+        require 'gmail_password.php';
         // ★★★ Gmail パスワード
-        $mail->Password   = '';
+        $mail->Password   = $gmail_password;
 
         // ★★★ 暗号化（TLS)を有効に
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
