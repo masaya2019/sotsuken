@@ -26,7 +26,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
 
 //            Log.i("入力されたメールアドレス", mailAddress)
 
-            // メールアドレスから認証用トークンを生成し、認証用トークンをメールで送るAPIにリクエストを投げる
+            // メールアドレスから認証コードを生成し、認証コードをメールで送るAPIにリクエストを投げる
             sendMailApi(mailAddress, handler, errorText)
 
 //            Log.i("sendMailApi", "終了")
@@ -34,7 +34,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
     }
 
 
-    // メールアドレスから認証用トークンを生成し、認証用トークンをメールで送るAPIにリクエストを投げる
+    // メールアドレスから認証コードを生成し、認証コードをメールで送るAPIにリクエストを投げる
     // 結果はjson形式で
     // アドレスが正常で、メールを送った場合　{ "status" :　"yes" }
     // すでに登録されているアドレスの場合　{ "status" :　"used_address_error" }
@@ -78,7 +78,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
 
                         // 【次の画面を作っていないので、テキストを仮に表示させています】
                         handler.post {
-                            errorText.text = "認証用トークンを\n${mail_address}に送りました！"
+                            errorText.text = "認証コードを\n${mail_address}に送りました！"
                         }
                     }
                     // すでに登録されているアドレスの場合
