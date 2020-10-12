@@ -22,7 +22,7 @@
     <p>メールアドレス</p>
     <input type="email" name="mail_address" id="mail_address">
     <p>認証コード（4桁）</p>
-    <input type="number" name="token" id="token">
+    <input type="text" name="token" id="token">
     <input type="submit" value="Go">
   </form>
 
