@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Comasy</string>
+    <string name="transitionMemberRegistrationButtonText">新規会員登録はこちら</string>
+    <string name="MemberRegistrationTitleText">新規会員登録</string>
+    <string name="mailAddressText">メールアドレス</string>
+    <string name="transitionMemberRegistrationFormButtonText">仮登録</string>
+    <string name="passwordText">パスワード</string>
+    <string name="loginText">ログイン</string>
+    <string name="userNameText">ニックネーム</string>
+    <string name="reEnterPasswordText">パスワード（再入力）</string>
+    <string name="tokenText">認証コード</string>
+    <string name="transitionMemberRegistrationConfirmActivityButtonText">次へ</string>
+    <string name="errorPasswordText">パスワードが違います！\nパスワードを再入力してください</string>
+</resources>
