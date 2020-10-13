@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MemberRegistrationFormActivity"></activity>
+        <activity android:name=".MemberRegistrationConfirmActivity"></activity>
+        <activity android:name=".MemberRegistrationFormActivity" />
         <activity android:name=".MemberRegistrationActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
