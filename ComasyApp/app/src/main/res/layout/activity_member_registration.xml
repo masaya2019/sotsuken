@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/MemberRegistrationTitle" />
 
     <TextView
-        android:id="@+id/errorText"
+        android:id="@+id/errorTextPre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
