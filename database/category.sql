@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-12 03:43:20
+-- 生成日時: 2020-10-13 02:51:05
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -32,6 +32,19 @@ CREATE TABLE `category` (
   `category_id` varchar(5) NOT NULL,
   `category_name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- テーブルのデータのダンプ `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+('cat01', 'vegetable'),
+('cat02', 'drink'),
+('cat03', 'frozen'),
+('cat04', 'fresh'),
+('cat05', 'condiment'),
+('cat06', 'dessert'),
+('cat07', 'other');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
