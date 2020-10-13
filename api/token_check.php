@@ -10,7 +10,6 @@
 // メールアドレスアドレスがデータベースにない場合　{ "status" : "no_address_error" }
 // メールアドレスのに形式になっていない場合　{ "status" :　"address_type_error" }
 // 認証コードの文字数が違う場合　{ "status" : "token_error" }
-
 // を返す
 
 
