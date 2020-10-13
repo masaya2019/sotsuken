@@ -1,4 +1,4 @@
-#Mon Oct 12 10:30:30 JST 2020
-base.0=C\:\\Users\\n1290386.STCN2\\Desktop\\sotsuken\\ComasyApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Wed Oct 14 01:05:09 JST 2020
+base.0=C\:\\Eclipse_for_PHP_Java\\xampp\\htdocs\\sotsuken\\ComasyApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
