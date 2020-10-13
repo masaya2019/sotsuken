@@ -1,9 +1,15 @@
 package com.example.comasyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_member_registration_form.*
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 class MemberRegistrationFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,16 +20,17 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
         transitionMemberRegistrationConfirmActivityButton.setOnClickListener {
             // パスワードが4文字以上 かつ ニックネームが入力されている　かつ 認証コードが数字かつ4文字
             if (checkNickname() && checkPassword() && checkToken()) {
-                Log.i("テスト" , "ok")
 
                 // 前の画面からメールアドレスを受け取る
-                val mail_address = intent.getStringExtra("mail_address")
+                val mail_address = intent.getStringExtra("mail_address").toString()
 
                 // 認証コードを取得し、数字に変換
                 val inputToken = inputToken.text.toString().toInt()
 
+                val handler = Handler()
+
                 // メールアドレスと認証コードをチェックするAPIにリクエストを投げる
-                //　まだそのAPIは出来ていない...
+                checkTokenApi(mail_address, inputToken, handler, errorText)
             }
         }
     }
@@ -50,9 +57,6 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
 
         // 入力されたパスワード（再）を取得
         val inputReEnterPassword = inputReEnterPassword.text.toString()
-
-        Log.i("入力されたパスワード", inputPassword)
-        Log.i("入力されたパスワード（再）", inputReEnterPassword)
 
         // 入力されたパスワードと入力されたパスワード（再）が4文字以下
         if (inputPassword.length < 4 || inputReEnterPassword.length < 4) {
@@ -99,5 +103,88 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
     }
 
     // メールアドレスと認証コードをチェックするAPIにリクエストを投げる
+    // 結果はjson形式で
+    // メールアドレスアドレスが正常で、認証コードが合っている場合　{ "status" : "yes" }
+    // メールアドレスアドレスが正常で、認証コードが違っている場合　{ "status" : "different_token_error" }
+    // メールアドレスアドレスがデータベースにない場合　{ "status" : "no_address_error" }
+    // メールアドレスのに形式になっていない場合　{ "status" :　"address_type_error" }
+    // 認証コードの文字数が違う場合　{ "status" : "token_error" }
+    // を受け取る
+    private fun checkTokenApi(mail_address: String, token: Int , handler: Handler, errorText: TextView) {
+
+        val url = "http://10.0.2.2/sotsuken/api/token_check.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("mail_address", mail_address)
+            .add("token", token.toString())
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    // メールアドレスアドレスが正常で、認証コードが合っている場合
+                    "yes" -> {
+                        // エラーを表示
+                        handler.post {
+                            errorText.text = "認証コードが一致しました！"
+                        }
+                        // 新規会員登録確認画面（MemberRegistrationConfirmActivity.kt）へ遷移する
+                        val intent = Intent(applicationContext, MemberRegistrationConfirmActivity::class.java)
+                        // メールアドレスを渡す
+                        intent.putExtra("mail_address", mail_address)
+                        // ニックネームを渡す
+                        intent.putExtra("user_name", inputUserName.text.toString())
+                        // パスワードを渡す
+                        intent.putExtra("password", inputPassword.text.toString())
+                        startActivity(intent)
+                    }
+                    // メールアドレスアドレスが正常で、認証コードが違っている場合
+                    "different_token_error" -> {
+                        // エラーを表示
+                        handler.post {
+                            errorText.text = "認証コードが違います！\nもう一度入力してください！"
+                        }
+                    }
+
+                    // APIの返す値だが、使用されない
+//                    // メールアドレスアドレスがデータベースにない場合
+//                    "no_address_error" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = "このアドレスはデータベースに存在しません"
+//                        }
+//                    }
+//                    // メールアドレスのに形式になっていない場合
+//                    "address_type_error" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = "メールアドレスの形式ではありません！"
+//                        }
+//                    }
+//                    // 認証コードの文字数が違う場合
+//                    "token_error" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = "認証コードの文字数が違います"
+//                        }
+//                    }
+                }
+            }
+        })
+    }
 
 }
