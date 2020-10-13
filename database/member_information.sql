@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-12 03:43:49
+-- 生成日時: 2020-10-13 03:49:28
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `member_infomation`
+-- テーブルの構造 `member_information`
 --
 
-CREATE TABLE `member_infomation` (
+CREATE TABLE `member_information` (
   `mail_address` varchar(100) NOT NULL,
   `person_name` varchar(10) NOT NULL,
   `password` varchar(16) NOT NULL
@@ -39,9 +39,9 @@ CREATE TABLE `member_infomation` (
 --
 
 --
--- テーブルのインデックス `member_infomation`
+-- テーブルのインデックス `member_information`
 --
-ALTER TABLE `member_infomation`
+ALTER TABLE `member_information`
   ADD PRIMARY KEY (`mail_address`);
 COMMIT;
 
