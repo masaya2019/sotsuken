@@ -5,16 +5,5 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            android:src="@drawable/icon_000010_256.png"
-            />
     </style>
-
 </resources>
