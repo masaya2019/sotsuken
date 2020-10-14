@@ -1,5 +1,6 @@
 package com.example.comasyapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,12 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // 本体からメールアドレスとパスワードを取得
+        // https://maku77.github.io/android/fw/shared-preference.html
+        val pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "")
+        val login_password = pref.getString("password", "")
 
         //下記処理はRegistrationClickActivityは未作成の為コメント化しています
 
