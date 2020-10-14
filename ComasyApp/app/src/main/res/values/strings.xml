@@ -20,6 +20,6 @@
     <string name="Blank" />
     <string name="PrivacyPolicyText">プライバシーポリシー</string>
     <string name="ReviewText">レビュー/評価</string>
-    <string name="customizeText" >画面カスタマイズ</string>
+    <string name="customizeText">画面カスタマイズ</string>
     <string name="logoutText">ログアウト</string>
 </resources>

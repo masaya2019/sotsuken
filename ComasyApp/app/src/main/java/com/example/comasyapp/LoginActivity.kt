@@ -20,13 +20,16 @@ class LoginActivity : AppCompatActivity() {
         // ログインボタン（transitionHomeActivityButton）をクリックしたら、
         transitionHomeActivityButton.setOnClickListener {
 
-            // 入力されたメールアドレスを取得
-            var mailAddress = inputEmailAddress.text
-
-            // 入力されたパスワードを取得
-            var inputPassword = inputPassword.text
+//            // 入力されたメールアドレスを取得
+//            var mailAddress = inputEmailAddress.text
+//
+//            // 入力されたパスワードを取得
+//            var inputPassword = inputPassword.text
 
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
 
         }
 
