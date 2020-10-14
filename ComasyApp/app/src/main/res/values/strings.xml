@@ -12,4 +12,11 @@
     <string name="transitionMemberRegistrationConfirmActivityButtonText">次へ</string>
     <string name="errorPasswordText">パスワードが違います！\nパスワードを再入力してください</string>
     <string name="transitionLoginActivityButtonText">登録</string>
+    <string name="TermsOfServiceText">利用規約</string>
+    <string name="settingTitleText">設定</string>
+    <string name="Blank" />
+    <string name="PrivacyPolicyText">プライバシーポリシー</string>
+    <string name="ReviewText">レビュー/評価</string>
+    <string name="customizeText" >画面カスタマイズ</string>
+    <string name="logoutText">ログアウト</string>
 </resources>
