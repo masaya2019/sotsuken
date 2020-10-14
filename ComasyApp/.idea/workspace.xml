@@ -6,16 +6,42 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fad26b92-4cd6-4f86-b802-341a09169e9c" name="Default Changelist" comment="">
+    <list default="true" id="4ded33e0-7b94-4029-a7e9-ac9c58953177" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/column_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/memo_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/refrigerator_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/search_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/sel_column_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/sel_memo_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/sel_search_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/sel_setting_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/setting_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_000010_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_000430_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_111220_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_132350_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_139140_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/reizouko.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/sel_refrigerator_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_30_x86" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -24,12 +50,7 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view>
-          <tree_state>
-            <expand />
-            <select />
-          </tree_state>
-        </projects_view>
+        <projects_view />
       </state>
     </system>
   </component>
@@ -47,6 +68,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1ikxnbFoAxDOo99CCP0huJrb2br" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -57,10 +79,13 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-13T02:28:46.347Z" />
     <property name="ResourceManagerPrefKey.ResourceType" value="DRAWABLE" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
     <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Eclipse_for_PHP_Java\xampp\htdocs\sotsuken\ComasyApp\app\src\main\res\drawable-v24" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Eclipse_for_PHP_Java\xampp\htdocs\sotsuken\ComasyApp\app\src\main\res\drawable" />
       <recent name="C:\Eclipse_for_PHP_Java\xampp\htdocs\sotsuken\ComasyApp\app\src\main\res\drawable-v24" />
@@ -131,7 +156,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fad26b92-4cd6-4f86-b802-341a09169e9c" name="Default Changelist" comment="" />
+      <changelist id="4ded33e0-7b94-4029-a7e9-ac9c58953177" name="Default Changelist" comment="" />
       <created>1602465559040</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -140,14 +165,14 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="698" y="235" key="AndroidCreateResourceFileDialog" timestamp="1602556605125">
+    <state x="698" y="235" key="AndroidCreateResourceFileDialog" timestamp="1602638061267">
       <screen x="0" y="0" width="1536" height="920" />
     </state>
-    <state x="698" y="235" key="AndroidCreateResourceFileDialog/0.0.1536.920@0.0.1536.920" timestamp="1602556605125" />
-    <state x="639" y="273" key="AndroidCreateXmlResourceDialog" timestamp="1602553028497">
+    <state x="698" y="235" key="AndroidCreateResourceFileDialog/0.0.1536.920@0.0.1536.920" timestamp="1602638061267" />
+    <state x="639" y="273" key="AndroidCreateXmlResourceDialog" timestamp="1602638470490">
       <screen x="0" y="0" width="1536" height="920" />
     </state>
-    <state x="639" y="273" key="AndroidCreateXmlResourceDialog/0.0.1536.920@0.0.1536.920" timestamp="1602553028497" />
+    <state x="639" y="273" key="AndroidCreateXmlResourceDialog/0.0.1536.920@0.0.1536.920" timestamp="1602638470490" />
     <state x="0" y="110" key="CommitChangelistDialog2" timestamp="1602609814475">
       <screen x="0" y="0" width="1536" height="920" />
     </state>
