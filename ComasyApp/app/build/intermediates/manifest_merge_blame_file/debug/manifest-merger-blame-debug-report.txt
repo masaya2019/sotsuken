@@ -19,7 +19,7 @@
 14        android:allowBackup="true"
 14-->C:\Eclipse_for_PHP_Java\xampp\htdocs\sotsuken\ComasyApp\app\src\main\AndroidManifest.xml:8:9-35
 15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-15-->[androidx.core:core:1.1.0] C:\Users\n1290386.STCN2\.gradle\caches\transforms-2\files-2.1\2b924e83072796d9bdcccb3f55310b75\core-1.1.0\AndroidManifest.xml:24:18-86
+15-->[androidx.core:core:1.1.0] C:\Users\n1290313.STCN2\.gradle\caches\transforms-2\files-2.1\2b924e83072796d9bdcccb3f55310b75\core-1.1.0\AndroidManifest.xml:24:18-86
 16        android:debuggable="true"
 17        android:icon="@mipmap/ic_launcher"
 17-->C:\Eclipse_for_PHP_Java\xampp\htdocs\sotsuken\ComasyApp\app\src\main\AndroidManifest.xml:9:9-43
