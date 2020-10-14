@@ -1,4 +1,0 @@
-#Wed Oct 14 11:25:11 JST 2020
-base.0=C\:\\Eclipse_for_PHP_Java\\xampp\\htdocs\\sotsuken\\ComasyApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
