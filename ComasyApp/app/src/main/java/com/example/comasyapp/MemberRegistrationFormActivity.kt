@@ -30,7 +30,7 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
                 val handler = Handler()
 
                 // メールアドレスと認証コードをチェックするAPIにリクエストを投げる
-                checkTokenApi(mail_address, inputToken, handler, errorText)
+                checkTokenApi(mail_address, inputToken, handler, errorTextForm)
             }
         }
     }
@@ -39,12 +39,12 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
     private fun checkNickname(): Boolean {
         // ニックネームが入力されている
         return if (inputUserName.text.toString().isNotEmpty()) {
-            errorText.text = "ニックネームok"
+            errorTextForm.text = "ニックネームok"
 
             true
             // ニックネームが入力されている
         } else {
-            errorText.text = "ニックネームを入力してください！"
+            errorTextForm.text = "ニックネームを入力してください！"
 
             false
         }
@@ -60,19 +60,19 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
 
         // 入力されたパスワードと入力されたパスワード（再）が4文字以下
         if (inputPassword.length < 4 || inputReEnterPassword.length < 4) {
-            errorText.text = "パスワードの文字数が不足しています！"
+            errorTextForm.text = "パスワードの文字数が不足しています！"
 
             return false
 
             // 入力されたパスワードと入力されたパスワード（再）が等しいかつ4文字以上
         } else if (inputPassword == inputReEnterPassword && inputPassword.length >= 4 && inputReEnterPassword.length >= 4) {
-            errorText.text = "パスワード一致！"
+            errorTextForm.text = "パスワード一致！"
 
             return true
 
             // パスワードが不一致
         } else {
-            errorText.text = "パスワードが一致しません！\nもう一度入力してください！"
+            errorTextForm.text = "パスワードが一致しません！\nもう一度入力してください！"
 
             return false
         }
@@ -86,17 +86,17 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
         when {
             // 認証コードが4文字
             inputToken.length == 4 -> {
-                errorText.text = "認証コードが入力されています！"
+                errorTextForm.text = "認証コードが入力されています！"
                 return true
             }
             // 認証コードが未入力
             inputToken.isEmpty() -> {
-                errorText.text = "認証コードが入力されていません！\n認証コードを入力してください！"
+                errorTextForm.text = "認証コードが入力されていません！\n認証コードを入力してください！"
                 return false
             }
             // 認証コードの文字数が異なる
             else -> {
-                errorText.text = "認証コードは4文字です！\nもう一度入力してください！"
+                errorTextForm.text = "認証コードは4文字です！\nもう一度入力してください！"
                 return false
             }
         }

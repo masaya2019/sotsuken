@@ -14,4 +14,5 @@
     <string name="RegistrationActivity">中身登録</string>
     <string name="ImageRegistration">写真登録</string>
     <string name="ImageChange">写真変更</string>
+    <string name="transitionLoginActivityButtonText">登録</string>
 </resources>
