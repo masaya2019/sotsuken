@@ -1,5 +1,6 @@
 package com.example.comasyapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +16,27 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+//        // ログイン情報削除用（削除しないとログインしたままになります）
+//        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
+//            clear()
+//            commit()
+//        }
+
+        // 本体からメールアドレスとパスワードを取得
+        // https://maku77.github.io/android/fw/shared-preference.html
+        val pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "").toString()
+        val login_password = pref.getString("password", "").toString()
+
+        // 本体にログイン情報（メールアドレスとパスワード）が保存されていたら、
+        if (login_mail_address != "" && login_password != "") {
+
+            val handler = Handler()
+
+            // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
+            LoginCheck(login_mail_address, login_password, handler, errortextLogin)
+        }
 
         // 新規会員登録はこちらボタン（transitionMemberRegistrationActivityButton）をクリックしたら、
         transitionMemberRegistrationActivityButton.setOnClickListener {
@@ -35,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             val handler = Handler()
 
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
-            LoginCheck(mailAddress, inputPassword, handler, errortextLogin);
+            LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
 
         }
 
@@ -76,6 +98,9 @@ class LoginActivity : AppCompatActivity() {
                         handler.post {
                             errorText.text = "ログインします！"
                         }
+                        // 本体にメールアドレスとパスワードを保存
+                        saveUserData(mail_address, password)
+
                         // ホーム画面（HomeActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         startActivity(intent)
@@ -98,5 +123,15 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    // 本体にログイン情報（メールアドレスとパスワード）を保存
+    // https://maku77.github.io/android/fw/shared-preference.html
+    fun saveUserData(mail_address: String, password: String) {
+        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
+            putString("mail_address", mail_address)
+            putString("password", password)
+            commit()
+        }
     }
 }
