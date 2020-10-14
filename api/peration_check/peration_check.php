@@ -26,6 +26,17 @@
     <input type="submit" value="Go">
   </form>
 
+  <h2>member_registration.php</h2>
+  <form action="../member_registration.php" method="post">
+    <p>メールアドレス</p>
+    <input type="email" name="mail_address" id="mail_address">
+    <p>ユーザ名</p>
+    <input type="text" name="user_name">
+    <p>パスワード</p>
+    <input type="text" name="password">
+    <input type="submit" value="Go">
+  </form>
+
 </body>
 
 </html>

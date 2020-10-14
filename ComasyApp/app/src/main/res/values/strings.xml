@@ -11,6 +11,9 @@
     <string name="tokenText">認証コード</string>
     <string name="transitionMemberRegistrationConfirmActivityButtonText">次へ</string>
     <string name="errorPasswordText">パスワードが違います！\nパスワードを再入力してください</string>
+    <string name="RegistrationActivity">中身登録</string>
+    <string name="ImageRegistration">写真登録</string>
+    <string name="ImageChange">写真変更</string>
     <string name="transitionLoginActivityButtonText">登録</string>
     <string name="TermsOfServiceText">利用規約</string>
     <string name="settingTitleText">設定</string>

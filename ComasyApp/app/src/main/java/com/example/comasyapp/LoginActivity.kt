@@ -25,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
 
             // 入力されたパスワードを取得
             var inputPassword = inputPassword.text
+
+            // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
+
         }
 
     }
