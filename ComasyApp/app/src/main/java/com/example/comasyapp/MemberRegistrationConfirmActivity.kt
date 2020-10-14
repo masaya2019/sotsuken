@@ -59,7 +59,6 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         val url = "http://10.0.2.2/sotsuken/api/member_registration.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-                // name名未定
             .add("mail_address", mail_address)
             .add("user_name", user_name)
             .add("password", password)
