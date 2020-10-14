@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-14 04:36:36
+-- 生成日時: 2020-10-14 04:44:58
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -40,7 +40,7 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
 ('cat01', 'vegetable'),
 ('cat02', 'drink'),
-('cat03', 'meet'),
+('cat03', 'meat'),
 ('cat04', 'seafood'),
 ('cat05', 'dessert'),
 ('cat06', 'condiment'),
