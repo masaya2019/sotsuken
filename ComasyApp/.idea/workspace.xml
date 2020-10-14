@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fad26b92-4cd6-4f86-b802-341a09169e9c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -152,10 +153,10 @@
       <screen x="0" y="0" width="1536" height="920" />
     </state>
     <state x="0" y="110" key="CommitChangelistDialog2/0.0.1536.920@0.0.1536.920" timestamp="1602609814475" />
-    <state x="720" y="276" key="FileChooserDialogImpl" timestamp="1602606260375">
+    <state x="720" y="276" key="FileChooserDialogImpl" timestamp="1602637494519">
       <screen x="0" y="0" width="1536" height="920" />
     </state>
-    <state x="720" y="276" key="FileChooserDialogImpl/0.0.1536.920@0.0.1536.920" timestamp="1602606260375" />
+    <state x="720" y="276" key="FileChooserDialogImpl/0.0.1536.920@0.0.1536.920" timestamp="1602637494519" />
     <state x="277" y="103" key="SettingsEditor" timestamp="1602465914630">
       <screen x="0" y="0" width="1536" height="920" />
     </state>
