@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-12 01:50:14
+-- 生成日時: 2020-10-14 04:37:06
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -40,6 +40,7 @@ CREATE TABLE `pre_registration` (
 --
 
 INSERT INTO `pre_registration` (`mail_address`, `token`, `datetime`, `flag`) VALUES
+('bjks1290249@gn.iwasaki.ac.jp', '2181', '2020-10-12 15:23:39', 0),
 ('info.comasy@gmail.com', '1181', '2020-10-11 23:41:03', 1);
 
 --
