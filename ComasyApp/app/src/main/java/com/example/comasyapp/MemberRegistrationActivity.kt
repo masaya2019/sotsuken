@@ -30,7 +30,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
 //            Log.i("入力されたメールアドレス", mailAddress)
 
             // メールアドレスから認証コードを生成し、認証コードをメールで送るAPIにリクエストを投げる
-            sendMailApi(mailAddress, handler, errorText)
+            sendMailApi(mailAddress, handler, errorTextPre)
 
 //            Log.i("sendMailApi", "終了")
         }
