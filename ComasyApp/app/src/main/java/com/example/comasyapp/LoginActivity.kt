@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
 import org.json.JSONObject
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         transitionMemberRegistrationActivityButton.setOnClickListener {
             // 新規会員登録画面（MemberRegistrationActivity.kt）へ遷移する
             val intent = Intent(this, MemberRegistrationActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
 
@@ -60,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
             LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
 
         }
-
     }
 
     // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
@@ -103,6 +104,7 @@ class LoginActivity : AppCompatActivity() {
 
                         // ホーム画面（HomeActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, HomeActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         startActivity(intent)
                     }
 //                    // 以下はエラー用に仮作成

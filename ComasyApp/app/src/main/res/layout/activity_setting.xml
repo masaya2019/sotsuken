@@ -155,7 +155,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/MenuBarConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/imageColor"
@@ -173,7 +173,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:id="@+id/transitionrefrigeratorButton"
+                android:id="@+id/transitionRefrigeratorButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
