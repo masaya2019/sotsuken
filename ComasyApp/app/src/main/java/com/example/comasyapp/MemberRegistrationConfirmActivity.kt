@@ -27,8 +27,12 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         // 前の画面からメールアドレスを受け取る
         val mail_address = intent.getStringExtra("mail_address").toString()
 
+        val array = mail_address.split("@")
+
+        val set_mail_address = array[0] + "\n" + "　@" + array[1]
+
         // メールアドレスをセットする
-        mailAddressTextView.text = mail_address
+        mailAddressTextView.text = set_mail_address
 
 //        Log.i("メールアドレス", mail_address)
 
