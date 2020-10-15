@@ -91,6 +91,7 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
                         }
                         // ログイン画面（LoginActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, LoginActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         startActivity(intent)
                     }
 //                    // 以下はエラー用に仮作成
