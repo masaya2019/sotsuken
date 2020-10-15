@@ -155,7 +155,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/MenuBarConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/imageColor"
