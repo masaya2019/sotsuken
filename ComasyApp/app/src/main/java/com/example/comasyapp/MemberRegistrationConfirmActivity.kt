@@ -27,8 +27,12 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         // 前の画面からメールアドレスを受け取る
         val mail_address = intent.getStringExtra("mail_address").toString()
 
+        val array = mail_address.split("@")
+
+        val set_mail_address = array[0] + "\n" + "　@" + array[1]
+
         // メールアドレスをセットする
-        mailAddressTextView.text = mail_address
+        mailAddressTextView.text = set_mail_address
 
 //        Log.i("メールアドレス", mail_address)
 
@@ -59,7 +63,6 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         val url = "http://10.0.2.2/sotsuken/api/member_registration.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-                // name名未定
             .add("mail_address", mail_address)
             .add("user_name", user_name)
             .add("password", password)
@@ -92,6 +95,7 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
                         }
                         // ログイン画面（LoginActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, LoginActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         startActivity(intent)
                     }
 //                    // 以下はエラー用に仮作成

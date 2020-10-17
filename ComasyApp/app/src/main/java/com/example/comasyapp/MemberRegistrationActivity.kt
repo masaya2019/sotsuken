@@ -85,6 +85,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, MemberRegistrationFormActivity::class.java)
                         // メールアドレスを渡す
                         intent.putExtra("mail_address", mail_address)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         startActivity(intent)
                     }
                     // すでに登録されているアドレスの場合

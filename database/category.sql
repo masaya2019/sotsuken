@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-13 02:51:05
+-- 生成日時: 2020-10-14 04:44:58
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -40,11 +40,21 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
 ('cat01', 'vegetable'),
 ('cat02', 'drink'),
-('cat03', 'frozen'),
-('cat04', 'fresh'),
-('cat05', 'condiment'),
-('cat06', 'dessert'),
-('cat07', 'other');
+('cat03', 'meat'),
+('cat04', 'seafood'),
+('cat05', 'dessert'),
+('cat06', 'condiment'),
+('cat07', 'ohter');
+
+--
+-- ダンプしたテーブルのインデックス
+--
+
+--
+-- テーブルのインデックス `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
