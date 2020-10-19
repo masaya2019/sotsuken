@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-12 03:43:54
+-- 生成日時: 2020-10-14 04:36:56
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -35,6 +35,16 @@ CREATE TABLE `memo` (
   `memo_title` varchar(15) NOT NULL,
   `memo_contents` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- ダンプしたテーブルのインデックス
+--
+
+--
+-- テーブルのインデックス `memo`
+--
+ALTER TABLE `memo`
+  ADD PRIMARY KEY (`refrigerator_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

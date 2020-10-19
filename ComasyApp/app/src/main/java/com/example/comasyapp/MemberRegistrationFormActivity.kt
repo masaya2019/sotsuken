@@ -25,7 +25,7 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
                 val mail_address = intent.getStringExtra("mail_address").toString()
 
                 // 認証コードを取得し、数字に変換
-                val inputToken = inputToken.text.toString().toInt()
+                val inputToken = inputToken.text.toString()
 
                 val handler = Handler()
 
@@ -110,13 +110,15 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
     // メールアドレスのに形式になっていない場合　{ "status" :　"address_type_error" }
     // 認証コードの文字数が違う場合　{ "status" : "token_error" }
     // を受け取る
-    private fun checkTokenApi(mail_address: String, token: Int , handler: Handler, errorText: TextView) {
+    private fun checkTokenApi(mail_address: String, token: String , handler: Handler, errorText: TextView) {
 
         val url = "http://10.0.2.2/sotsuken/api/token_check.php"
 
+        Log.i("メールアドレス", token)
+
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)
-            .add("token", token.toString())
+            .add("token", token)
             .build()
 
         val request = Request.Builder()
@@ -144,12 +146,14 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
                         }
                         // 新規会員登録確認画面（MemberRegistrationConfirmActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, MemberRegistrationConfirmActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         // メールアドレスを渡す
                         intent.putExtra("mail_address", mail_address)
                         // ニックネームを渡す
                         intent.putExtra("user_name", inputUserName.text.toString())
                         // パスワードを渡す
                         intent.putExtra("password", inputPassword.text.toString())
+
                         startActivity(intent)
                     }
                     // メールアドレスアドレスが正常で、認証コードが違っている場合
@@ -161,27 +165,27 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
                     }
 
                     // APIの返す値だが、使用されない
-//                    // メールアドレスアドレスがデータベースにない場合
-//                    "no_address_error" -> {
-//                        // エラーを表示
-//                        handler.post {
-//                            errorText.text = "このアドレスはデータベースに存在しません"
-//                        }
-//                    }
-//                    // メールアドレスのに形式になっていない場合
-//                    "address_type_error" -> {
-//                        // エラーを表示
-//                        handler.post {
-//                            errorText.text = "メールアドレスの形式ではありません！"
-//                        }
-//                    }
-//                    // 認証コードの文字数が違う場合
-//                    "token_error" -> {
-//                        // エラーを表示
-//                        handler.post {
-//                            errorText.text = "認証コードの文字数が違います"
-//                        }
-//                    }
+                    // メールアドレスアドレスがデータベースにない場合
+                    "no_address_error" -> {
+                        // エラーを表示
+                        handler.post {
+                            errorText.text = "このアドレスはデータベースに存在しません"
+                        }
+                    }
+                    // メールアドレスのに形式になっていない場合
+                    "address_type_error" -> {
+                        // エラーを表示
+                        handler.post {
+                            errorText.text = "メールアドレスの形式ではありません！"
+                        }
+                    }
+                    // 認証コードの文字数が違う場合
+                    "token_error" -> {
+                        // エラーを表示
+                        handler.post {
+                            errorText.text = "認証コードの文字数が違います"
+                        }
+                    }
                 }
             }
         })

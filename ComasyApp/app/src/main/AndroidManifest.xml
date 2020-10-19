@@ -12,9 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MemberRegistrationConfirmActivity"></activity>
+        <activity android:name=".ColumnActivity"></activity>
+        <activity android:name=".RecipeSearchActivity" />
+        <activity android:name=".MemoActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".MemberRegistrationConfirmActivity" />
         <activity android:name=".MemberRegistrationFormActivity" />
         <activity android:name=".MemberRegistrationActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

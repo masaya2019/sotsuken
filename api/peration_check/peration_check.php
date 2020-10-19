@@ -37,6 +37,15 @@
     <input type="submit" value="Go">
   </form>
 
+  <h2>login_check.php</h2>
+  <form action="../login_check.php" method="post">
+    <p>メールアドレス</p>
+    <input type="email" name="mail_address" id="mail_address">
+    <p>パスワード</p>
+    <input type="text" name="password">
+    <input type="submit" value="Go">
+  </form>
+
 </body>
 
 </html>

@@ -3,42 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/transitionRegistrationClickActivityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/RegistrationActivity"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ImageRegistrationButton"
-        app:layout_constraintEnd_toStartOf="@+id/ImageRegistrationButton"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/ImageRegistrationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:text="@string/ImageRegistration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/ImageChangeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/ImageChange"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ImageRegistrationButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toEndOf="@+id/ImageRegistrationButton" />
+    android:layout_height="match_parent"
+    tools:context=".ColumnActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MenuBarConstraintLayout"
@@ -63,14 +29,14 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sel_refrigerator_icon" />
+                app:srcCompat="@drawable/refrigerator_icon" />
 
             <ImageView
                 android:id="@+id/transitionColumnButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/column_icon" />
+                app:srcCompat="@drawable/sel_column_icon" />
 
             <ImageView
                 android:id="@+id/transitionSearchButton"
@@ -95,5 +61,4 @@
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
