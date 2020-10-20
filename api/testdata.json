@@ -1,0 +1,17 @@
+{
+  "status" : "yes",
+  "data" : [
+    {
+      "goods_id" : "b001",
+      "category_id" : "cat01",
+      "goods_name" : "アスパラガス",
+      "goods_picture_name" : ""
+    },
+    {
+      "goods_id" : "b001",
+      "category_id" : "cat01",
+      "goods_name" : "アスパラガス",
+      "goods_picture_name" : ""
+      }
+  ]
+}
