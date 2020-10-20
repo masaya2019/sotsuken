@@ -46,6 +46,13 @@
     <input type="submit" value="Go">
   </form>
 
+  <h2>response_all_goods.php</h2>
+  <form action="../response_all_goods.php" method="post">
+    <p>カテゴリID（cat01～cat07）</p>
+    <input type="text" name="category_id" id="category_id">
+    <input type="submit" value="Go">
+  </form>
+
 </body>
 
 </html>
