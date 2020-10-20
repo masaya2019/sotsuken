@@ -22,4 +22,13 @@
     <string name="ReviewText">レビュー/評価</string>
     <string name="customizeText">画面カスタマイズ</string>
     <string name="logoutText">ログアウト</string>
+    <string name="memo">メモ</string>
+    <string name="backButton"><![CDATA[< 戻る]]></string>
+    <string name="momoTextHint">タイトルを入力</string>
+    <string name="newMemo">新規メモ作成</string>
+    <string name="memoTextTitle">タイトルを入力</string>
+    <string name="save">保存</string>
+    <string name="testButton">test</string>
+    <string name="extBoxHint" />
+    <string name="memoTextBoxHint">128文字まで入力できます</string>
 </resources>
