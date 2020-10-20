@@ -88,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                 val jsonData = JSONObject(response.body()?.string())
                 val apiStatus = jsonData.getString("status")
 
-                Log.i("apiStatus", apiStatus)
+//                Log.i("apiStatus", apiStatus)
 
                 // responseのstatusによって次の画面に進むorエラーを表示する
                 when (apiStatus) {
