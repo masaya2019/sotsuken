@@ -27,9 +27,12 @@ class HomeActivity : AppCompatActivity() {
         // 最初に冷蔵庫の中身データを受け取りたい！
         val handler = Handler()
 
-        val url = "http://10.0.2.2/sotsuken/api/testdata.json"
+//        val url = "http://10.0.2.2/sotsuken/api/testdata.json"
+        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
+            // 仮のcategory_id
+            .add("category_id", "cat01")
             .build()
 
         val request = Request.Builder()
@@ -55,10 +58,11 @@ class HomeActivity : AppCompatActivity() {
                     //  データベースに登録された場合
                     "yes" -> {
 
-                        val dataArray = jsonObj.getJSONArray("data")
+                        val datas = jsonObj.getJSONArray("data")
 
-                        for (i in 0 until dataArray.length()) {
-                            val zeroJsonObj = dataArray.getJSONObject(i)
+                        for (i in 0 until datas.length()) {
+
+                            val zeroJsonObj = datas.getJSONObject(i)
 
                             //
                             val goods_id = zeroJsonObj.getString("goods_id")
