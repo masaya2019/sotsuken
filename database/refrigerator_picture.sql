@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-14 04:37:17
+-- 生成日時: 2020-10-20 02:14:03
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `refrigerator_picture` (
   `refrigerator_id` varchar(5) NOT NULL,
-  `picture_id` varchar(5) NOT NULL
+  `picture_id` varchar(5) NOT NULL,
+  `refrigerator_picture_name` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
