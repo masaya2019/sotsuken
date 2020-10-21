@@ -7,19 +7,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
-import android.util.Log.i
 import android.view.Gravity
-import android.widget.Button
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_home.cat01btn
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
 import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
+import kotlinx.android.synthetic.main.activity_registration_click.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -29,102 +27,44 @@ class RegistrationClickActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_click)
 
-        val dm = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(dm)
+        // デフォルトで表示
+        viewCategoryData("cat01")
 
-        val w_width = dm.widthPixels
-
-        // 最初に冷蔵庫の中身データを受け取りたい！
-        val handler = Handler()
-
-//        val url = "http://10.0.2.2/sotsuken/api/testdata.json"
-        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
-
-        val body = FormBody.Builder(charset("UTF-8"))
-            // 仮のcategory_id
-            .add("category_id", "cat01")
-            .build()
-
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
-
-        OkHttpClient().newCall(request).enqueue(object : Callback {
-
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) {
-
-                // 全体のJSONObjectをとる
-                val jsonObj = JSONObject(response.body()?.string())
-                // responseのstatusに対応する値（）を取得
-                val apiStatus = jsonObj.getString("status")
-
-                Log.i("ホーム画面のapiStatus", apiStatus)
-
-                // responseのstatusによって次の画面に進むorエラーを表示する
-                when (apiStatus) {
-
-                    //  データベースに登録された場合
-                    "yes" -> {
-
-                        val datas = jsonObj.getJSONArray("data")
-
-                        Log.i("データの長さ", datas.length().toString())
-
-                        for (i in 0 until datas.length()) {
-
-                            val zeroJsonObj = datas.getJSONObject(i)
-
-                            // グッズID
-                            val goods_id = zeroJsonObj.getString("goods_id")
-
-                            // グッズ名
-                            val goods_name = zeroJsonObj.getString("goods_name")
-
-                            // グッズ画像
-                            val goods_picture_name = zeroJsonObj.getString("goods_picture_name")
-
-                            // エラーを表示
-                            handler.post {
-                                // 行のcontainer
-                                val linearLayout = findViewById<LinearLayout>(R.id.container)
-
-                                // グッズ画像
-                                val imageView = ImageView(applicationContext)
-                                imageView.setImageResource(R.drawable.icon_plus)
-                                imageView.setBackgroundColor(Color.GREEN)
-//                                imageView.setColorFilter(Color.GREEN)
-                                linearLayout.addView(imageView)
-                                imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
-
-                                // グッズ名
-                                val textView = TextView(applicationContext)
-                                textView.text = goods_name
-                                textView.setBackgroundColor(Color.CYAN)
-//                                textView.setTextColor(Color.CYAN)
-                                linearLayout.addView(textView)
-                                textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                textView.gravity = Gravity.CENTER
-                            }
-
-//                            // テーブル作成
-//                            createTableView(i)
-                        }
-
-
-                    }
-
-                }
-            }
-        })
-
-//        // category（野菜）ボタンをクリックしたら(Fragment)
-//        cat01btn.setOnClickListener {
-//            replaceFragment(CategoryAddFragment())
-//        }
-
-
+        // category（野菜）ボタンをクリックしたら
+        cat01_btn.setOnClickListener {
+            //
+            viewCategoryData("cat01")
+        }
+        // category（飲み物）ボタンをクリックしたら
+        cat02_btn.setOnClickListener {
+            //
+            viewCategoryData("cat02")
+        }
+        // category（肉）ボタンをクリックしたら
+        cat03_btn.setOnClickListener {
+            //
+            viewCategoryData("cat03")
+        }
+        // category（魚介）ボタンをクリックしたら
+        cat04_btn.setOnClickListener {
+            //
+            viewCategoryData("cat04")
+        }
+        // category（デザート）ボタンをクリックしたら
+        cat05_btn.setOnClickListener {
+            //
+            viewCategoryData("cat05")
+        }
+        // category（調味料）ボタンをクリックしたら
+        cat06_btn.setOnClickListener {
+            //
+            viewCategoryData("cat06")
+        }
+        // category（その他）ボタンをクリックしたら
+        cat07_btn.setOnClickListener {
+            //
+            viewCategoryData("cat07")
+        }
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
@@ -159,21 +99,130 @@ class RegistrationClickActivity : AppCompatActivity() {
         }
     }
 
-    //R.id.containerに引数で渡されたフラグメントを入れる。
-    fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container, fragment)
-        fragmentTransaction.commit()
-    }
+    // 選択されたcategory_idのデータを表示する
+    fun viewCategoryData(category_id: String) {
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(dm)
 
-    // テーブルを生成
-    fun createTableView(i : Int) {
-        var row = i / 4
-        var col = i % 4
+        val w_width = dm.widthPixels
 
-        Log.i("テーブルrow", row.toString())
-        Log.i("テーブルcol", col.toString())
+        // 最初に冷蔵庫の中身データを受け取りたい！
+        val handler = Handler()
 
+//        val url = "http://10.0.2.2/sotsuken/api/testdata.json"
+        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            // 仮のcategory_id
+            .add("category_id", category_id)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // 全体のJSONObjectをとる
+                val jsonObj = JSONObject(response.body()?.string())
+                // responseのstatusに対応する値（）を取得
+                val apiStatus = jsonObj.getString("status")
+
+                Log.i("ホーム画面のapiStatus", apiStatus)
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+
+                        val datas = jsonObj.getJSONArray("data")
+
+                        Log.i("データの長さ", datas.length().toString())
+
+                        // データを一時的に保存する配列
+                        val AllDataArray : Array<String?> = arrayOfNulls(datas.length() * 3)
+
+                        handler.post {
+                            //
+                            val linearLayout = findViewById<LinearLayout>(R.id.container)
+
+                            linearLayout.removeAllViewsInLayout()
+
+                            for (i in 0 until datas.length()) {
+
+                                Log.i("データi", "${i}")
+
+                                val zeroJsonObj = datas.getJSONObject(i)
+
+                                // グッズID
+                                val goods_id = zeroJsonObj.getString("goods_id")
+
+                                Log.i("グッズID", goods_id)
+
+                                // グッズ名
+                                val goods_name = zeroJsonObj.getString("goods_name")
+
+                                Log.i("グッズ名", goods_name)
+
+                                // グッズ画像
+                                val goods_picture_name = zeroJsonObj.getString("goods_picture_name")
+
+                                AllDataArray[i * 3 + 0] = goods_id
+                                AllDataArray[i * 3 + 1] = goods_name
+                                AllDataArray[i * 3 + 2] = goods_picture_name
+
+                                if (i % 4 == 3 || i == datas.length() - 1) {
+
+                                    val targetLinearLayout1 = LinearLayout(applicationContext)
+                                    targetLinearLayout1.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    targetLinearLayout1.orientation = LinearLayout.HORIZONTAL
+                                    targetLinearLayout1.id = (i / 4) * 2
+                                    linearLayout.addView(targetLinearLayout1)
+
+                                    val targetLinearLayout2 = LinearLayout(applicationContext)
+                                    targetLinearLayout2.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    targetLinearLayout2.orientation = LinearLayout.HORIZONTAL
+                                    targetLinearLayout2.id = (i / 4) * 2 + 1
+                                    linearLayout.addView(targetLinearLayout2)
+
+                                    val viewIdPic = resources.getIdentifier("${(i / 4) * 2}", "id", packageName)
+                                    val viewIdTxt = resources.getIdentifier("${(i / 4) * 2 + 1}", "id", packageName)
+                                    // 行のcontainer
+                                    val linearLayoutPic = findViewById<LinearLayout>(viewIdPic)
+                                    val linearLayoutTxt = findViewById<LinearLayout>(viewIdTxt)
+
+                                    for (j in i % 4 downTo 0) {
+                                        // グッズ画像
+                                        val imageView = ImageView(applicationContext)
+                                        imageView.setImageResource(R.drawable.icon_plus)
+                                        imageView.setBackgroundColor(Color.GREEN)
+                                        linearLayoutPic.addView(imageView)
+                                        imageView.layoutParams = LinearLayout.LayoutParams(w_width / 4, w_width / 5)
+
+                                        // グッズ名
+                                        val textView = TextView(applicationContext)
+                                        textView.text = AllDataArray[(i - j) * 3 + 1]
+                                        textView.setBackgroundColor(Color.CYAN)
+                                        // 文字数によりテキストサイズを調整するかどうか
+                                        textView.textSize = 10F
+                                        textView.setTextColor(Color.BLACK)
+                                        linearLayoutTxt.addView(textView)
+                                        textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, 100)
+                                        textView.gravity = Gravity.CENTER
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        })
     }
 }
