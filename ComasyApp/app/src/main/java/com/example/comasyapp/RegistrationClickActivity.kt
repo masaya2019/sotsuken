@@ -1,10 +1,18 @@
 package com.example.comasyapp
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.DisplayMetrics
 import android.util.Log
+import android.util.Log.i
+import android.view.Gravity
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.cat01btn
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
@@ -20,6 +28,11 @@ class RegistrationClickActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_click)
+
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(dm)
+
+        val w_width = dm.widthPixels
 
         // 最初に冷蔵庫の中身データを受け取りたい！
         val handler = Handler()
@@ -57,43 +70,59 @@ class RegistrationClickActivity : AppCompatActivity() {
 
                         val datas = jsonObj.getJSONArray("data")
 
+                        Log.i("データの長さ", datas.length().toString())
+
                         for (i in 0 until datas.length()) {
 
                             val zeroJsonObj = datas.getJSONObject(i)
 
-                            //
+                            // グッズID
                             val goods_id = zeroJsonObj.getString("goods_id")
 
-                            Log.i("ホームのgoods_id", goods_id)
-
-                            //
+                            // グッズ名
                             val goods_name = zeroJsonObj.getString("goods_name")
 
-                            Log.i("ホームのgoods_name", goods_name)
-
-                            //
+                            // グッズ画像
                             val goods_picture_name = zeroJsonObj.getString("goods_picture_name")
 
-                            Log.i("ホームのgoods_picture_name", goods_picture_name)
+                            // エラーを表示
+                            handler.post {
+                                // 行のcontainer
+                                val linearLayout = findViewById<LinearLayout>(R.id.container)
 
-                            // テーブル作成
-                            createTableView(i)
+                                // グッズ画像
+                                val imageView = ImageView(applicationContext)
+                                imageView.setImageResource(R.drawable.icon_plus)
+                                imageView.setBackgroundColor(Color.GREEN)
+//                                imageView.setColorFilter(Color.GREEN)
+                                linearLayout.addView(imageView)
+                                imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
+
+                                // グッズ名
+                                val textView = TextView(applicationContext)
+                                textView.text = goods_name
+                                textView.setBackgroundColor(Color.CYAN)
+//                                textView.setTextColor(Color.CYAN)
+                                linearLayout.addView(textView)
+                                textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, LinearLayout.LayoutParams.WRAP_CONTENT)
+                                textView.gravity = Gravity.CENTER
+                            }
+
+//                            // テーブル作成
+//                            createTableView(i)
                         }
 
-                        // エラーを表示
-                        handler.post {
-                            //
-                        }
+
                     }
 
                 }
             }
         })
 
-        // category（野菜）ボタンをクリックしたら
-        cat01btn.setOnClickListener {
-            replaceFragment(CategoryAddFragment())
-        }
+//        // category（野菜）ボタンをクリックしたら(Fragment)
+//        cat01btn.setOnClickListener {
+//            replaceFragment(CategoryAddFragment())
+//        }
 
 
 
