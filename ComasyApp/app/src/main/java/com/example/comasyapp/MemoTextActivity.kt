@@ -1,9 +1,9 @@
 package com.example.comasyapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
@@ -11,28 +11,25 @@ import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
 import kotlinx.android.synthetic.main.activity_memo.*
 
-class MemoActivity : AppCompatActivity() {
+class MemoTextActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_memo)
-
-        // 本体からメールアドレスとパスワードを取得
-        // https://maku77.github.io/android/fw/shared-preference.html
-        val pref = getSharedPreferences("my_password", MODE_PRIVATE)
-        val login_mail_address = pref.getString("mail_address", "")
-        val login_password = pref.getString("password", "")
+        setContentView(R.layout.activity_memo_text)
 
 
-        //追加ボタンを押したときの処理
-        MemoAddButton.setOnClickListener {
-            //メモ追加画面(MemoTextActivity.kt)に遷移
-            val intent = Intent(this, MemoTextActivity::class.java)
+
+        /*不要の為削除
+        //戻るボタンを押したとき
+        addButton.setOnClickListener {
+            var intent = Intent(this,MemoActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
-        }
+        }*/
 
-
-
+        /*
+        //保存ボタンをクリックしたとき
+        saveButton.setOnClickListener {}
+        */
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {

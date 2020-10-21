@@ -17,6 +17,7 @@
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
         <activity android:name=".MemoActivity" />
+        <activity android:name=".MemoTextActivity"></activity>
         <activity android:name=".SettingActivity" />
         <activity android:name=".MemberRegistrationConfirmActivity" />
         <activity android:name=".MemberRegistrationFormActivity" />
