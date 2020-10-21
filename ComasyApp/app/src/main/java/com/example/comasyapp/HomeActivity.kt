@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.transitionMemberRegistrationActivityButton
@@ -83,6 +86,9 @@ class HomeActivity : AppCompatActivity() {
                             val goods_picture_name = zeroJsonObj.getString("goods_picture_name")
 
                             Log.i("ホームのgoods_picture_name", goods_picture_name)
+
+                            // テーブル作成
+                            createTableView(i)
                         }
 
                         // エラーを表示
@@ -94,29 +100,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         })
-
-
-
-        //下記処理はRegistrationClickActivityは未作成の為コメント化しています
-
-        /* // 中身登録ボタン(transitionRegistrationClickActivityButton)をクリックしたら
-        transitionRegistrationClickActivityButton.setOnClickListener {
-            // 食材手打ち登録（RegistrationClickActivity.kt）へ遷移する
-            val intent = Intent(this, RegistrationClickActivity::class.java)
-            startActivity(intent)
-        }*/
-
-        // 写真登録（ImageRegistrationButton）をクリックしたら、
-        ImageRegistrationButton.setOnClickListener {
-
-            //カメラ開く
-        }
-        ImageChangeButton.setOnClickListener {
-
-            //カメラ開く
-        }
-
-
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
@@ -149,5 +132,16 @@ class HomeActivity : AppCompatActivity() {
                 .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
+    }
+
+    // テーブルを生成
+    fun createTableView(i : Int) {
+        var row = i / 4
+        var col = i % 4
+
+        Log.i("テーブルrow", row.toString())
+        Log.i("テーブルcol", col.toString())
+
+
     }
 }
