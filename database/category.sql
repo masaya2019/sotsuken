@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-14 04:44:58
+-- 生成日時: 2020-10-21 04:25:46
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `category_id` varchar(5) NOT NULL,
-  `category_name` varchar(10) NOT NULL
+  `category_name` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -38,13 +38,15 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
+('', ''),
 ('cat01', 'vegetable'),
 ('cat02', 'drink'),
-('cat03', 'meat'),
+('cat03', 'meat_egg_milk'),
 ('cat04', 'seafood'),
 ('cat05', 'dessert'),
 ('cat06', 'condiment'),
-('cat07', 'ohter');
+('cat07', 'staple food'),
+('cat08', 'other');
 
 --
 -- ダンプしたテーブルのインデックス
