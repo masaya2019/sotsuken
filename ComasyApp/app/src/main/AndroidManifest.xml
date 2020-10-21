@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".RegistrationClickActivity"></activity>
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
         <activity android:name=".MemoActivity" />

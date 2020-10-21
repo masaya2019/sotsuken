@@ -101,6 +101,13 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
+        RegistrationClickActivityButton.setOnClickListener {
+            // Home画面(HomeActivity.kt)へ遷移
+            val intent = Intent(this, RegistrationClickActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+        }
+
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
             // Home画面(HomeActivity.kt)へ遷移
