@@ -8,10 +8,10 @@
       "goods_picture_name" : ""
     },
     {
-      "goods_id" : "b001",
+      "goods_id" : "b002",
       "category_id" : "cat01",
-      "goods_name" : "アスパラガス",
+      "goods_name" : "トマト",
       "goods_picture_name" : ""
-      }
+    }
   ]
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-14 04:37:10
+-- 生成日時: 2020-10-21 02:06:31
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -41,7 +41,7 @@ CREATE TABLE `refrigerator` (
 -- テーブルのインデックス `refrigerator`
 --
 ALTER TABLE `refrigerator`
-  ADD PRIMARY KEY (`refrigerator_id`);
+  ADD PRIMARY KEY (`refrigerator_id`,`mail_address`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
