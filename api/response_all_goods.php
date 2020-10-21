@@ -37,7 +37,6 @@ if (isset($_POST['category_id'])) {
     // 全部出す
     foreach ($result as $row) {
         $goods_id = $row["goods_id"];
-        $category_id =$row["category_id"];
         $goods_name =$row["goods_name"];
         $goods_picture_name =$row["goods_picture_name"];
         // 配列の中に入れる
@@ -46,7 +45,6 @@ if (isset($_POST['category_id'])) {
             $array,
             array(
             "goods_id" => $goods_id,
-            "category_id" => $category_id,
             "goods_name" => $goods_name,
             "goods_picture_name" => $goods_picture_name
           )
