@@ -99,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
 
         //下記処理はRegistrationClickActivityは未作成の為コメント化しています
 
-        /*// 中身登録ボタン(transitionRegistrationClickActivityButton)をクリックしたら
+        /* // 中身登録ボタン(transitionRegistrationClickActivityButton)をクリックしたら
         transitionRegistrationClickActivityButton.setOnClickListener {
             // 食材手打ち登録（RegistrationClickActivity.kt）へ遷移する
             val intent = Intent(this, RegistrationClickActivity::class.java)
