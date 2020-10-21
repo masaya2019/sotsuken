@@ -153,6 +153,8 @@ class RegistrationClickActivity : AppCompatActivity() {
 
                             linearLayout.removeAllViewsInLayout()
 
+                            scrollView.scrollTo(0,0)
+
                             for (i in 0 until datas.length()) {
 
                                 Log.i("データi", "${i}")
@@ -209,7 +211,11 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         textView.text = AllDataArray[(i - j) * 3 + 1]
                                         textView.setBackgroundColor(Color.CYAN)
                                         // 文字数によりテキストサイズを調整するかどうか
-                                        textView.textSize = 10F
+                                        if (AllDataArray[(i - j) * 3 + 1]!!.length > 8) {
+                                            textView.textSize = 10F
+                                        } else {
+                                            textView.textSize = 12F
+                                        }
                                         textView.setTextColor(Color.BLACK)
                                         linearLayoutTxt.addView(textView)
                                         textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, 100)
