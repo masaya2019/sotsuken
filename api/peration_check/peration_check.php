@@ -53,6 +53,13 @@
     <input type="submit" value="Go">
   </form>
 
+  <h2>memo_check.php</h2>
+  <form action="../memo_check.php" method="post">
+    <p>冷蔵庫ID（）</p>
+    <input type="text" name="refrigerator_id" id="refrigerator_id">
+    <input type="submit" value="Go">
+  </form>
+
 </body>
 
 </html>

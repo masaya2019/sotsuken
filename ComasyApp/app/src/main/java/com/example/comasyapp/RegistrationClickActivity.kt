@@ -3,12 +3,23 @@ package com.example.comasyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_home.*
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_home.cat01btn
+import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
+import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
+import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
+import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
+import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
 
 class RegistrationClickActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_click)
+
+        // category（野菜）ボタンをクリックしたら
+        cat01btn.setOnClickListener {
+            replaceFragment(CategoryAddFragment())
+        }
 
 
 
@@ -43,5 +54,13 @@ class RegistrationClickActivity : AppCompatActivity() {
                 .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
+    }
+
+    //R.id.containerに引数で渡されたフラグメントを入れる。
+    fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container, fragment)
+        fragmentTransaction.commit()
     }
 }

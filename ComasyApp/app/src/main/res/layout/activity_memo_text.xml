@@ -29,35 +29,35 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/refrigerator_icon" />
+                app:srcCompat="@drawable/icon_refrigerator" />
 
             <ImageView
                 android:id="@+id/transitionColumnButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/column_icon" />
+                app:srcCompat="@drawable/icon_column" />
 
             <ImageView
                 android:id="@+id/transitionSearchButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/search_icon" />
+                app:srcCompat="@drawable/icon_search" />
 
             <ImageView
                 android:id="@+id/transitionMemoButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/sel_memo_icon" />
+                app:srcCompat="@drawable/icon_sel_memo" />
 
             <ImageView
                 android:id="@+id/transitionSettingButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/setting_icon" />
+                app:srcCompat="@drawable/icon_setting" />
 
 
         </LinearLayout>
