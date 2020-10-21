@@ -22,4 +22,11 @@
     <string name="ReviewText">レビュー/評価</string>
     <string name="customizeText">画面カスタマイズ</string>
     <string name="logoutText">ログアウト</string>
+    <string name="cat01_btnText">野菜</string>
+    <string name="cat02_btnText">飲み物</string>
+    <string name="cat03_btnText">肉</string>
+    <string name="cat04_btnText">魚介</string>
+    <string name="cat05_btnText">デザート</string>
+    <string name="cat06_btnText">調味料</string>
+    <string name="cat07_btnText">その他</string>
 </resources>
