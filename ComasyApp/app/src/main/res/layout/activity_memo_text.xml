@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemoActivity">
+    tools:context=".MemoTextActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MenuBarConstraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_width="411dp"
+        android:layout_height="59dp"
         android:background="@color/imageColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
@@ -30,61 +29,87 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_refrigerator" />
+                app:srcCompat="@drawable/refrigerator_icon" />
 
             <ImageView
                 android:id="@+id/transitionColumnButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_column" />
+                app:srcCompat="@drawable/column_icon" />
 
             <ImageView
                 android:id="@+id/transitionSearchButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_search" />
+                app:srcCompat="@drawable/search_icon" />
 
             <ImageView
                 android:id="@+id/transitionMemoButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_sel_memo" />
+                app:srcCompat="@drawable/sel_memo_icon" />
 
             <ImageView
                 android:id="@+id/transitionSettingButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_setting" />
+                app:srcCompat="@drawable/setting_icon" />
+
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/memo"
-        android:textSize="36sp"
+        android:layout_marginTop="36dp"
+        android:text="@string/newMemo"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/MemoAddButton"
-        android:layout_width="63dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:drawable/list_selector_background"
+    <EditText
+        android:id="@+id/memoTextTitleBox"
+        android:layout_width="299dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="148dp"
+        android:ems="10"
+        android:hint="@string/memoTextTitle"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_plus" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/memoTextBox"
+        android:layout_width="300dp"
+        android:layout_height="233dp"
+        android:layout_marginTop="200dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/memoTextBoxHint"
+        android:inputType="textMultiLine"
+        android:maxLength="128"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
