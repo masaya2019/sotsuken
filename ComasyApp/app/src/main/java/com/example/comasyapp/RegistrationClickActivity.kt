@@ -27,46 +27,44 @@ class RegistrationClickActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_click)
 
-        // デフォルトで表示
+        // デフォルトで野菜categoryを表示
         viewCategoryData("cat01")
 
+        // ============================
+        // categoryボタンをクリックしたとき
+        // ============================
         // category（野菜）ボタンをクリックしたら
         cat01_btn.setOnClickListener {
-            //
             viewCategoryData("cat01")
         }
         // category（飲み物）ボタンをクリックしたら
         cat02_btn.setOnClickListener {
-            //
             viewCategoryData("cat02")
         }
         // category（肉）ボタンをクリックしたら
         cat03_btn.setOnClickListener {
-            //
             viewCategoryData("cat03")
         }
         // category（魚介）ボタンをクリックしたら
         cat04_btn.setOnClickListener {
-            //
             viewCategoryData("cat04")
         }
         // category（デザート）ボタンをクリックしたら
         cat05_btn.setOnClickListener {
-            //
             viewCategoryData("cat05")
         }
         // category（調味料）ボタンをクリックしたら
         cat06_btn.setOnClickListener {
-            //
             viewCategoryData("cat06")
         }
         // category（その他）ボタンをクリックしたら
         cat07_btn.setOnClickListener {
-            //
             viewCategoryData("cat07")
         }
 
+        // ==============================
         // メニューバーをクリックしたときの処理
+        // ==============================
         transitionRefrigeratorButton.setOnClickListener {
             // Home画面(HomeActivity.kt)へ遷移
             val intent = Intent(this, HomeActivity::class.java)
@@ -99,21 +97,22 @@ class RegistrationClickActivity : AppCompatActivity() {
         }
     }
 
+    // ====================================
     // 選択されたcategory_idのデータを表示する
+    // ====================================
     fun viewCategoryData(category_id: String) {
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
 
+        // 画面の横幅サイズを取得
         val w_width = dm.widthPixels
 
-        // 最初に冷蔵庫の中身データを受け取りたい！
         val handler = Handler()
 
-//        val url = "http://10.0.2.2/sotsuken/api/testdata.json"
+        // リクエスト先URL
         val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-            // 仮のcategory_id
             .add("category_id", category_id)
             .build()
 
@@ -124,94 +123,100 @@ class RegistrationClickActivity : AppCompatActivity() {
 
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
+            // リクエスト結果受取を失敗
             override fun onFailure(call: Call, e: IOException) {}
+
+            // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {
 
                 // 全体のJSONObjectをとる
                 val jsonObj = JSONObject(response.body()?.string())
+
                 // responseのstatusに対応する値（）を取得
                 val apiStatus = jsonObj.getString("status")
 
-                Log.i("ホーム画面のapiStatus", apiStatus)
+//                Log.i("ホーム画面のapiStatus", apiStatus)
 
                 // responseのstatusによって次の画面に進むorエラーを表示する
                 when (apiStatus) {
 
-                    //  データベースに登録された場合
+                    //  結果がyesなら
                     "yes" -> {
-
+                        //　dataをjson配列に入れる
                         val datas = jsonObj.getJSONArray("data")
 
-                        Log.i("データの長さ", datas.length().toString())
+//                        Log.i("データの長さ", datas.length().toString())
 
-                        // データを一時的に保存する配列
+                        // データを一時的に保存する配列を作成（データ数 X 3）
                         val AllDataArray : Array<String?> = arrayOfNulls(datas.length() * 3)
 
                         handler.post {
-                            //
+                            //　外側のcontainer部分を取得
                             val linearLayout = findViewById<LinearLayout>(R.id.container)
 
+                            // 今あるcontainer下のviewを消す
                             linearLayout.removeAllViewsInLayout()
 
+                            // スクロールの一番上に戻す
                             scrollView.scrollTo(0,0)
 
+                            // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
 
-                                Log.i("データi", "${i}")
+//                                Log.i("データi", "${i}")
 
+                                // 1レコードをjsonObjectに入れる
                                 val zeroJsonObj = datas.getJSONObject(i)
 
-                                // グッズID
-                                val goods_id = zeroJsonObj.getString("goods_id")
+                                // グッズID、グッズ名、グッズ写真名を配列に追加
+                                AllDataArray[i * 3 + 0] = zeroJsonObj.getString("goods_id")
+                                AllDataArray[i * 3 + 1] = zeroJsonObj.getString("goods_name")
+                                AllDataArray[i * 3 + 2] = zeroJsonObj.getString("goods_picture_name")
 
-                                Log.i("グッズID", goods_id)
-
-                                // グッズ名
-                                val goods_name = zeroJsonObj.getString("goods_name")
-
-                                Log.i("グッズ名", goods_name)
-
-                                // グッズ画像
-                                val goods_picture_name = zeroJsonObj.getString("goods_picture_name")
-
-                                AllDataArray[i * 3 + 0] = goods_id
-                                AllDataArray[i * 3 + 1] = goods_name
-                                AllDataArray[i * 3 + 2] = goods_picture_name
-
+                                // 配列に4つのデータを入れるか配列の最後までデータを入れたら
                                 if (i % 4 == 3 || i == datas.length() - 1) {
 
+                                    // 写真用のLinearLayout（HORIZONTAL）を作衛
                                     val targetLinearLayout1 = LinearLayout(applicationContext)
                                     targetLinearLayout1.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                     targetLinearLayout1.orientation = LinearLayout.HORIZONTAL
                                     targetLinearLayout1.id = (i / 4) * 2
                                     linearLayout.addView(targetLinearLayout1)
 
+                                    // テキスト用のLinearLayout（HORIZONTAL）を作衛
                                     val targetLinearLayout2 = LinearLayout(applicationContext)
                                     targetLinearLayout2.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                     targetLinearLayout2.orientation = LinearLayout.HORIZONTAL
                                     targetLinearLayout2.id = (i / 4) * 2 + 1
                                     linearLayout.addView(targetLinearLayout2)
 
+                                    // 写真用のcontainerのidを取得
                                     val viewIdPic = resources.getIdentifier("${(i / 4) * 2}", "id", packageName)
+
+                                    // テキスト用のcontainerのidを取得
                                     val viewIdTxt = resources.getIdentifier("${(i / 4) * 2 + 1}", "id", packageName)
-                                    // 行のcontainer
+
+                                    // 写真用のcontainer部分を取得
                                     val linearLayoutPic = findViewById<LinearLayout>(viewIdPic)
+
+                                    // テキスト用のcontainer部分を取得
                                     val linearLayoutTxt = findViewById<LinearLayout>(viewIdTxt)
 
+                                    // それぞれのcontainerにグッズ画像、グッズ名を配置（最大４つ）
                                     for (j in i % 4 downTo 0) {
-                                        // グッズ画像
+                                        // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
                                         imageView.setImageResource(R.drawable.icon_plus)
                                         imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 4, w_width / 5)
 
-                                        // グッズ名
+                                        // グッズ名を配置
                                         val textView = TextView(applicationContext)
                                         textView.text = AllDataArray[(i - j) * 3 + 1]
                                         textView.setBackgroundColor(Color.CYAN)
-                                        // 文字数によりテキストサイズを調整するかどうか
-                                        if (AllDataArray[(i - j) * 3 + 1]!!.length > 8) {
+                                        // 文字数によりテキストサイズを調整する
+                                        if (AllDataArray[(i - j) * 3 + 1]!!.length > 7) {
                                             textView.textSize = 10F
                                         } else {
                                             textView.textSize = 12F
@@ -224,11 +229,10 @@ class RegistrationClickActivity : AppCompatActivity() {
                                 }
                             }
                         }
-
                     }
-
                 }
             }
         })
     }
+
 }
