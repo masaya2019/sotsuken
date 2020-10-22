@@ -206,15 +206,16 @@ class RegistrationClickActivity : AppCompatActivity() {
                                     for (j in i % 4 downTo 0) {
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
-                                        imageView.setImageResource(R.drawable.icon_plus)
-                                        imageView.setBackgroundColor(Color.GREEN)
+                                        // 仮の画像としてみかん（未完）を配置
+                                        imageView.setImageResource(R.drawable.test_pic_mikn)
+//                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 4, w_width / 5)
 
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
                                         textView.text = AllDataArray[(i - j) * 3 + 1]
-                                        textView.setBackgroundColor(Color.CYAN)
+//                                        textView.setBackgroundColor(Color.CYAN)
                                         // 文字数によりテキストサイズを調整する
                                         if (AllDataArray[(i - j) * 3 + 1]!!.length > 7) {
                                             textView.textSize = 10F
