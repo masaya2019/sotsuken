@@ -208,9 +208,10 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         val imageView = ImageView(applicationContext)
                                         // 仮の画像としてみかん（未完）を配置
                                         imageView.setImageResource(R.drawable.test_pic_mikn)
-//                                        imageView.setBackgroundColor(Color.GREEN)
+                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
+                                            .apply { topMargin = 20 }
                                             .apply { rightMargin = w_width / 40 }
                                             .apply { leftMargin = w_width / 40 }
 
@@ -227,7 +228,7 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         }
                                         textView.setTextColor(Color.BLACK)
                                         linearLayoutTxt.addView(textView)
-                                        textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, 100)
+                                        textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, 80)
                                         textView.gravity = Gravity.CENTER
                                     }
                                 }
