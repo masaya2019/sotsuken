@@ -2,6 +2,7 @@ package com.example.comasyapp
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -207,8 +208,8 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
                                         // 仮の画像としてみかん（未完）を配置
-                                        imageView.setImageResource(R.drawable.test_pic_mikn)
-                                        imageView.setBackgroundColor(Color.GREEN)
+                                        imageView.setImageResource(R.drawable.test_pic_mikan)
+//                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
                                             .apply { topMargin = 20 }
@@ -226,6 +227,7 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         } else {
                                             textView.textSize = 12F
                                         }
+                                        textView.setTypeface(Typeface.DEFAULT_BOLD)
                                         textView.setTextColor(Color.BLACK)
                                         linearLayoutTxt.addView(textView)
                                         textView.layoutParams = LinearLayout.LayoutParams(w_width / 4, 80)
