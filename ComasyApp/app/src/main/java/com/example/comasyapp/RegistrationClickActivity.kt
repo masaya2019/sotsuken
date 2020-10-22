@@ -9,10 +9,12 @@ import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
+import android.view.View.generateViewId
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
@@ -209,13 +211,23 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         val imageView = ImageView(applicationContext)
                                         // 仮の画像としてみかん（未完）を配置
                                         imageView.setImageResource(R.drawable.test_pic_mikan)
+                                        // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
+                                        imageView.id = 10000 + i - j
 //                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
                                             .apply { topMargin = 20 }
                                             .apply { rightMargin = w_width / 40 }
                                             .apply { leftMargin = w_width / 40 }
-
+                                        // 画像がクリックされたら
+                                        imageView.setOnClickListener {
+                                            // その画像のIdを取得
+                                            val thisId = imageView.id
+                                            // 選択された画像のgoods_id
+                                            val select_goods_id = AllDataArray[(thisId - 10000) * 3 + 0]
+                                            // 選択された画像のgoods_idをToastを表示
+                                            Toast.makeText(applicationContext, "${select_goods_id}", Toast.LENGTH_LONG).show()
+                                        }
 
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
