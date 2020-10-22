@@ -33,31 +33,31 @@ class RegistrationClickActivity : AppCompatActivity() {
         // ============================
         // categoryボタンをクリックしたとき
         // ============================
-        // category（野菜）ボタンをクリックしたら
+        // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
             viewCategoryData("cat01")
         }
-        // category（飲み物）ボタンをクリックしたら
+        // 飲み物categoryボタンをクリックしたら
         cat02_btn.setOnClickListener {
             viewCategoryData("cat02")
         }
-        // category（肉）ボタンをクリックしたら
+        // 肉categoryボタンをクリックしたら
         cat03_btn.setOnClickListener {
             viewCategoryData("cat03")
         }
-        // category（魚介）ボタンをクリックしたら
+        // 魚介categoryボタンをクリックしたら
         cat04_btn.setOnClickListener {
             viewCategoryData("cat04")
         }
-        // category（デザート）ボタンをクリックしたら
+        // デザートcategoryボタンをクリックしたら
         cat05_btn.setOnClickListener {
             viewCategoryData("cat05")
         }
-        // category（調味料）ボタンをクリックしたら
+        // 調味料categoryボタンをクリックしたら
         cat06_btn.setOnClickListener {
             viewCategoryData("cat06")
         }
-        // category（その他）ボタンをクリックしたら
+        // その他categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
             viewCategoryData("cat07")
         }
@@ -176,14 +176,14 @@ class RegistrationClickActivity : AppCompatActivity() {
                                 // 配列に4つのデータを入れるか配列の最後までデータを入れたら
                                 if (i % 4 == 3 || i == datas.length() - 1) {
 
-                                    // 写真用のLinearLayout（HORIZONTAL）を作衛
+                                    // 写真用のLinearLayout（HORIZONTAL）を作成
                                     val targetLinearLayout1 = LinearLayout(applicationContext)
                                     targetLinearLayout1.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                     targetLinearLayout1.orientation = LinearLayout.HORIZONTAL
                                     targetLinearLayout1.id = (i / 4) * 2
                                     linearLayout.addView(targetLinearLayout1)
 
-                                    // テキスト用のLinearLayout（HORIZONTAL）を作衛
+                                    // テキスト用のLinearLayout（HORIZONTAL）を作成
                                     val targetLinearLayout2 = LinearLayout(applicationContext)
                                     targetLinearLayout2.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                                     targetLinearLayout2.orientation = LinearLayout.HORIZONTAL
@@ -210,7 +210,10 @@ class RegistrationClickActivity : AppCompatActivity() {
                                         imageView.setImageResource(R.drawable.test_pic_mikn)
 //                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
-                                        imageView.layoutParams = LinearLayout.LayoutParams(w_width / 4, w_width / 5)
+                                        imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
+                                            .apply { rightMargin = w_width / 40 }
+                                            .apply { leftMargin = w_width / 40 }
+
 
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
