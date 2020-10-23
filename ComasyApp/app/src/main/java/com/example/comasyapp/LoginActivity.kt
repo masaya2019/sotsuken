@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
@@ -14,9 +17,21 @@ import org.json.JSONObject
 import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var background: ConstraintLayout
+
+    // キーボード表示を制御するためのオブジェクト
+    private lateinit var inputMethodManager: InputMethodManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // 背景のレイアウトを取得
+        background = findViewById(R.id.background)
+
+        // InputMethodManagerを取得
+        inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // 本体からメールアドレスとパスワードを取得
         // https://maku77.github.io/android/fw/shared-preference.html
@@ -129,5 +144,17 @@ class LoginActivity : AppCompatActivity() {
             putString("password", password)
             commit()
         }
+    }
+
+    // 画面タップ時に呼ばれる
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        // キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(background.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+
+        // 背景にフォーカスを移す
+        background.requestFocus()
+
+        return false
     }
 }

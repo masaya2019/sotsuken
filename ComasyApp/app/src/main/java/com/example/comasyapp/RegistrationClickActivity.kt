@@ -1,5 +1,6 @@
 package com.example.comasyapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -9,12 +10,11 @@ import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
-import android.view.View.generateViewId
+import android.view.MotionEvent
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
@@ -26,9 +26,23 @@ import org.json.JSONObject
 import java.io.IOException
 
 class RegistrationClickActivity : AppCompatActivity() {
+
+    private lateinit var background: ConstraintLayout
+    private lateinit var categoryBtnContainer: LinearLayout
+
+    // キーボード表示を制御するためのオブジェクト
+    private lateinit var inputMethodManager: InputMethodManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_click)
+
+        // 背景のレイアウトを取得
+        background = findViewById(R.id.background)
+        categoryBtnContainer = findViewById(R.id.categoryBtnContainer)
+
+        // InputMethodManagerを取得
+        inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // デフォルトで野菜categoryを表示
         viewCategoryData("cat01")
@@ -39,30 +53,75 @@ class RegistrationClickActivity : AppCompatActivity() {
         // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
             viewCategoryData("cat01")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat01_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat01_btn.requestFocus()
         }
         // 飲み物categoryボタンをクリックしたら
         cat02_btn.setOnClickListener {
             viewCategoryData("cat02")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat02_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat02_btn.requestFocus()
         }
         // 肉categoryボタンをクリックしたら
         cat03_btn.setOnClickListener {
             viewCategoryData("cat03")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat03_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat03_btn.requestFocus()
         }
         // 魚介categoryボタンをクリックしたら
         cat04_btn.setOnClickListener {
             viewCategoryData("cat04")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat04_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat04_btn.requestFocus()
         }
         // デザートcategoryボタンをクリックしたら
         cat05_btn.setOnClickListener {
             viewCategoryData("cat05")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat05_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat05_btn.requestFocus()
         }
         // 調味料categoryボタンをクリックしたら
         cat06_btn.setOnClickListener {
             viewCategoryData("cat06")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat06_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat06_btn.requestFocus()
         }
         // その他categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
             viewCategoryData("cat07")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat07_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat07_btn.requestFocus()
+        }
+
+        // ==============================
+        // 検索アイコンをクリックしたときの処理
+        // ==============================
+        searchImageView.setOnClickListener {
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            searchImageView.requestFocus()
         }
 
         // ==============================
@@ -262,6 +321,18 @@ class RegistrationClickActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    // 画面タップ時に呼ばれる
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        // キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(background.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+
+        // 背景にフォーカスを移す
+        background.requestFocus()
+
+        return false
     }
 
 }
