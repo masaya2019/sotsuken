@@ -227,6 +227,16 @@ class RegistrationClickActivity : AppCompatActivity() {
                                             val select_goods_id = AllDataArray[(thisId - 10000) * 3 + 0]
                                             // 選択された画像のgoods_idをToastを表示
                                             Toast.makeText(applicationContext, "${select_goods_id}", Toast.LENGTH_LONG).show()
+
+                                            // Bundleのインスタンスを作成する
+                                            val bundle = Bundle()
+                                            // Key/Pairの形で値をセットする
+                                            bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 3 + 1])
+                                            // Fragmentに値をセットする
+                                            val dialog = AddGoodsQuantityDialog()
+                                            dialog.setArguments(bundle)
+                                            // AddGoodsQuantityDialogを表示
+                                            dialog.show(supportFragmentManager, "NumberPickerDialog")
                                         }
 
                                         // グッズ名を配置
