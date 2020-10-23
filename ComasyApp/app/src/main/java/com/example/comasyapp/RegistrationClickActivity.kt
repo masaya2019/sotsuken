@@ -46,14 +46,14 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // デフォルトは全部表示
-        viewCategoryData("cat00")
+        viewSearchData("cat00")
 
         // ============================
         // categoryボタンをクリックしたとき
         // ============================
         // ALLボタンをクリックしたら
         cat00_btn.setOnClickListener {
-            viewCategoryData("cat00")
+            viewSearchData("cat00")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat00_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -62,7 +62,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
-            viewCategoryData("cat01")
+            viewSearchData("cat01")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat01_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -71,7 +71,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 飲み物categoryボタンをクリックしたら
         cat02_btn.setOnClickListener {
-            viewCategoryData("cat02")
+            viewSearchData("cat02")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat02_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -80,7 +80,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 肉categoryボタンをクリックしたら
         cat03_btn.setOnClickListener {
-            viewCategoryData("cat03")
+            viewSearchData("cat03")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat03_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -89,7 +89,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 魚介categoryボタンをクリックしたら
         cat04_btn.setOnClickListener {
-            viewCategoryData("cat04")
+            viewSearchData("cat04")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat04_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -98,7 +98,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // デザートcategoryボタンをクリックしたら
         cat05_btn.setOnClickListener {
-            viewCategoryData("cat05")
+            viewSearchData("cat05")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat05_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -107,7 +107,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 調味料categoryボタンをクリックしたら
         cat06_btn.setOnClickListener {
-            viewCategoryData("cat06")
+            viewSearchData("cat06")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat06_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -116,7 +116,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // その他categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
-            viewCategoryData("cat07")
+            viewSearchData("cat07")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat07_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -128,6 +128,14 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         // 検索アイコンをクリックしたときの処理
         // ==============================
         searchImageView.setOnClickListener {
+            // 入力された検索キーワードを取得
+            val inputSearchKeyword = inputSearchText.text.toString()
+            // 入力された値が空でなければ
+            if (inputSearchKeyword != "") {
+                //　食材、キーワードをDBから検索する
+                viewSearchData(inputSearchKeyword)
+            }
+
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
             // 背景にフォーカスを移す
@@ -170,9 +178,9 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
     }
 
     // ====================================
-    // 選択されたcategory_idのデータを表示する
+    // 検索結果（カテゴリーorキーワード）を表示する
     // ====================================
-    fun viewCategoryData(category_id: String) {
+    fun viewSearchData(search_data: String) {
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
 
@@ -185,7 +193,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-            .add("category_id", category_id)
+            .add("search_data", search_data)
             .build()
 
         val request = Request.Builder()
@@ -223,6 +231,9 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                         val AllDataArray : Array<String?> = arrayOfNulls(datas.length() * 3)
 
                         handler.post {
+                            // エラー文を初期化
+                            search_error_text.text = ""
+
                             //　外側のcontainer部分を取得
                             val linearLayout = findViewById<LinearLayout>(R.id.container)
 
@@ -329,9 +340,30 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                             }
                         }
                     }
+
+                    // 検索結果がなければ
+                    "no_recode_error" -> {
+                        handler.post {
+                            //　外側のcontainer部分を取得
+                            val linearLayout = findViewById<LinearLayout>(R.id.container)
+
+                            // 今あるcontainer下のviewを消す
+                            linearLayout.removeAllViewsInLayout()
+
+                            // エラーを表示
+                            search_error_text.text = "データがありませんでした\n別のキーワードで検索してください\n例 : ぶた　→　豚"
+                        }
+                    }
                 }
             }
         })
+    }
+
+    // ====================================
+    // 追加個数をDBに登録する
+    // ====================================
+    fun addGoodsQuantity(goods_id: String,selectedItem: Int) {
+
     }
 
     // 画面タップ時に呼ばれる
@@ -363,8 +395,5 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         return
     }
 
-    // 個数をDBに追加する
-    fun addGoodsQuantity(goods_id: String,selectedItem: Int) {
 
-    }
 }

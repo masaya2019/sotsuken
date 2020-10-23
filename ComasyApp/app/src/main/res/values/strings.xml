@@ -38,6 +38,6 @@
     <string name="testButton">test</string>
     <string name="extBoxHint" />
     <string name="memoTextBoxHint">128文字まで入力できます</string>
-    <string name="searchGoodshint">食材を入力</string>
+    <string name="searchGoodshint">食材、キーワードを入力</string>
     <string name="cat00_btnText">A L L</string>
 </resources>

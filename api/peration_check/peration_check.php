@@ -48,8 +48,8 @@
 
   <h2>response_all_goods.php</h2>
   <form action="../response_all_goods.php" method="post">
-    <p>カテゴリID（cat01～cat07）</p>
-    <input type="text" name="category_id" id="category_id">
+    <p>キーワード、検索カテゴリID（cat00～cat07）</p>
+    <input type="text" name="search_data" id="search_data">
     <input type="submit" value="Go">
   </form>
 
