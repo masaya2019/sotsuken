@@ -10,6 +10,7 @@
         android:id="@+id/categoryLayoutView"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchLayoutView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,52 +26,118 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat01_btnText" />
+                android:background="@color/vegetableColor"
+                android:text="@string/cat01_btnText"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat02_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat02_btnText" />
+                android:background="@color/drinkColor"
+                android:text="@string/cat02_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat03_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat03_btnText" />
+                android:background="@color/meatColor"
+                android:text="@string/cat03_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat04_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat04_btnText" />
+                android:background="@color/fishColor"
+                android:text="@string/cat04_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat05_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat05_btnText" />
+                android:background="@color/sweetsColor"
+                android:text="@string/cat05_btnText"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat06_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat06_btnText" />
+                android:background="@color/seasoningColor"
+                android:text="@string/cat06_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat07_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat07_btnText" />
+                android:background="@color/otherColor"
+                android:text="@string/cat07_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/inputSearchText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputSearchText"
+            app:srcCompat="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/inputSearchText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:ems="10"
+            android:hint="@string/searchGoodshint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.495" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -80,7 +147,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView">
 
         <LinearLayout
             android:id="@+id/container"
@@ -97,7 +164,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
         <LinearLayout
             android:layout_width="0dp"

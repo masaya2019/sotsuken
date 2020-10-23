@@ -4,4 +4,12 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="imageColor">#00A0E9</color>
+    <color name="vegetableColor">#00E917</color>
+    <color name="drinkColor">#FFA500</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="meatColor">#FB6060</color>
+    <color name="fishColor">#03A9F4</color>
+    <color name="sweetsColor">#FFF9B1</color>
+    <color name="seasoningColor">#D58B1D</color>
+    <color name="otherColor">#944BE7</color>
 </resources>
