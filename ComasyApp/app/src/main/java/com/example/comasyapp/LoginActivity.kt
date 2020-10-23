@@ -18,12 +18,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-//        // ログイン情報削除用（削除しないとログインしたままになります）
-//        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
-//            clear()
-//            commit()
-//        }
-
         // 本体からメールアドレスとパスワードを取得
         // https://maku77.github.io/android/fw/shared-preference.html
         val pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
