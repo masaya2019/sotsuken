@@ -27,9 +27,13 @@ if (isset($_POST['category_id'])) {
     // category_idを受け取る
     $category_id = $_POST['category_id'];
 
-    // カテゴリーのgoodsをすべて出す
-    $sql = "SELECT * FROM goods WHERE category_id = '" . $category_id . "'";
-
+    if ($category_id == "cat00") {
+        // 全部のgoodsをすべて出す
+        $sql = "SELECT * FROM goods";
+    } else {
+        // 該当カテゴリーのgoodsをすべて出す
+        $sql = "SELECT * FROM goods WHERE category_id = '" . $category_id . "'";
+    }
     // 接続したDBに対してSQL文を実行する
     $result = querySql($db, $sql);
 

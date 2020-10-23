@@ -76,6 +76,17 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/cat00_btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/allColor"
+                android:text="@string/cat00_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
+
+            <Button
                 android:id="@+id/cat01_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
