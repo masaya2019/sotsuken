@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
@@ -25,7 +26,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class RegistrationClickActivity : AppCompatActivity() {
+class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener {
 
     private lateinit var background: ConstraintLayout
     private lateinit var categoryBtnContainer: LinearLayout
@@ -44,12 +45,21 @@ class RegistrationClickActivity : AppCompatActivity() {
         // InputMethodManagerを取得
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // デフォルトで野菜categoryを表示
-        viewCategoryData("cat01")
+        // デフォルトは全部表示
+        viewCategoryData("cat00")
 
         // ============================
         // categoryボタンをクリックしたとき
         // ============================
+        // ALLボタンをクリックしたら
+        cat00_btn.setOnClickListener {
+            viewCategoryData("cat00")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat00_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat00_btn.requestFocus()
+        }
         // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
             viewCategoryData("cat01")
@@ -290,6 +300,7 @@ class RegistrationClickActivity : AppCompatActivity() {
                                             // Bundleのインスタンスを作成する
                                             val bundle = Bundle()
                                             // Key/Pairの形で値をセットする
+                                            bundle.putString("KEY_GOODS_ID", AllDataArray[(thisId - 10000) * 3 + 0])
                                             bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 3 + 1])
                                             // Fragmentに値をセットする
                                             val dialog = AddGoodsQuantityDialog()
@@ -335,4 +346,25 @@ class RegistrationClickActivity : AppCompatActivity() {
         return false
     }
 
+    // 追加個数が選択されたとき
+    override fun onNumberPickerDialogPositiveClick(
+        dialog: DialogFragment,
+        selectedItem: Int,
+        goods_id: String
+    ) {
+        Log.i("グッズID", "${goods_id}")
+        Log.i("選択個数", "${selectedItem}")
+
+        // 個数をDBに追加する
+        addGoodsQuantity(goods_id, selectedItem)
+    }
+
+    override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
+        return
+    }
+
+    // 個数をDBに追加する
+    fun addGoodsQuantity(goods_id: String,selectedItem: Int) {
+
+    }
 }
