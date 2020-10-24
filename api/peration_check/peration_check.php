@@ -50,6 +50,8 @@
   <form action="../response_all_goods.php" method="post">
     <p>キーワード、検索カテゴリID（cat00～cat07）</p>
     <input type="text" name="search_data">
+    <p>冷蔵庫ID</p>
+    <input type="text" name="refrigerator_id">
     <input type="submit" value="Go">
   </form>
 
