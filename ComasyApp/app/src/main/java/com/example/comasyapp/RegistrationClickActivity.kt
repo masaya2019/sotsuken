@@ -177,9 +177,9 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
     }
 
-    // ====================================
-    // 検索結果（カテゴリーorキーワード）を表示する
-    // ====================================
+    // =======================================
+    // 検索結果（カテゴリーorキーワード）を表示するAPI
+    // =======================================
     fun viewSearchData(search_data: String) {
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
@@ -225,8 +225,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                         //　dataをjson配列に入れる
                         val datas = jsonObj.getJSONArray("data")
 
-//                        Log.i("データの長さ", datas.length().toString())
-
                         // データを一時的に保存する配列を作成（データ数 X 3）
                         val AllDataArray : Array<String?> = arrayOfNulls(datas.length() * 3)
 
@@ -245,8 +243,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
-
-//                                Log.i("データi", "${i}")
 
                                 // 1レコードをjsonObjectに入れる
                                 val zeroJsonObj = datas.getJSONObject(i)
@@ -293,7 +289,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                                         imageView.setImageResource(R.drawable.test_pic_mikan)
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
-//                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
                                             .apply { topMargin = 20 }
@@ -323,7 +318,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
                                         textView.text = AllDataArray[(i - j) * 3 + 1]
-//                                        textView.setBackgroundColor(Color.CYAN)
                                         // 文字数によりテキストサイズを調整する
                                         if (AllDataArray[(i - j) * 3 + 1]!!.length > 7) {
                                             textView.textSize = 10F
@@ -359,13 +353,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         })
     }
 
-    // ====================================
-    // 追加個数をDBに登録する
-    // ====================================
-    fun addGoodsQuantity(goods_id: String,selectedItem: Int) {
-
-    }
-
     // 画面タップ時に呼ばれる
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
@@ -387,13 +374,89 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         Log.i("グッズID", "${goods_id}")
         Log.i("選択個数", "${selectedItem}")
 
-        // 個数をDBに追加する
-        addGoodsQuantity(goods_id, selectedItem)
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            // 個数をDBに追加する
+            addGoodsQuantity(goods_id, selectedItem)
+        }
     }
 
     override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
         return
     }
 
+    // ====================
+    // 追加個数をDBに登録する
+    // ====================
+    fun addGoodsQuantity(goods_id: String, selectedItem: Int) {
+
+        // 本体からmail_addressとrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        var login_mail_address = pref.getString("mail_address", "").toString()
+        var now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 追加個数をDBに登録するAPIにリクエストを投げる
+        addGoodsQuantityDataBase(now_refrigerator_id, goods_id, selectedItem)
+    }
+
+    // =======================================
+    // 追加個数をDBに登録するAPIにリクエストを投げる
+    // =======================================
+    private fun addGoodsQuantityDataBase(refrigerator_id: String, goods_id: String, add_quantity: Int) {
+
+        val handler = Handler()
+
+        val url = "http://10.0.2.2/sotsuken/api/add_goods_quantity_database.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", refrigerator_id)
+            .add("goods_id", goods_id)
+            .add("add_quantity", add_quantity.toString())
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                Log.i("apiStatus", apiStatus)
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        handler.post {
+                            Log.i("てすと", "GOOOOOOOOOOOOOOOOOOOD!!!")
+                        }
+                    }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+                }
+            }
+        })
+    }
 
 }
