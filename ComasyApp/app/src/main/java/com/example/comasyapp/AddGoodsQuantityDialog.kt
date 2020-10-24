@@ -16,7 +16,7 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
     private var selectedItem: Int = 0
 
     interface NoticeDialogListener {
-        fun onNumberPickerDialogPositiveClick(dialog: DialogFragment, selectedItem: Int, goods_id: String)
+        fun onNumberPickerDialogPositiveClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
         fun onNumberPickerDialogNegativeClick(dialog: DialogFragment)
     }
 
@@ -32,7 +32,7 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
     // ダイアログ作成
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        var title = ""
+        var goods_name = ""
         var goods_id = ""
 
         val inflater = activity!!.layoutInflater
@@ -43,15 +43,15 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
         val bundle = arguments
         // Bundleがセットされていたら値を受け取る
         if (bundle != null) {
-            title = bundle.getString("KEY_GOODS_NAME").toString()
+            goods_name = bundle.getString("KEY_GOODS_NAME").toString()
             goods_id = bundle.getString("KEY_GOODS_ID").toString()
         }
 
         // Dialogの設定
         builder.setView(dialogView)
-        builder.setTitle("追加する個数を選択してください\n" + "商品名 ： " + title)
+        builder.setTitle("追加する個数を選択してください\n" + "商品名 ： " + goods_name)
         builder.setPositiveButton("追加する") { dialog, id ->
-            this.listener.onNumberPickerDialogPositiveClick(this, this.selectedItem, goods_id)
+            this.listener.onNumberPickerDialogPositiveClick(this, this.selectedItem, goods_id, goods_name)
         }
         builder.setNegativeButton("キャンセル") { dialog, id ->
             this.listener.onNumberPickerDialogNegativeClick(this)
