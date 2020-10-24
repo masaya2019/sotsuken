@@ -202,8 +202,8 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                         //　dataをjson配列に入れる
                         val datas = jsonObj.getJSONArray("data")
 
-                        // データを一時的に保存する配列を作成（データ数 X 3）
-                        val AllDataArray: Array<String?> = arrayOfNulls(datas.length() * 3)
+                        // データを一時的に保存する配列を作成（データ数 X 4）
+                        val AllDataArray: Array<String?> = arrayOfNulls(datas.length() * 4)
 
                         handler.post {
 
@@ -222,11 +222,14 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                                 // 1レコードをjsonObjectに入れる
                                 val zeroJsonObj = datas.getJSONObject(i)
 
-                                // グッズID、グッズ名、グッズ写真名を配列に追加
-                                AllDataArray[i * 3 + 0] = zeroJsonObj.getString("goods_id")
-                                AllDataArray[i * 3 + 1] = zeroJsonObj.getString("goods_name")
-                                AllDataArray[i * 3 + 2] =
-                                    zeroJsonObj.getString("goods_picture_name")
+                                // グッズID、グッズ名、グッズ写真名、所有個数を配列に追加
+                                AllDataArray[i * 4 + 0] = zeroJsonObj.getString("goods_id")
+                                AllDataArray[i * 4 + 1] = zeroJsonObj.getString("goods_name")
+                                AllDataArray[i * 4 + 2] = zeroJsonObj.getString("goods_picture_name")
+                                AllDataArray[i * 4 + 3] = zeroJsonObj.getString("content_number")
+
+                                Log.i("何持ってんの？？", AllDataArray[i * 4 + 1].toString())
+                                Log.i("何こ持ってんの？？", AllDataArray[i * 4 + 3].toString())
 
                                 // 配列に4つのデータを入れるか配列の最後までデータを入れたら
                                 if (i % 4 == 3 || i == datas.length() - 1) {
@@ -303,9 +306,9 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
 
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
-                                        textView.text = AllDataArray[(i - j) * 3 + 1]
+                                        textView.text = AllDataArray[(i - j) * 4 + 1]
                                         // 文字数によりテキストサイズを調整する
-                                        if (AllDataArray[(i - j) * 3 + 1]!!.length > 7) {
+                                        if (AllDataArray[(i - j) * 4 + 1]!!.length > 7) {
                                             textView.textSize = 10F
                                         } else {
                                             textView.textSize = 12F
