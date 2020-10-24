@@ -22,38 +22,112 @@ require('not_api/query_sql.php');
 // connect_db.phpを呼び出す（データベースに接続）
 require('not_api/connect_db.php');
 
-// category_idを受け取ったら
-if (isset($_POST['category_id'])) {
-    // category_idを受け取る
-    $category_id = $_POST['category_id'];
+// search_dataを受け取ったら
+if (isset($_POST['search_data'])) {
+    // search_dataを受け取る
+    $search_data = $_POST['search_data'];
 
-    // カテゴリーのgoodsをすべて出す
-    $sql = "SELECT * FROM goods WHERE category_id = '" . $category_id . "'";
+    if ($search_data == "cat00") {
+        // 全部のgoodsをすべて出す（ALL）
+        $sql = "SELECT * FROM goods";
 
-    // 接続したDBに対してSQL文を実行する
-    $result = querySql($db, $sql);
+        // 接続したDBに対してSQL文を実行する
+        $result = querySql($db, $sql);
 
-    $array = array();
-    // 全部出す
-    foreach ($result as $row) {
-        $goods_id = $row["goods_id"];
-        $goods_name =$row["goods_name"];
-        $goods_picture_name =$row["goods_picture_name"];
-        // 配列の中に入れる
-        // array_push($array, $array_text);
-        array_push(
-            $array,
-            array(
-            "goods_id" => $goods_id,
-            "goods_name" => $goods_name,
-            "goods_picture_name" => $goods_picture_name
-          )
-        );
+        $array = array();
+        // 全部出す
+        foreach ($result as $row) {
+            $goods_id = $row["goods_id"];
+            $goods_name =$row["goods_name"];
+            $goods_picture_name =$row["goods_picture_name"];
+            // 配列の中に入れる
+            // array_push($array, $array_text);
+            array_push(
+                $array,
+                array(
+                    "goods_id" => $goods_id,
+                    "goods_name" => $goods_name,
+                    "goods_picture_name" => $goods_picture_name
+                )
+            );
+        }
+
+        $status = "yes";
+    } elseif (
+      $search_data == "cat01" || $search_data == "cat02" || $search_data == "cat03"
+        || $search_data == "cat04" || $search_data == "cat05" || $search_data == "cat06" || $search_data == "cat07"
+    ) {
+        // 該当カテゴリーのgoodsをすべて出す（カテゴリ別）
+        $sql = "SELECT * FROM goods WHERE category_id = '" . $search_data . "'";
+
+        // 接続したDBに対してSQL文を実行する
+        $result = querySql($db, $sql);
+
+        $array = array();
+        // 全部出す
+        foreach ($result as $row) {
+            $goods_id = $row["goods_id"];
+            $goods_name =$row["goods_name"];
+            $goods_picture_name =$row["goods_picture_name"];
+            // 配列の中に入れる
+            // array_push($array, $array_text);
+            array_push(
+                $array,
+                array(
+                    "goods_id" => $goods_id,
+                    "goods_name" => $goods_name,
+                    "goods_picture_name" => $goods_picture_name
+                )
+            );
+        }
+
+        $status = "yes";
+    } else {
+        // 検索語句を含むレコードが存在委するか
+        $sql = "SELECT COUNT(*) AS cnt FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
+
+        // 接続したDBに対してSQL文を実行する
+        $result = querySql($db, $sql);
+
+        // pre_registrationにメールアドレスが登録済なら$row["cnt"]に1、未登録なら0が入る
+        $row = mysqli_fetch_array($result);
+
+        // レコードナシなら
+        if ($row["cnt"] == 0) {
+            $array = array();
+
+            $status = "no_recode_error";
+        } else {
+            // 本番検索
+            $sql = "SELECT * FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
+
+            // 接続したDBに対してSQL文を実行する
+            $result = querySql($db, $sql);
+
+            $array = array();
+            // 全部出す
+            foreach ($result as $row) {
+                $goods_id = $row["goods_id"];
+                $goods_name =$row["goods_name"];
+                $goods_picture_name =$row["goods_picture_name"];
+                // 配列の中に入れる
+                // array_push($array, $array_text);
+                array_push(
+                    $array,
+                    array(
+                    "goods_id" => $goods_id,
+                    "goods_name" => $goods_name,
+                    "goods_picture_name" => $goods_picture_name
+                )
+                );
+            }
+
+            $status = "yes";
+        }
     }
-    // print_r($array);
-    //
-    $status = "yes";
 } else {
+    $array = array();
+
     $status = "error";
 }
 

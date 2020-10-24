@@ -76,53 +76,92 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/cat01btn"
+                android:id="@+id/cat00_btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat01_btnText" />
+                android:background="@color/allColor"
+                android:text="@string/cat00_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/cat01_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/vegetableColor"
+                android:text="@string/cat01_btnText"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat02_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat02_btnText" />
+                android:background="@color/drinkColor"
+                android:text="@string/cat02_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat03_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat03_btnText" />
+                android:background="@color/meatColor"
+                android:text="@string/cat03_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat04_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat04_btnText" />
+                android:background="@color/fishColor"
+                android:text="@string/cat04_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat05_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat05_btnText" />
+                android:background="@color/sweetsColor"
+                android:text="@string/cat05_btnText"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat06_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat06_btnText" />
+                android:background="@color/seasoningColor"
+                android:text="@string/cat06_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat07_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat07_btnText" />
+                android:background="@color/otherColor"
+                android:text="@string/cat07_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </HorizontalScrollView>

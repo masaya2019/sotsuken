@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationClickActivity">
@@ -10,82 +11,164 @@
         android:id="@+id/categoryLayoutView"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchLayoutView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/categoryBtnContainer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/cat01btn"
+                android:id="@+id/cat00_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat01_btnText" />
+                android:background="@color/allColor"
+                android:text="@string/cat00_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/cat01_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/vegetableColor"
+                android:text="@string/cat01_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat02_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat02_btnText" />
+                android:background="@color/drinkColor"
+                android:text="@string/cat02_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat03_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat03_btnText" />
+                android:background="@color/meatColor"
+                android:text="@string/cat03_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat04_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat04_btnText" />
+                android:background="@color/fishColor"
+                android:text="@string/cat04_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat05_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat05_btnText" />
+                android:background="@color/sweetsColor"
+                android:text="@string/cat05_btnText"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat06_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat06_btnText" />
+                android:background="@color/seasoningColor"
+                android:text="@string/cat06_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cat07_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cat07_btnText" />
+                android:background="@color/otherColor"
+                android:text="@string/cat07_btnText"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </HorizontalScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
+
+        <ImageView
+            android:id="@+id/searchImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/inputSearchText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputSearchText"
+            app:srcCompat="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/inputSearchText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="64dp"
+            android:ems="10"
+            android:hint="@string/searchGoodshint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.495" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView">
 
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+        </LinearLayout>
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,7 +179,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -143,5 +227,18 @@
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/search_error_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/category_navigation_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
