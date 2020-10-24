@@ -69,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
 
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
             LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
-
         }
     }
 
@@ -136,12 +135,12 @@ class LoginActivity : AppCompatActivity() {
     private fun addRefrigeratorId(mail_address: String) {
         // 本体からmail_addressとrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
-        var login_mail_address = pref.getString("mail_address", "").toString()
-        var now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+        val login_mail_address = pref.getString("mail_address", "").toString()
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // もし、refrigerator_idが保存されていなかったら
         if (login_mail_address == "" && now_refrigerator_id == "") {
-            Log.i("INFO M", "きてんで！！！！！！！！！！！！")
+
             val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
 
             val body = FormBody.Builder(charset("UTF-8"))
@@ -156,23 +155,22 @@ class LoginActivity : AppCompatActivity() {
             OkHttpClient().newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {}
+
+                // レスポンスが帰ってきたら、
                 override fun onResponse(call: Call, response: Response) {
 
                     // responseのstatusに対応する値（）を取得
                     val jsonData = JSONObject(response.body()?.string())
                     val apiStatus = jsonData.getString("status")
 
-                    Log.i("apiStatus", apiStatus)
-
                     // responseのstatusによって次の画面に進むorエラーを表示する
                     when (apiStatus) {
 
                         //  データベースに登録された場合
                         "yes" -> {
+
                             // refrigerator_idを取得
                             val refrigerator_id = jsonData.getString("refrigerator_id")
-
-                            Log.i("INFO R ID!!", refrigerator_id)
 
                             // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
                             saveRefrigeratorata(mail_address, refrigerator_id)
