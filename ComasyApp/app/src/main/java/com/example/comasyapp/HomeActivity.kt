@@ -28,6 +28,14 @@ class HomeActivity : AppCompatActivity() {
         val login_password = pref.getString("password", "")
 
 
+        // 本体からメールアドレスと冷蔵庫IDを削除
+        deleteButton.setOnClickListener {
+            // ログイン情報削除用（削除しないとログインしたままになります）
+            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+                clear()
+                commit()
+            }
+        }
 
         RegistrationClickActivityButton.setOnClickListener {
             // Home画面(HomeActivity.kt)へ遷移
