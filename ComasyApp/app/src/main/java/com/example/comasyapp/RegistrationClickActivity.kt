@@ -53,6 +53,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         // ============================
         // ALLボタンをクリックしたら
         cat00_btn.setOnClickListener {
+
+            // 全部表示
             viewSearchData("cat00")
 
             // キーボードを隠す
@@ -62,6 +64,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
+
+            // 野菜カテゴリを表示
             viewSearchData("cat01")
 
             // キーボードを隠す
@@ -71,6 +75,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 飲み物categoryボタンをクリックしたら
         cat02_btn.setOnClickListener {
+
+            // 飲み物カテゴリを表示
             viewSearchData("cat02")
 
             // キーボードを隠す
@@ -78,8 +84,10 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
             // 背景にフォーカスを移す
             cat02_btn.requestFocus()
         }
-        // 肉categoryボタンをクリックしたら
+        // 肉類categoryボタンをクリックしたら
         cat03_btn.setOnClickListener {
+
+            // 肉類カテゴリを表示
             viewSearchData("cat03")
 
             // キーボードを隠す
@@ -89,6 +97,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 魚介categoryボタンをクリックしたら
         cat04_btn.setOnClickListener {
+
+            // 魚介類カテゴリを表示
             viewSearchData("cat04")
 
             // キーボードを隠す
@@ -98,6 +108,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // デザートcategoryボタンをクリックしたら
         cat05_btn.setOnClickListener {
+
+            // デザートカテゴリを表示
             viewSearchData("cat05")
 
             // キーボードを隠す
@@ -107,6 +119,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // 調味料categoryボタンをクリックしたら
         cat06_btn.setOnClickListener {
+
+            // 調味料カテゴリを表示
             viewSearchData("cat06")
 
             // キーボードを隠す
@@ -116,6 +130,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
         // その他categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
+
+            // その他カテゴリを表示
             viewSearchData("cat07")
 
             // キーボードを隠す
@@ -128,8 +144,10 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         // 検索アイコンをクリックしたときの処理
         // ==============================
         searchImageView.setOnClickListener {
+
             // 入力された検索キーワードを取得
             val inputSearchKeyword = inputSearchText.text.toString()
+
             // 入力された値が空でなければ
             if (inputSearchKeyword != "") {
                 //　食材、キーワードをDBから検索する
@@ -177,9 +195,9 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         }
     }
 
-    // ====================================
-    // 検索結果（カテゴリーorキーワード）を表示する
-    // ====================================
+    // =======================================
+    // 検索結果（カテゴリーorキーワード）を表示するAPI
+    // =======================================
     fun viewSearchData(search_data: String) {
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
@@ -203,7 +221,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
-            // リクエスト結果受取を失敗
+            // リクエスト結果受取に失敗
             override fun onFailure(call: Call, e: IOException) {}
 
             // リクエスト結果受取に成功
@@ -215,8 +233,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                 // responseのstatusに対応する値（）を取得
                 val apiStatus = jsonObj.getString("status")
 
-//                Log.i("ホーム画面のapiStatus", apiStatus)
-
                 // responseのstatusによって次の画面に進むorエラーを表示する
                 when (apiStatus) {
 
@@ -224,8 +240,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                     "yes" -> {
                         //　dataをjson配列に入れる
                         val datas = jsonObj.getJSONArray("data")
-
-//                        Log.i("データの長さ", datas.length().toString())
 
                         // データを一時的に保存する配列を作成（データ数 X 3）
                         val AllDataArray : Array<String?> = arrayOfNulls(datas.length() * 3)
@@ -245,8 +259,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
-
-//                                Log.i("データi", "${i}")
 
                                 // 1レコードをjsonObjectに入れる
                                 val zeroJsonObj = datas.getJSONObject(i)
@@ -287,13 +299,13 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
                                     // それぞれのcontainerにグッズ画像、グッズ名を配置（最大４つ）
                                     for (j in i % 4 downTo 0) {
+
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
                                         // 仮の画像としてみかん（未完）を配置
                                         imageView.setImageResource(R.drawable.test_pic_mikan)
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
-//                                        imageView.setBackgroundColor(Color.GREEN)
                                         linearLayoutPic.addView(imageView)
                                         imageView.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
                                             .apply { topMargin = 20 }
@@ -303,16 +315,13 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                                         imageView.setOnClickListener {
                                             // その画像のIdを取得
                                             val thisId = imageView.id
-                                            // 選択された画像のgoods_id
-                                            val select_goods_id = AllDataArray[(thisId - 10000) * 3 + 0]
-                                            // 選択された画像のgoods_idをToastを表示
-                                            Toast.makeText(applicationContext, "${select_goods_id}", Toast.LENGTH_LONG).show()
 
                                             // Bundleのインスタンスを作成する
                                             val bundle = Bundle()
                                             // Key/Pairの形で値をセットする
                                             bundle.putString("KEY_GOODS_ID", AllDataArray[(thisId - 10000) * 3 + 0])
                                             bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 3 + 1])
+
                                             // Fragmentに値をセットする
                                             val dialog = AddGoodsQuantityDialog()
                                             dialog.setArguments(bundle)
@@ -323,7 +332,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
                                         textView.text = AllDataArray[(i - j) * 3 + 1]
-//                                        textView.setBackgroundColor(Color.CYAN)
                                         // 文字数によりテキストサイズを調整する
                                         if (AllDataArray[(i - j) * 3 + 1]!!.length > 7) {
                                             textView.textSize = 10F
@@ -340,7 +348,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                             }
                         }
                     }
-
                     // 検索結果がなければ
                     "no_recode_error" -> {
                         handler.post {
@@ -359,13 +366,6 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         })
     }
 
-    // ====================================
-    // 追加個数をDBに登録する
-    // ====================================
-    fun addGoodsQuantity(goods_id: String,selectedItem: Int) {
-
-    }
-
     // 画面タップ時に呼ばれる
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
@@ -382,18 +382,105 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
     override fun onNumberPickerDialogPositiveClick(
         dialog: DialogFragment,
         selectedItem: Int,
-        goods_id: String
+        goods_id: String,
+        goods_name: String
     ) {
         Log.i("グッズID", "${goods_id}")
         Log.i("選択個数", "${selectedItem}")
 
-        // 個数をDBに追加する
-        addGoodsQuantity(goods_id, selectedItem)
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            // 個数をDBに追加する
+            addGoodsQuantity(goods_id, goods_name, selectedItem)
+        }
     }
 
     override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
         return
     }
 
+    // ====================
+    // 追加個数をDBに登録する
+    // ====================
+    fun addGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int) {
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 追加個数をDBに登録するAPIにリクエストを投げる
+        addGoodsQuantityDataBase(now_refrigerator_id, goods_id, goods_name, selectedItem)
+    }
+
+    // =======================================
+    // 追加個数をDBに登録するAPIにリクエストを投げる
+    // =======================================
+    private fun addGoodsQuantityDataBase(refrigerator_id: String, goods_id: String, goods_name: String, add_quantity: Int) {
+
+        val handler = Handler()
+
+        val url = "http://10.0.2.2/sotsuken/api/add_goods_quantity_database.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", refrigerator_id)
+            .add("goods_id", goods_id)
+            .add("add_quantity", add_quantity.toString())
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                Log.i("apiStatus", apiStatus)
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        handler.post {
+                            Log.i("てすと", "GOOOOOOOOOOOOOOOOOOOD!!!")
+
+                            // Bundleのインスタンスを作成する
+                            val bundle = Bundle()
+                            // Key/Pairの形で値をセットする
+                            bundle.putString("KEY_GOODS_NAME", goods_name)
+                            bundle.putString("KEY_ADD_QUANTITY", add_quantity.toString())
+                            // Fragmentに値をセットする
+                            val dialog = AddGoodsQuantityResultDialog()
+                            dialog.setArguments(bundle)
+                            // AddGoodsQuantityResultDialogを表示
+                            dialog.show(supportFragmentManager, "AddGoodsQuantityResult")
+                        }
+                    }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+                }
+            }
+        })
+    }
 
 }

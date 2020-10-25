@@ -9,10 +9,6 @@
 // プログラム
 // ================= */
 
-/* =================
-// プログラム
-// ================= */
-
 // デフォルトステータスをdefaultに設定
 $status = "default";
 
@@ -31,6 +27,15 @@ if (isset($_POST['search_data'])) {
         // 全部のgoodsをすべて出す（ALL）
         $sql = "SELECT * FROM goods";
 
+        // refrigerator_idを受け取ったら
+        if (isset($_POST["refrigerator_id"])) {
+            $refrigerator_id = $_POST["refrigerator_id"];
+
+            // 全部のgoodsをすべて出す（ALL）
+            $sql = "SELECT refrigerator_contents.goods_id, goods_name, goods_picture_name, content_number "
+                . "FROM refrigerator_contents INNER JOIN goods ON refrigerator_contents.goods_id = goods.goods_id "
+                . "WHERE refrigerator_id = '" . $refrigerator_id . "'";
+        }
         // 接続したDBに対してSQL文を実行する
         $result = querySql($db, $sql);
 
@@ -38,18 +43,34 @@ if (isset($_POST['search_data'])) {
         // 全部出す
         foreach ($result as $row) {
             $goods_id = $row["goods_id"];
-            $goods_name =$row["goods_name"];
-            $goods_picture_name =$row["goods_picture_name"];
-            // 配列の中に入れる
-            // array_push($array, $array_text);
-            array_push(
-                $array,
-                array(
+            $goods_name = $row["goods_name"];
+            $goods_picture_name = $row["goods_picture_name"];
+            if (isset($row["content_number"])) {
+                $content_number = $row["content_number"];
+
+                // 配列の中に入れる
+                // array_push($array, $array_text);
+                array_push(
+                    $array,
+                    array(
+                    "goods_id" => $goods_id,
+                    "goods_name" => $goods_name,
+                    "goods_picture_name" => $goods_picture_name,
+                    "content_number" => $content_number
+                )
+                );
+            } else {
+                // 配列の中に入れる
+                // array_push($array, $array_text);
+                array_push(
+                    $array,
+                    array(
                     "goods_id" => $goods_id,
                     "goods_name" => $goods_name,
                     "goods_picture_name" => $goods_picture_name
                 )
-            );
+                );
+            }
         }
 
         $status = "yes";
@@ -60,6 +81,17 @@ if (isset($_POST['search_data'])) {
         // 該当カテゴリーのgoodsをすべて出す（カテゴリ別）
         $sql = "SELECT * FROM goods WHERE category_id = '" . $search_data . "'";
 
+        // refrigerator_idを受け取ったら
+        if (isset($_POST["refrigerator_id"])) {
+            $refrigerator_id = $_POST["refrigerator_id"];
+
+            // 全部のgoodsをすべて出す（ALL）
+            $sql = "SELECT refrigerator_contents.goods_id, goods_name, goods_picture_name, content_number "
+                . "FROM refrigerator_contents INNER JOIN goods ON refrigerator_contents.goods_id = goods.goods_id "
+                . "WHERE refrigerator_id = '" . $refrigerator_id . "' "
+                . "AND category_id = '" . $search_data . "'";
+        }
+
         // 接続したDBに対してSQL文を実行する
         $result = querySql($db, $sql);
 
@@ -69,16 +101,31 @@ if (isset($_POST['search_data'])) {
             $goods_id = $row["goods_id"];
             $goods_name =$row["goods_name"];
             $goods_picture_name =$row["goods_picture_name"];
-            // 配列の中に入れる
-            // array_push($array, $array_text);
-            array_push(
-                $array,
-                array(
+            if (isset($row["content_number"])) {
+                $content_number = $row["content_number"];
+                // 配列の中に入れる
+                // array_push($array, $array_text);
+                array_push(
+                    $array,
+                    array(
+                    "goods_id" => $goods_id,
+                    "goods_name" => $goods_name,
+                    "goods_picture_name" => $goods_picture_name,
+                    "content_number" => $content_number
+                )
+                );
+            } else {
+                // 配列の中に入れる
+                // array_push($array, $array_text);
+                array_push(
+                    $array,
+                    array(
                     "goods_id" => $goods_id,
                     "goods_name" => $goods_name,
                     "goods_picture_name" => $goods_picture_name
                 )
-            );
+                );
+            }
         }
 
         $status = "yes";

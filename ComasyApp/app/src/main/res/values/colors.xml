@@ -13,4 +13,6 @@
     <color name="seasoningColor">#D58B1D</color>
     <color name="otherColor">#944BE7</color>
     <color name="allColor">#52504F</color>
+    <color name="pictureListBarBackgroundColor">#424242</color>
+    <color name="circleColor">#EB2222</color>
 </resources>

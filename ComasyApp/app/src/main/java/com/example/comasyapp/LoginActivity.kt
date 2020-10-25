@@ -69,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
 
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
             LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
-
         }
     }
 
@@ -97,8 +96,6 @@ class LoginActivity : AppCompatActivity() {
                 val jsonData = JSONObject(response.body()?.string())
                 val apiStatus = jsonData.getString("status")
 
-//                Log.i("apiStatus", apiStatus)
-
                 // responseのstatusによって次の画面に進むorエラーを表示する
                 when (apiStatus) {
 
@@ -111,10 +108,8 @@ class LoginActivity : AppCompatActivity() {
                         // 本体にメールアドレスとパスワードを保存
                         saveUserData(mail_address, password)
 
-                        // ホーム画面（HomeActivity.kt）へ遷移する
-                        val intent = Intent(applicationContext, HomeActivity::class.java)
-                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        startActivity(intent)
+                        // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、冷蔵庫IDを本体に登録する
+                        addRefrigeratorId(mail_address)
                     }
 //                    // 以下はエラー用に仮作成
 //                    // えらー１
@@ -136,12 +131,98 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、登録するAPIにリクエストを送る
+    private fun addRefrigeratorId(mail_address: String) {
+        // 本体からmail_addressとrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "").toString()
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // もし、refrigerator_idが保存されていなかったら
+        if (login_mail_address == "" && now_refrigerator_id == "") {
+
+            val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
+
+            val body = FormBody.Builder(charset("UTF-8"))
+                .add("mail_address", mail_address)
+                .build()
+
+            val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
+
+            OkHttpClient().newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {}
+
+                // レスポンスが帰ってきたら、
+                override fun onResponse(call: Call, response: Response) {
+
+                    // responseのstatusに対応する値（）を取得
+                    val jsonData = JSONObject(response.body()?.string())
+                    val apiStatus = jsonData.getString("status")
+
+                    // responseのstatusによって次の画面に進むorエラーを表示する
+                    when (apiStatus) {
+
+                        //  データベースに登録された場合
+                        "yes" -> {
+
+                            // refrigerator_idを取得
+                            val refrigerator_id = jsonData.getString("refrigerator_id")
+
+                            // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
+                            saveRefrigeratorata(mail_address, refrigerator_id)
+
+                            // ホーム画面（HomeActivity.kt）へ遷移する
+                            val intent = Intent(applicationContext, HomeActivity::class.java)
+                                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            startActivity(intent)
+                        }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+                    }
+                }
+            })
+            // 保存されていたら、
+        } else {
+            // ホーム画面（HomeActivity.kt）へ遷移する
+            val intent = Intent(applicationContext, HomeActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+        }
+    }
+
+
     // 本体にログイン情報（メールアドレスとパスワード）を保存
     // https://maku77.github.io/android/fw/shared-preference.html
     fun saveUserData(mail_address: String, password: String) {
         getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("password", password)
+            commit()
+        }
+    }
+
+    // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
+    fun saveRefrigeratorata(mail_address: String, refrigerator_id: String) {
+        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+            putString("mail_address", mail_address)
+            putString("refrigerator_id", refrigerator_id)
             commit()
         }
     }

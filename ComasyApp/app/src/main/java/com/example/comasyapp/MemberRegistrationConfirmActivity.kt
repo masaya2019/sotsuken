@@ -22,8 +22,6 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         // ニックネームをセットする
         userNameTextView.text = user_name
 
-//        Log.i("ニックネーム", user_name)
-
         // 前の画面からメールアドレスを受け取る
         val mail_address = intent.getStringExtra("mail_address").toString()
 
@@ -34,15 +32,11 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         // メールアドレスをセットする
         mailAddressTextView.text = set_mail_address
 
-//        Log.i("メールアドレス", mail_address)
-
         // 前の画面からパスワードを受け取る
         val password = intent.getStringExtra("password").toString()
 
         // パスワードをセットする
         passwordTextView.text = password
-
-//        Log.i("パスワード", password)
 
         // 登録ボタン（transitionLoginActivityButton）が押されたら、
         transitionLoginActivityButton.setOnClickListener {
@@ -51,9 +45,6 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
 
             // データベースにメールアドレス、ニックネーム、パスワードを登録するＡＰＩ
             memberRegistrationAPI(mail_address, user_name, password, handler, errorTextConfirm)
-
-            // 結果がyesなら、Ｌｏｇｉｎ画面に遷移
-
         }
     }
 
@@ -76,6 +67,7 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {}
+
             override fun onResponse(call: Call, response: Response) {
 
                 // responseのstatusに対応する値（）を取得
@@ -89,10 +81,6 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
 
                     //  データベースに登録された場合
                     "yes" -> {
-                        // エラーを表示
-                        handler.post {
-                            errorText.text = "登録が完了しました！"
-                        }
                         // ログイン画面（LoginActivity.kt）へ遷移する
                         val intent = Intent(applicationContext, LoginActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
