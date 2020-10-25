@@ -437,6 +437,34 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                     // レコードがなければ
                     "no_recode_error" -> {
 
+                        handler.post {
+                            // 今あるpictureLinearLayoutContainer下のviewを消す
+                            pictureLinearLayoutContainer.removeAllViewsInLayout()
+
+                            // グッズ画像を配置
+                            val imageView = ImageView(applicationContext)
+                            // 仮の画像と+を配置
+                            imageView.setBackgroundResource(R.drawable.icon_picture)
+                            pictureLinearLayoutContainer.addView(imageView)
+                            imageView.layoutParams =
+                                LinearLayout.LayoutParams(constraintLayout.height * 1 / 2, constraintLayout.height * 1 / 2)
+                                    .apply{ topMargin = constraintLayout.height * 1 / 4 }
+                                    .apply{ bottomMargin = constraintLayout.height * 1 / 4 }
+                                    .apply { leftMargin = constraintLayout.height * 1 / 6 }
+                                    .apply { rightMargin = constraintLayout.height * 1 / 6 }
+                            imageView.adjustViewBounds = true
+
+                            // グッズ名を配置
+                            val textView = TextView(applicationContext)
+                            textView.text = "冷蔵庫の写真を登録しよう！"
+                            textView.textSize = 20F
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.WHITE)
+                            textView.gravity = Gravity.CENTER
+                            pictureLinearLayoutContainer.addView(textView)
+                            textView.layoutParams =
+                                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                        }
                     }
                 }
             }
