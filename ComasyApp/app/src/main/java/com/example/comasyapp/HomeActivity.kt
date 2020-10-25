@@ -13,6 +13,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.cat00_btn
 import kotlinx.android.synthetic.main.activity_home.cat01_btn
@@ -412,11 +413,14 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                                 // グッズ画像を配置
                                 val imageView = ImageView(applicationContext)
-                                // 仮の画像として冷蔵庫を配置（本来はdrawableからではなくとってきたもの）
-                                imageView.setImageResource(R.drawable.r0005_p0001)
                                 // 仮のidとしてデータベースから取得したレコードの順番に20000を足したものを用意（idのかぶりをなくすため）
                                 imageView.id = 20000 + i
                                 pictureLinearLayoutContainer.addView(imageView)
+                                // 冷蔵庫の画像を取ってくる
+                                Picasso.get()
+                                    .load("http://10.0.2.2/sotsuken/api/images/${pictureName}.png")
+                                    .resize(0, constraintLayout.height)
+                                    .into(imageView)
                                 imageView.layoutParams =
                                     LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
                                         .apply { rightMargin = w_width /  200 }
