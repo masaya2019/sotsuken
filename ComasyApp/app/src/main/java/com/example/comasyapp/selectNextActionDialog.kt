@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
-class selectNextActionDialog: DialogFragment() {
+class SelectNextActionDialog: DialogFragment() {
 
     // 親に渡すためのリスナー定義
     private lateinit var listener: NoticeNextActionDialogListener
