@@ -8,24 +8,24 @@ import android.util.Log
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 
-class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListener {
-
+class ChangeGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListener {
     // 親に渡すためのリスナー定義
-    private lateinit var listener: NoticeDialogListener
+    private lateinit var listener: NoticeChangeGoodsDialogListener
     // 選択したアイテム格納
     private var selectedItem: Int = 0
 
-    interface NoticeDialogListener {
-        fun onNumberPickerDialogPositiveClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
+    interface NoticeChangeGoodsDialogListener {
+        fun onNumberPickerDialogAddClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
+        fun onNumberPickerDialogSubClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
         fun onNumberPickerDialogNegativeClick(dialog: DialogFragment)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            this.listener = context as NoticeDialogListener
+            this.listener = context as NoticeChangeGoodsDialogListener
         } catch (e: ClassCastException) {
-            throw ClassCastException(("$context must implement NoticeDialogListener"))
+            throw ClassCastException(("$context must implement NoticeChangeGoodsDialogListener"))
         }
     }
 
@@ -34,6 +34,7 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
 
         var goods_name = ""
         var goods_id = ""
+        var goods_quantity = ""
 
         val inflater = activity!!.layoutInflater
         val dialogView = inflater.inflate(R.layout.add_goods_quantity_dialog, null)!!
@@ -45,15 +46,19 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
         if (bundle != null) {
             goods_name = bundle.getString("KEY_GOODS_NAME").toString()
             goods_id = bundle.getString("KEY_GOODS_ID").toString()
+            goods_quantity = bundle.getString("KEY_GOODS_QUANTITY").toString()
         }
 
         // Dialogの設定
         builder.setView(dialogView)
-        builder.setTitle("追加する個数を選択してください\n" + "商品名 ： " + goods_name)
-        builder.setPositiveButton("追加する") { dialog, id ->
-            this.listener.onNumberPickerDialogPositiveClick(this, this.selectedItem, goods_id, goods_name)
+        builder.setTitle("変更する個数を選択してください\n" + "商品名 ： " + goods_name)
+        builder.setPositiveButton("増 や す") { dialog, id ->
+            this.listener.onNumberPickerDialogAddClick(this, this.selectedItem, goods_id, goods_name)
         }
-        builder.setNegativeButton("キャンセル") { dialog, id ->
+        builder.setNegativeButton("減 ら す") { dialog, id ->
+            this.listener.onNumberPickerDialogSubClick(this, this.selectedItem, goods_id, goods_name)
+        }
+        builder.setNeutralButton("キャンセル") { dialog, id ->
             this.listener.onNumberPickerDialogNegativeClick(this)
         }
 
@@ -63,7 +68,7 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
         // NumberPickerの最小値設定
         np.minValue = 0
         // NumberPickerの最大値設定
-        np.maxValue = 5
+        np.maxValue = goods_quantity.toInt()
         // NumberPickerの初期値
         np.value = 0
 

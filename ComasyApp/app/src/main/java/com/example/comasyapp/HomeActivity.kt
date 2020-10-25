@@ -32,7 +32,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActionDialogListener {
+class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActionDialogListener, ChangeGoodsQuantityDialog.NoticeChangeGoodsDialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -301,6 +301,19 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                             // その画像のIdを取得
                                             val thisId = imageView.id
                                             Toast.makeText(applicationContext, "${thisId}", Toast.LENGTH_LONG).show()
+
+                                            // Bundleのインスタンスを作成する
+                                            val bundle = Bundle()
+                                            // Key/Pairの形で値をセットする
+                                            bundle.putString("KEY_GOODS_ID", AllDataArray[(thisId - 10000) * 4 + 0])
+                                            bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 4 + 1])
+                                            bundle.putString("KEY_GOODS_QUANTITY", AllDataArray[(thisId - 10000) * 4 + 3])
+
+                                            // Fragmentに値をセットする
+                                            val dialog = ChangeGoodsQuantityDialog()
+                                            dialog.setArguments(bundle)
+                                            // ChangeGoodsQuantityDialogを表示
+                                            dialog.show(supportFragmentManager, "ChangeGoodsQuantityDialog")
                                         }
 
                                         // 数量ボタン
@@ -471,6 +484,95 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         })
     }
 
+    // ====================
+    // 追加個数をDBに登録する
+    // ====================
+    fun changeGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int) {
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 追加個数をDBに登録するAPIにリクエストを投げる
+        changeGoodsQuantityDataBase(now_refrigerator_id, goods_id, goods_name, selectedItem)
+    }
+
+    // =======================================
+    // 追加個数をDBに登録するAPIにリクエストを投げる
+    // =======================================
+    private fun changeGoodsQuantityDataBase(refrigerator_id: String, goods_id: String, goods_name: String, add_quantity: Int) {
+
+        val handler = Handler()
+
+        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", refrigerator_id)
+            .add("goods_id", goods_id)
+            .add("add_quantity", add_quantity.toString())
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                Log.i("apiStatus", apiStatus)
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        handler.post {
+                            Log.i("てすと", "GOOOOOOOOOOOOOOOOOOOD!!!")
+
+                            // Bundleのインスタンスを作成する
+                            val bundle = Bundle()
+                            // Key/Pairの形で値をセットする
+                            bundle.putString("KEY_GOODS_NAME", goods_name)
+                            bundle.putString("KEY_ADD_QUANTITY", add_quantity.toString())
+                            // Fragmentに値をセットする
+                            val dialog = ChangeGoodsQuantityResultDialog()
+                            dialog.setArguments(bundle)
+                            // ChangeGoodsQuantityResultDialogを表示
+                            dialog.show(supportFragmentManager, "ChangeGoodsQuantityResult")
+
+//                            // Home画面(HomeActivity.kt)へ遷移
+//                            val intent = Intent(applicationContext, HomeActivity::class.java)
+//                                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//                            startActivity(intent)
+                        }
+                    }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+                }
+            }
+        })
+    }
+
     // ＋ボタンをクリックしたときの処理（選択された値による）
     override fun onSelectNextActionDialogClick(dialog: DialogFragment, which: Int) {
 
@@ -492,5 +594,46 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
     }
 
     override fun onSelectNextActionDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // 増やすが選択されたとき
+    override fun onNumberPickerDialogAddClick(
+        dialog: DialogFragment,
+        selectedItem: Int,
+        goods_id: String,
+        goods_name: String
+    ) {
+        Log.i("グッズID", "${goods_id}")
+        Log.i("選択個数", "${selectedItem}")
+
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            Log.i("増やされた数は", selectedItem.toString())
+            // 個数をDBに追加する
+            changeGoodsQuantity(goods_id, goods_name, selectedItem)
+        }
+    }
+
+    // 減らすが選択されたとき
+    override fun onNumberPickerDialogSubClick(
+        dialog: DialogFragment,
+        selectedItem: Int,
+        goods_id: String,
+        goods_name: String
+    ) {
+        Log.i("グッズID", "${goods_id}")
+        Log.i("選択個数", "${selectedItem}")
+
+        val subNumber = -selectedItem
+
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            Log.i("減らされた数は", subNumber.toString())
+            // 個数をDBから減らす
+            changeGoodsQuantity(goods_id, goods_name, subNumber)
+        }
+    }
+
+    override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
     }
 }

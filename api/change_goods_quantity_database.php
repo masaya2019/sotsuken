@@ -36,6 +36,7 @@ if (isset($_POST['refrigerator_id']) && isset($_POST['goods_id']) && isset($_POS
         $result = querySql($db, $sql);
 
         $status = "yes";
+    // refrigerator_contents登録済みなら
     } else {
         // 元々あった数
         $sql = "SELECT content_number FROM refrigerator_contents "
@@ -50,11 +51,19 @@ if (isset($_POST['refrigerator_id']) && isset($_POST['goods_id']) && isset($_POS
 
         $goods_number = $row["content_number"] + $add_quantity;
 
-        // データベースに更新
-        $sql = "UPDATE refrigerator_contents SET "
+        // 1個以上残るなら
+        if ($goods_number != 0) {
+            // データベースに更新
+            $sql = "UPDATE refrigerator_contents SET "
             . "content_number = " . $goods_number . " "
             . "WHERE refrigerator_id = '" . $refrigerator_id . "' "
             . "AND goods_id = '" . $goods_id . "'";
+        // 0個になるなら
+        } else {
+            $sql = "DELETE FROM refrigerator_contents "
+              . "WHERE refrigerator_id ='" . $refrigerator_id . "' "
+              . "AND goods_id = '" . $goods_id . "'";
+        }
 
         // 接続したDBに対してSQL文を実行する
         $result = querySql($db, $sql);
