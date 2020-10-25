@@ -15,8 +15,8 @@ class ChangeGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeLis
     private var selectedItem: Int = 0
 
     interface NoticeChangeGoodsDialogListener {
-        fun onNumberPickerDialogAddClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
-        fun onNumberPickerDialogSubClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
+        fun onNumberPickerDialogAddClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String, search_data: String)
+        fun onNumberPickerDialogSubClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String, search_data: String)
         fun onNumberPickerDialogNegativeClick(dialog: DialogFragment)
     }
 
@@ -35,6 +35,7 @@ class ChangeGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeLis
         var goods_name = ""
         var goods_id = ""
         var goods_quantity = ""
+        var search_data = ""
 
         val inflater = activity!!.layoutInflater
         val dialogView = inflater.inflate(R.layout.add_goods_quantity_dialog, null)!!
@@ -47,16 +48,17 @@ class ChangeGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeLis
             goods_name = bundle.getString("KEY_GOODS_NAME").toString()
             goods_id = bundle.getString("KEY_GOODS_ID").toString()
             goods_quantity = bundle.getString("KEY_GOODS_QUANTITY").toString()
+            search_data = bundle.getString("KEY_SEARCH_DATA").toString()
         }
 
         // Dialogの設定
         builder.setView(dialogView)
         builder.setTitle("変更する個数を選択してください\n" + "商品名 ： " + goods_name)
         builder.setPositiveButton("増 や す") { dialog, id ->
-            this.listener.onNumberPickerDialogAddClick(this, this.selectedItem, goods_id, goods_name)
+            this.listener.onNumberPickerDialogAddClick(this, this.selectedItem, goods_id, goods_name, search_data)
         }
         builder.setNegativeButton("減 ら す") { dialog, id ->
-            this.listener.onNumberPickerDialogSubClick(this, this.selectedItem, goods_id, goods_name)
+            this.listener.onNumberPickerDialogSubClick(this, this.selectedItem, goods_id, goods_name, search_data)
         }
         builder.setNeutralButton("キャンセル") { dialog, id ->
             this.listener.onNumberPickerDialogNegativeClick(this)

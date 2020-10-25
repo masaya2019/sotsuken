@@ -26,7 +26,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener {
+class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener, ChangeGoodsQuantityResultDialog.NoticeChangeGoodsResultDialogListener {
 
     private lateinit var background: ConstraintLayout
     private lateinit var categoryBtnContainer: LinearLayout
@@ -455,7 +455,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                             val bundle = Bundle()
                             // Key/Pairの形で値をセットする
                             bundle.putString("KEY_GOODS_NAME", goods_name)
-                            bundle.putString("KEY_ADD_QUANTITY", add_quantity.toString())
+                            bundle.putString("KEY_CHANGE_QUANTITY", add_quantity.toString())
                             // Fragmentに値をセットする
                             val dialog = ChangeGoodsQuantityResultDialog()
                             dialog.setArguments(bundle)
@@ -481,6 +481,13 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                 }
             }
         })
+    }
+
+    override fun onNoticeChangeGoodsResultPositiveClick(
+        dialog: DialogFragment,
+        search_data: String
+    ) {
+        return
     }
 
 }
