@@ -11,10 +11,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.cat00_btn
@@ -30,12 +27,11 @@ import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
 import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
-import kotlinx.android.synthetic.main.activity_registration_click.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActionDialogListener {
+class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActionDialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +54,7 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
         selectNextActionButton.setOnClickListener {
 
             // selectNextActionDialogを呼び出す
-            val dialog = selectNextActionDialog()
+            val dialog = SelectNextActionDialog()
             dialog.show(supportFragmentManager, "SelectNextActionDialog")
         }
 
@@ -228,9 +224,6 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                                 AllDataArray[i * 4 + 2] = zeroJsonObj.getString("goods_picture_name")
                                 AllDataArray[i * 4 + 3] = zeroJsonObj.getString("content_number")
 
-                                Log.i("何持ってんの？？", AllDataArray[i * 4 + 1].toString())
-                                Log.i("何こ持ってんの？？", AllDataArray[i * 4 + 3].toString())
-
                                 // 配列に4つのデータを入れるか配列の最後までデータを入れたら
                                 if (i % 4 == 3 || i == datas.length() - 1) {
 
@@ -241,7 +234,7 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                                         ViewGroup.LayoutParams.MATCH_PARENT
                                     )
                                     targetLinearLayout1.orientation = LinearLayout.HORIZONTAL
-                                    targetLinearLayout1.id = (i / 4) * 2
+                                    targetLinearLayout1.id = (i / 4) * 6 + 0
                                     linearLayout.addView(targetLinearLayout1)
 
                                     // テキスト用のLinearLayout（HORIZONTAL）を作成
@@ -251,22 +244,22 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                                         ViewGroup.LayoutParams.MATCH_PARENT
                                     )
                                     targetLinearLayout2.orientation = LinearLayout.HORIZONTAL
-                                    targetLinearLayout2.id = (i / 4) * 2 + 1
+                                    targetLinearLayout2.id = (i / 4) * 6 + 1
                                     linearLayout.addView(targetLinearLayout2)
 
                                     // 写真用のcontainerのidを取得
-                                    val viewIdPic =
-                                        resources.getIdentifier("${(i / 4) * 2}", "id", packageName)
+                                    val viewIdFrame =
+                                        resources.getIdentifier("${(i / 4) * 6 + 0}", "id", packageName)
 
                                     // テキスト用のcontainerのidを取得
                                     val viewIdTxt = resources.getIdentifier(
-                                        "${(i / 4) * 2 + 1}",
+                                        "${(i / 4) * 6 + 1}",
                                         "id",
                                         packageName
                                     )
 
-                                    // 写真用のcontainer部分を取得
-                                    val linearLayoutPic = findViewById<LinearLayout>(viewIdPic)
+                                    // フレームレイアウト用のcontainer部分を取得
+                                    val linearLayoutFrame = findViewById<LinearLayout>(viewIdFrame)
 
                                     // テキスト用のcontainer部分を取得
                                     val linearLayoutTxt = findViewById<LinearLayout>(viewIdTxt)
@@ -274,35 +267,46 @@ class HomeActivity : AppCompatActivity(), selectNextActionDialog.NoticeNextActio
                                     // それぞれのcontainerにグッズ画像、グッズ名を配置（最大４つ）
                                     for (j in i % 4 downTo 0) {
 
+                                        // FrameLayoutを作成
+                                        val frameLayout = FrameLayout(applicationContext)
+                                        frameLayout.layoutParams = LinearLayout.LayoutParams(w_width / 5, w_width / 5)
+                                            .apply { topMargin = 20 }
+                                            .apply { rightMargin = w_width / 40 }
+                                            .apply { leftMargin = w_width / 40 }
+                                        frameLayout.id = (i / 4) * 6 + 5 - j
+                                        linearLayoutFrame.addView(frameLayout)
+
+                                        // 写真用のcontainerのidを取得
+                                        val viewIdPic =
+                                            resources.getIdentifier("${(i / 4) * 6 + 5 - j}", "id", packageName)
+
+                                        // 写真用のcontainer部分を取得
+                                        val FrameLayoutPic = findViewById<FrameLayout>(viewIdPic)
+
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
                                         // 仮の画像としてみかん（未完）を配置
                                         imageView.setImageResource(R.drawable.test_pic_mikan)
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
-                                        linearLayoutPic.addView(imageView)
+                                        FrameLayoutPic.addView(imageView)
                                         imageView.layoutParams =
-                                            LinearLayout.LayoutParams(w_width / 5, w_width / 5)
-                                                .apply { topMargin = 20 }
-                                                .apply { rightMargin = w_width / 40 }
-                                                .apply { leftMargin = w_width / 40 }
+                                            FrameLayout.LayoutParams(w_width / 5, w_width / 5)
                                         // 画像がクリックされたら
                                         imageView.setOnClickListener {
                                             // その画像のIdを取得
                                             val thisId = imageView.id
-
-//                                             Bundleのインスタンスを作成する
-//                                            val bundle = Bundle()
-//                                            // Key/Pairの形で値をセットする
-//                                            bundle.putString("KEY_GOODS_ID", AllDataArray[(thisId - 10000) * 3 + 0])
-//                                            bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 3 + 1])
-//
-//                                            // Fragmentに値をセットする
-//                                            val dialog = AddGoodsQuantityDialog()
-//                                            dialog.setArguments(bundle)
-//                                            // AddGoodsQuantityDialogを表示
-//                                            dialog.show(supportFragmentManager, "NumberPickerDialog")
+                                            Toast.makeText(applicationContext, "${thisId}", Toast.LENGTH_LONG).show()
                                         }
+
+                                        // 数量ボタン
+                                        val imageView2 = ImageView(applicationContext)
+                                        // 仮の画像と+を配置
+                                        imageView2.setImageResource(R.drawable.icon_plus)
+                                        FrameLayoutPic.addView(imageView2)
+                                        imageView2.layoutParams =
+                                            FrameLayout.LayoutParams(w_width / 15, w_width / 15)
+                                                .apply { leftMargin = w_width * 2 / 15 }
 
                                         // グッズ名を配置
                                         val textView = TextView(applicationContext)
