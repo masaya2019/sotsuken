@@ -79,6 +79,13 @@
     <input type="text" name="add_quantity">
     <input type="submit" value="Go">
   </form>
+
+  <h2>my_refrigerator_picture.php</h2>
+  <form action="../my_refrigerator_picture.php" method="post">
+    <p>冷蔵庫ID</p>
+    <input type="text" name="refrigerator_id">
+    <input type="submit" value="Go">
+  </form>
 </body>
 
 </html>

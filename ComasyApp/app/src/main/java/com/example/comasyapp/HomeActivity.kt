@@ -37,8 +37,11 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // デフォルトは全部表示
+        // デフォルトは所持アイテムを全部表示
         viewSearchData("cat00")
+
+        // 冷蔵庫の写真を表示
+        viewRefrigeratorPicture()
 
 //        // 本体からメールアドレスと冷蔵庫IDを削除
 //        deleteButton.setOnClickListener {
@@ -149,7 +152,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
     // =======================================
     // 検索結果（カテゴリーorキーワード）を表示するAPI
     // =======================================
-    fun viewSearchData(search_data: String) {
+    private fun viewSearchData(search_data: String) {
 
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
@@ -331,6 +334,105 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 }
                             }
                         }
+                    }
+                }
+            }
+        })
+    }
+
+    // ================
+    // 冷蔵庫の写真を表示
+    // ================
+    private fun viewRefrigeratorPicture() {
+
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(dm)
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 画面の横幅サイズを取得
+        val w_width = dm.widthPixels
+
+        val handler = Handler()
+
+        // リクエスト先URL
+        val url = "http://10.0.2.2/sotsuken/api/my_refrigerator_picture.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", now_refrigerator_id)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            // リクエスト結果受取に失敗
+            override fun onFailure(call: Call, e: IOException) {}
+
+            // リクエスト結果受取に成功
+            override fun onResponse(call: Call, response: Response) {
+
+                // 全体のJSONObjectをとる
+                val jsonObj = JSONObject(response.body()?.string())
+
+                // responseのstatusに対応する値（）を取得
+                val apiStatus = jsonObj.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  結果がyesなら
+                    "yes" -> {
+                        //　dataをjson配列に入れる
+                        val datas = jsonObj.getJSONArray("data")
+
+                        handler.post {
+
+                            // 今あるpictureLinearLayoutContainer下のviewを消す
+                            pictureLinearLayoutContainer.removeAllViewsInLayout()
+
+                            // スクロールの一番上に戻す
+                            pictuteScrollView.scrollTo(0, 0)
+
+                            // データを1個づつ取り出す
+                            for (i in 0 until datas.length()) {
+
+                                // 1レコードをjsonObjectに入れる
+                                val zeroJsonObj = datas.getJSONObject(i)
+
+                                // 写真名
+                                val pictureName = zeroJsonObj.getString("refrigerator_picture_name")
+
+                                Log.i("写真名", pictureName)
+
+                                // グッズ画像を配置
+                                val imageView = ImageView(applicationContext)
+                                // 仮の画像として冷蔵庫を配置（本来はdrawableからではなくとってきたもの）
+                                imageView.setImageResource(R.drawable.r0005_p0001)
+                                // 仮のidとしてデータベースから取得したレコードの順番に20000を足したものを用意（idのかぶりをなくすため）
+                                imageView.id = 20000 + i
+                                pictureLinearLayoutContainer.addView(imageView)
+                                imageView.layoutParams =
+                                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                                        .apply { rightMargin = w_width /  200 }
+                                imageView.adjustViewBounds = true
+                                // 画像がクリックされたら
+                                imageView.setOnClickListener {
+                                    // その画像のIdを取得
+                                    val thisId = imageView.id
+                                    Toast.makeText(applicationContext, "${thisId}", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+                    }
+                    // レコードがなければ
+                    "no_recode_error" -> {
+
                     }
                 }
             }
