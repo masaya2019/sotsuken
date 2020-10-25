@@ -300,11 +300,15 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                         }
 
                                         // 数量ボタン
-                                        val imageView2 = ImageView(applicationContext)
+                                        val numberTextView = TextView(applicationContext)
                                         // 仮の画像と+を配置
-                                        imageView2.setImageResource(R.drawable.icon_plus)
-                                        FrameLayoutPic.addView(imageView2)
-                                        imageView2.layoutParams =
+                                        numberTextView.setBackgroundResource(R.drawable.background_circle)
+                                        numberTextView.setText(AllDataArray[(i - j) * 4 + 3])
+                                        numberTextView.setTypeface(Typeface.DEFAULT_BOLD);
+                                        numberTextView.setTextColor(Color.WHITE)
+                                        numberTextView.gravity = Gravity.CENTER
+                                        FrameLayoutPic.addView(numberTextView)
+                                        numberTextView.layoutParams =
                                             FrameLayout.LayoutParams(w_width / 15, w_width / 15)
                                                 .apply { leftMargin = w_width * 2 / 15 }
 
