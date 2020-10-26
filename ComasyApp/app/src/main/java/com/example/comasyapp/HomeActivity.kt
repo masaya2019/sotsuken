@@ -32,7 +32,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActionDialogListener {
+class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActionDialogListener, ChangeGoodsQuantityDialog.NoticeChangeGoodsDialogListener, ChangeGoodsQuantityResultDialog.NoticeChangeGoodsResultDialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,48 +67,64 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         // ============================
         // ALLボタンをクリックしたら
         cat00_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 全部表示
             viewSearchData("cat00")
         }
         // 野菜categoryボタンをクリックしたら
         cat01_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 野菜カテゴリを表示
             viewSearchData("cat01")
         }
         // 飲み物categoryボタンをクリックしたら
         cat02_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 飲み物カテゴリを表示
             viewSearchData("cat02")
         }
         // 肉類categoryボタンをクリックしたら
         cat03_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 肉類カテゴリを表示
             viewSearchData("cat03")
         }
         // 魚介categoryボタンをクリックしたら
         cat04_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 魚介類カテゴリを表示
             viewSearchData("cat04")
         }
         // デザートcategoryボタンをクリックしたら
         cat05_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // デザートカテゴリを表示
             viewSearchData("cat05")
         }
         // 調味料categoryボタンをクリックしたら
         cat06_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // 調味料カテゴリを表示
             viewSearchData("cat06")
         }
         // その他categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
 
             // その他カテゴリを表示
             viewSearchData("cat07")
@@ -213,8 +229,16 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                             // 今あるviewLinearlayoutContainer下のviewを消す
                             linearLayout.removeAllViewsInLayout()
 
-                            // スクロールの一番上に戻す
-                            homeScrollView.scrollTo(0,0)
+                            if (datas.length() == 0) {
+                                val textView = TextView(applicationContext)
+                                textView.text = "右下にある＋ボタンから\n冷蔵庫の中身を登録しよう！"
+                                textView.textSize = 20F
+                                textView.setTypeface(Typeface.DEFAULT_BOLD)
+                                textView.setTextColor(Color.BLACK)
+                                textView.gravity = Gravity.CENTER
+                                linearLayout.addView(textView)
+                                textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                            }
 
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
@@ -300,7 +324,20 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                         imageView.setOnClickListener {
                                             // その画像のIdを取得
                                             val thisId = imageView.id
-                                            Toast.makeText(applicationContext, "${thisId}", Toast.LENGTH_LONG).show()
+
+                                            // Bundleのインスタンスを作成する
+                                            val bundle = Bundle()
+                                            // Key/Pairの形で値をセットする
+                                            bundle.putString("KEY_GOODS_ID", AllDataArray[(thisId - 10000) * 4 + 0])
+                                            bundle.putString("KEY_GOODS_NAME", AllDataArray[(thisId - 10000) * 4 + 1])
+                                            bundle.putString("KEY_GOODS_QUANTITY", AllDataArray[(thisId - 10000) * 4 + 3])
+                                            bundle.putString("KEY_SEARCH_DATA", search_data)
+
+                                            // Fragmentに値をセットする
+                                            val dialog = ChangeGoodsQuantityDialog()
+                                            dialog.setArguments(bundle)
+                                            // ChangeGoodsQuantityDialogを表示
+                                            dialog.show(supportFragmentManager, "ChangeGoodsQuantityDialog")
                                         }
 
                                         // 数量ボタン
@@ -409,8 +446,6 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 // 写真名
                                 val pictureName = zeroJsonObj.getString("refrigerator_picture_name")
 
-                                Log.i("写真名", pictureName)
-
                                 // グッズ画像を配置
                                 val imageView = ImageView(applicationContext)
                                 // 仮のidとしてデータベースから取得したレコードの順番に20000を足したものを用意（idのかぶりをなくすため）
@@ -429,7 +464,6 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 imageView.setOnClickListener {
                                     // その画像のIdを取得
                                     val thisId = imageView.id
-                                    Toast.makeText(applicationContext, "${thisId}", Toast.LENGTH_LONG).show()
                                 }
                             }
                         }
@@ -437,7 +471,117 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                     // レコードがなければ
                     "no_recode_error" -> {
 
+                        handler.post {
+                            // 今あるpictureLinearLayoutContainer下のviewを消す
+                            pictureLinearLayoutContainer.removeAllViewsInLayout()
+
+                            // グッズ画像を配置
+                            val imageView = ImageView(applicationContext)
+                            // 仮の画像と+を配置
+                            imageView.setBackgroundResource(R.drawable.icon_picture)
+                            pictureLinearLayoutContainer.addView(imageView)
+                            imageView.layoutParams =
+                                LinearLayout.LayoutParams(constraintLayout.height * 1 / 2, constraintLayout.height * 1 / 2)
+                                    .apply{ topMargin = constraintLayout.height * 1 / 4 }
+                                    .apply{ bottomMargin = constraintLayout.height * 1 / 4 }
+                                    .apply { leftMargin = constraintLayout.height * 1 / 6 }
+                                    .apply { rightMargin = constraintLayout.height * 1 / 6 }
+                            imageView.adjustViewBounds = true
+
+                            // グッズ名を配置
+                            val textView = TextView(applicationContext)
+                            textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう！"
+                            textView.textSize = 20F
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.WHITE)
+                            textView.gravity = Gravity.CENTER
+                            pictureLinearLayoutContainer.addView(textView)
+                            textView.layoutParams =
+                                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                        }
                     }
+                }
+            }
+        })
+    }
+
+    // ====================
+    // 追加個数をDBに登録する
+    // ====================
+    fun changeGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int, search_data: String) {
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 追加個数をDBに登録するAPIにリクエストを投げる
+        changeGoodsQuantityDataBase(now_refrigerator_id, goods_id, goods_name, selectedItem, search_data)
+    }
+
+    // =======================================
+    // 追加個数をDBに登録するAPIにリクエストを投げる
+    // =======================================
+    private fun changeGoodsQuantityDataBase(refrigerator_id: String, goods_id: String, goods_name: String, add_quantity: Int, search_data: String) {
+
+        val handler = Handler()
+
+        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", refrigerator_id)
+            .add("goods_id", goods_id)
+            .add("add_quantity", add_quantity.toString())
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        handler.post {
+
+                            // Bundleのインスタンスを作成する
+                            val bundle = Bundle()
+                            // Key/Pairの形で値をセットする
+                            bundle.putString("KEY_GOODS_NAME", goods_name)
+                            bundle.putString("KEY_CHANGE_QUANTITY", add_quantity.toString())
+                            bundle.putString("KEY_SEARCH_DATA", search_data)
+                            // Fragmentに値をセットする
+                            val dialog = ChangeGoodsQuantityResultDialog()
+                            dialog.setArguments(bundle)
+                            // ChangeGoodsQuantityResultDialogを表示
+                            dialog.show(supportFragmentManager, "ChangeGoodsQuantityResult")
+                        }
+                    }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
                 }
             }
         })
@@ -454,9 +598,14 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                 // Toastを表示
                 Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
             }
-            // 冷蔵庫の中身を登録画面(RegistrationActivity.kt)へ遷移
+            // 写真から冷蔵庫の中身を登録する処理
             1 -> {
-                val intent = Intent(this, RegistrationActivity::class.java)
+                // Toastを表示
+                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+            }
+            // 冷蔵庫の中身を登録画面(RegistrationClickActivity.kt)へ遷移
+            2 -> {
+                val intent = Intent(this, RegistrationClickActivity::class.java)
                     .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intent)
             }
@@ -464,5 +613,49 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
     }
 
     override fun onSelectNextActionDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // 増やすが選択されたとき
+    override fun onNumberPickerDialogAddClick(
+        dialog: DialogFragment,
+        selectedItem: Int,
+        goods_id: String,
+        goods_name: String,
+        search_data: String
+    ) {
+
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            Log.i("増やされた数は", selectedItem.toString())
+            // 個数をDBに追加する
+            changeGoodsQuantity(goods_id, goods_name, selectedItem, search_data)
+        }
+    }
+
+    // 減らすが選択されたとき
+    override fun onNumberPickerDialogSubClick(
+        dialog: DialogFragment,
+        selectedItem: Int,
+        goods_id: String,
+        goods_name: String,
+        search_data: String
+    ) {
+
+        val subNumber = -selectedItem
+
+        // 0でなければ追加
+        if (selectedItem != 0) {
+            Log.i("減らされた数は", subNumber.toString())
+            // 個数をDBから減らす
+            changeGoodsQuantity(goods_id, goods_name, subNumber, search_data)
+        }
+    }
+
+    override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // 変更確認ボタンがクリックされたとき
+    override fun onNoticeChangeGoodsResultPositiveClick(dialog: DialogFragment, search_data: String) {
+        viewSearchData(search_data)
     }
 }

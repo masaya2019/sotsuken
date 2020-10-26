@@ -26,7 +26,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener {
+class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener, ChangeGoodsQuantityResultDialog.NoticeChangeGoodsResultDialogListener {
 
     private lateinit var background: ConstraintLayout
     private lateinit var categoryBtnContainer: LinearLayout
@@ -419,7 +419,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         val handler = Handler()
 
-        val url = "http://10.0.2.2/sotsuken/api/add_goods_quantity_database.php"
+        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)
@@ -455,9 +455,9 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                             val bundle = Bundle()
                             // Key/Pairの形で値をセットする
                             bundle.putString("KEY_GOODS_NAME", goods_name)
-                            bundle.putString("KEY_ADD_QUANTITY", add_quantity.toString())
+                            bundle.putString("KEY_CHANGE_QUANTITY", add_quantity.toString())
                             // Fragmentに値をセットする
-                            val dialog = AddGoodsQuantityResultDialog()
+                            val dialog = ChangeGoodsQuantityResultDialog()
                             dialog.setArguments(bundle)
                             // AddGoodsQuantityResultDialogを表示
                             dialog.show(supportFragmentManager, "AddGoodsQuantityResult")
@@ -481,6 +481,13 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
                 }
             }
         })
+    }
+
+    override fun onNoticeChangeGoodsResultPositiveClick(
+        dialog: DialogFragment,
+        search_data: String
+    ) {
+        return
     }
 
 }
