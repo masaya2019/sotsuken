@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
 import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
+import kotlinx.android.synthetic.main.activity_member_registration_form.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -437,6 +438,8 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                             // スクロールの一番上に戻す
                             pictuteScrollView.scrollTo(0, 0)
 
+                            val pictureDataArray: Array<String?> = arrayOfNulls(datas.length() * 4)
+
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
 
@@ -445,6 +448,9 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                                 // 写真名
                                 val pictureName = zeroJsonObj.getString("refrigerator_picture_name")
+
+                                // 写真名を配列に追加
+                                pictureDataArray[i] = pictureName
 
                                 // グッズ画像を配置
                                 val imageView = ImageView(applicationContext)
@@ -464,6 +470,15 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 imageView.setOnClickListener {
                                     // その画像のIdを取得
                                     val thisId = imageView.id
+//                                    // 写真名に変換
+//                                    Toast.makeText(applicationContext, pictureDataArray[thisId - 20000], Toast.LENGTH_LONG).show()
+
+                                    // 冷蔵庫写真画面(ViewRefrigeratorPictureActivity.kt)へ遷移
+                                    val intent = Intent(applicationContext, ViewRefrigeratorPictureActivity::class.java)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                    // 現在の写真名を渡す
+                                    intent.putExtra("picture_name", pictureDataArray[thisId - 20000])
+                                    startActivity(intent)
                                 }
                             }
                         }
@@ -475,9 +490,8 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                             // 今あるpictureLinearLayoutContainer下のviewを消す
                             pictureLinearLayoutContainer.removeAllViewsInLayout()
 
-                            // グッズ画像を配置
                             val imageView = ImageView(applicationContext)
-                            // 仮の画像と+を配置
+                            // 写真アイコンを配置
                             imageView.setBackgroundResource(R.drawable.icon_picture)
                             pictureLinearLayoutContainer.addView(imageView)
                             imageView.layoutParams =
@@ -488,7 +502,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                     .apply { rightMargin = constraintLayout.height * 1 / 6 }
                             imageView.adjustViewBounds = true
 
-                            // グッズ名を配置
+                            // テキストを配置
                             val textView = TextView(applicationContext)
                             textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう！"
                             textView.textSize = 20F
