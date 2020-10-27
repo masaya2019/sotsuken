@@ -44,4 +44,5 @@
     <string name="sampleButton">オススメ</string>
     <string name="sampleButton2">定番</string>
     <string name="Shun">旬</string>
+    <string name="popText">旬</string>
 </resources>
