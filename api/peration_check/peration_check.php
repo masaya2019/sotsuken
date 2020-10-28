@@ -86,6 +86,19 @@
     <input type="text" name="refrigerator_id">
     <input type="submit" value="Go">
   </form>
+
+  <h2>delete_my_refrigerator_picture.php</h2>
+  <form action="../delete_my_refrigerator_picture.php" method="post">
+    <p>冷蔵庫ID</p>
+    <input type="text" name="refrigerator_id">
+    <p>写真名</p>
+    <input type="text" name="picture_name">
+    <input type="submit" value="Go">
+  </form>
+
+  <br>
+  <br>
+  <br>
 </body>
 
 </html>
