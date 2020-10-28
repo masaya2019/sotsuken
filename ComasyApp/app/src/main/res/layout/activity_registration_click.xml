@@ -2,69 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/MenuBarConstraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@color/imageColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/transitionRefrigeratorButton"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_sel_refrigerator" />
-
-            <ImageView
-                android:id="@+id/transitionColumnButton"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_column" />
-
-            <ImageView
-                android:id="@+id/transitionSearchButton"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_search" />
-
-            <ImageView
-                android:id="@+id/transitionMemoButton"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_memo" />
-
-            <ImageView
-                android:id="@+id/transitionSettingButton"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_setting" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent"
+    tools:context=".RegistrationClickActivity">
 
     <HorizontalScrollView
         android:id="@+id/categoryLayoutView"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchLayoutView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +41,6 @@
                 android:layout_weight="1"
                 android:background="@color/vegetableColor"
                 android:text="@string/cat01_btnText"
-                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/category_navigation_size"
                 android:textStyle="bold" />
@@ -167,71 +113,132 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="refrigeratorIdDeleteButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@color/pictureListBarBackgroundColor"
-        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView">
-
-        <ImageButton
-            android:id="@+id/selectNextActionButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/pictureListBarBackgroundColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pictuteScrollView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_plus" />
-
-        <HorizontalScrollView
-            android:id="@+id/pictuteScrollView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/selectNextActionButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:id="@+id/pictureLinearLayoutContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"/>
-        </HorizontalScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
-        android:id="@+id/homeScrollView"
+        android:id="@+id/searchLayoutView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
 
-        <LinearLayout
-            android:id="@+id/viewLinearlayoutContainer"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/searchImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/inputSearchText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputSearchText"
+            app:srcCompat="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/inputSearchText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="64dp"
+            android:ems="10"
+            android:hint="@string/searchGoodshint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.495" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+        </LinearLayout>
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MenuBarConstraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/imageColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/transitionRefrigeratorButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_refrigerator" />
+
+            <ImageView
+                android:id="@+id/transitionColumnButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_column" />
+
+            <ImageView
+                android:id="@+id/transitionSearchButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_search" />
+
+            <ImageView
+                android:id="@+id/transitionMemoButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_memo" />
+
+            <ImageView
+                android:id="@+id/transitionSettingButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_setting" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/search_error_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/category_navigation_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

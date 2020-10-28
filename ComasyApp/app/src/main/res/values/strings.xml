@@ -22,6 +22,13 @@
     <string name="ReviewText">レビュー/評価</string>
     <string name="customizeText">画面カスタマイズ</string>
     <string name="logoutText">ログアウト</string>
+    <string name="cat01_btnText">野 菜</string>
+    <string name="cat02_btnText">飲 み 物</string>
+    <string name="cat03_btnText">肉 類</string>
+    <string name="cat04_btnText">魚 介 類</string>
+    <string name="cat05_btnText">デ ザ ー ト</string>
+    <string name="cat06_btnText">調 味 料</string>
+    <string name="cat07_btnText">そ の 他</string>
     <string name="memo">メモ</string>
     <string name="backButton"><![CDATA[< 戻る]]></string>
     <string name="momoTextHint">タイトルを入力</string>
@@ -31,4 +38,11 @@
     <string name="testButton">test</string>
     <string name="extBoxHint" />
     <string name="memoTextBoxHint">128文字まで入力できます</string>
+    <string name="searchGoodshint">食材、キーワードを入力</string>
+    <string name="cat00_btnText">A L L</string>
+    <string name="sampleRecipiText">▲詰め物トマトのオーブン焼き</string>
+    <string name="sampleButton">オススメ</string>
+    <string name="sampleButton2">定番</string>
+    <string name="Shun">旬</string>
+    <string name="popText">旬</string>
 </resources>

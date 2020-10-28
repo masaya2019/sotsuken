@@ -6,6 +6,181 @@
     android:layout_height="match_parent"
     tools:context=".RecipeSearchActivity">
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="356dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:queryHint="料理名、食材、目的"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </SearchView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/recipeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/recipeImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/tomato" />
+
+                    <TextView
+                        android:id="@+id/potTextView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginRight="@dimen/popMargin"
+                        android:layout_marginBottom="@dimen/popMargin"
+                        android:autoText="false"
+                        android:background="@drawable/background_circle"
+                        android:gravity="center"
+                        android:text="@string/popText"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/recipiTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center"
+                    android:text="@string/sampleRecipiText"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <Button
+                        android:layout_width="17dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#009688"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:id="@+id/trendTag2"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="217dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:id="@+id/trendTag1"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:layout_width="17dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="200dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#1E90FF"
+                        android:text="@string/Blank" />
+
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <Button
+                        android:layout_width="17dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#FFA500"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:id="@+id/trendTag4"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="217dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:id="@+id/trendTag3"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:layout_width="17dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="200dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DA70D6"
+                        android:text="@string/Blank" />
+
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MenuBarConstraintLayout"
         android:layout_width="0dp"
@@ -61,4 +236,5 @@
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

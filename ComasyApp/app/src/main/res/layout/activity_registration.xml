@@ -53,7 +53,7 @@
                 app:srcCompat="@drawable/icon_memo" />
 
             <ImageView
-                android:id="@+id/transitionSettingButton2"
+                android:id="@+id/transitionSettingButton"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_weight="1"

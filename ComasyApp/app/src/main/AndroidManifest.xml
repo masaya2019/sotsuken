@@ -3,6 +3,7 @@
     package="com.example.comasyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".ViewRefrigeratorPictureActivity"></activity>
+        <activity android:name=".RegistrationClickActivity" />
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
         <activity android:name=".MemoActivity" />
-        <activity android:name=".MemoTextActivity"></activity>
+        <activity android:name=".MemoTextActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".MemberRegistrationConfirmActivity" />
         <activity android:name=".MemberRegistrationFormActivity" />
