@@ -33,39 +33,40 @@ $row = mysqli_fetch_assoc($result);
 if($row["num"]){
 	//レコードが存在する場合、{ “status” : “yes” }を返す。
 	$status = "yes";
-
-	//使用者の'refrigerator_id'に一致するレコードを日付順に抽出
-	$sql = "SELECT * FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' ORDER BY datetime DESC;";
-	$result = querySql($db, $sql);
-
-	//レコードを配列に格納
-	$cnt = 0;
-	while($row = mysqli_fetch_assoc($result)){
-		$mail_address[$cnt] = $row["mail_address"];
-		$datetime[$cnt] = $row["datetime"];
-		$memo_title[$cnt] = $row["memo_title"];
-		$memo_contents[$cnt] = $row["memo_contents"];
-		$cnt++;
-	}
 }else{
 	//レコードが存在しないときは、{ “status” : “no_recode” }を返す。
 	$status = "no_recode";
 }
 
+$data = array(
+	'status' => $status,
+	'data' => array()
+);
+
 //$data にJSON形式で結果を格納
 if($status == "yes"){
 	//{“status” : “yes” }なら'refrigerator_id'と一致する'mail_address'、'datetime'、'memo_title'を返す。
-	$data = [
-		$status,
-		$mail_address,
-		$datetime,
-		$memo_title,
-		$memo_contents
-	];
-}else{
-	$data = [
-		$status
-	];
+	
+	//使用者の'refrigerator_id'に一致するレコードを日付順に抽出
+	$sql = "SELECT * FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' ORDER BY datetime DESC;";
+	$result = querySql($db, $sql);
+
+	//レコードを配列に格納
+	while($row = mysqli_fetch_assoc($result)){
+		$mail_address = $row["mail_address"];
+		$datetime = $row["datetime"];
+		$memo_title = $row["memo_title"];
+
+		array_push(
+			$data['data'],
+			array(
+			'mail_address' => $mail_address,
+			'datetime' => $datetime,
+			'memo_title' => $memo_title
+			)
+		);
+		
+	}
 }
 
 //JSONを送信
