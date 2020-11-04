@@ -38,7 +38,6 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-('', ''),
 ('cat01', 'vegetable'),
 ('cat02', 'drink'),
 ('cat03', 'meat_egg_milk'),
