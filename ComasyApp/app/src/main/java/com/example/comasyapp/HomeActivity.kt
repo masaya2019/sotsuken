@@ -609,8 +609,9 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         when (which) {
             // 冷蔵庫の写真を登録する処理
             0 -> {
-                // Toastを表示
-                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, TakeRefrigeratorPictureActivity::class.java)
+                    .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
             }
             // 写真から冷蔵庫の中身を登録する処理
             1 -> {
