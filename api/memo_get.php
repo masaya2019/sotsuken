@@ -32,12 +32,12 @@ $result = querySql($db, $sql);
 $row = mysqli_fetch_assoc($result);
 
 //レコードの真偽判定
-if($row["num"]){
-	//レコードが存在する場合、{ “status” : “yes” }を返す。
-	$status = "yes";
-}else{
-	//レコードが存在しないときは、{ “status” : “no_recode” }を返す。
-	$status = "no_recode";
+if ($row["num"]) {
+    //レコードが存在する場合、{ “status” : “yes” }を返す。
+    $status = "yes";
+} else {
+    //レコードが存在しないときは、{ “status” : “no_recode” }を返す。
+    $status = "no_recode";
 }
 
 //$data にJSON形式で結果を格納
@@ -46,21 +46,22 @@ $data = [
 ];
 
 //$data にJSON形式で結果を格納
-if($status == "yes"){
-	//{“status” : “yes” }なら'refrigerator_id'、'mail_address'、'datetime'と一致する'memo_contents'を返す。
-	
-	//'refrigerator_id'、'mail_address'、'datetime'に一致するレコードを抽出
-	$sql = "SELECT memo_contents FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' AND mail_address = '". $mail_address ."' AND datetime = '". $datetime ."';";
-	$result = querySql($db, $sql);
-	$row = mysqli_fetch_assoc($result);
+if ($status == "yes") {
+    //{“status” : “yes” }なら'refrigerator_id'、'mail_address'、'datetime'と一致する'memo_contents'を返す。
+    
+    //'refrigerator_id'、'mail_address'、'datetime'に一致するレコードを抽出
+    $sql = "SELECT memo_title, memo_contents FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' AND mail_address = '". $mail_address ."' AND datetime = '". $datetime ."';";
+    $result = querySql($db, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $memo_title = $row["memo_title"];
     $memo_contents = $row["memo_contents"];
 
     //$data にJSON形式で結果を格納
     $data = [
         'status' => $status,
+        'memo_title' => $memo_title,
         'memo_contents' => $memo_contents
     ];
-    
 }
 
 //JSONを送信

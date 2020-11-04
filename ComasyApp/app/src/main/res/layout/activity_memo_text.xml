@@ -77,40 +77,60 @@
 
     <EditText
         android:id="@+id/memoTextTitleBox"
-        android:layout_width="299dp"
+        android:layout_width="300dp"
         android:layout_height="53dp"
-        android:layout_marginTop="148dp"
         android:ems="10"
         android:hint="@string/memoTextTitle"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/memoTextBox"
         android:layout_width="300dp"
         android:layout_height="233dp"
-        android:layout_marginTop="200dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/memoTextBoxHint"
         android:inputType="textMultiLine"
         android:maxLength="128"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/save"
+        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/TitleText"
+        android:textSize="@dimen/titlesize"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/MemoDetailText"
+        android:textSize="@dimen/titlesize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memoTextTitleBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
