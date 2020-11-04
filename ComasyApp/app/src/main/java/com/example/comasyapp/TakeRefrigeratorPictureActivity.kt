@@ -2,6 +2,7 @@ package com.example.comasyapp
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -26,6 +27,10 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameraRequest)
+
+        // 初回アクセス時にカメラを起動
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, cameraRequest)
 
         // 画像をクリックしたら
         imageView.setOnClickListener {
@@ -54,6 +59,14 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
 
     // 写真をアップロードする
     fun upload() {
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // ランダムな2桁の文字を生成
+        val randomNumbr = (0..9).random().toString() + (0..9).random().toString()
+
         Log.i("ok!", "ok！")
         val c = OkHttpClient()
 
@@ -63,7 +76,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-            .addFormDataPart("image", "test.png",
+            .addFormDataPart("image", "${refrigerator_id}_tmp${randomNumbr}.png",
                 RequestBody.create(MediaType.parse("image/*png"),byteArray)).build()
 
         val r = Request.Builder().url("http://10.0.2.2/sotsuken/api/upload_image.php").post(requestBody).build()
