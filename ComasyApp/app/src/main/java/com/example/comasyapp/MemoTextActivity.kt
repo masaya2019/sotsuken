@@ -47,12 +47,6 @@ class MemoTextActivity : AppCompatActivity() {
         // InputMethodManagerを取得
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // 前の画面からメールアドレスと日付を受け取ったら
-        if (intent.getStringExtra("mail_address").toString() != null && intent.getStringExtra("datetime").toString() != null) {
-            // メモ一覧を表示
-            setMemoDetails(intent.getStringExtra("mail_address").toString(), intent.getStringExtra("datetime").toString())
-        }
-
         /*不要の為削除
         //戻るボタンを押したとき
         addButton.setOnClickListener {
@@ -111,67 +105,6 @@ class MemoTextActivity : AppCompatActivity() {
         background.requestFocus()
 
         return false
-    }
-
-    // メモ詳細を表示
-    private fun setMemoDetails(mail_address: String, datetime: String) {
-
-        // 本体からrefrigerator_idを取得
-        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
-        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
-
-        val handler = Handler()
-
-        // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/memo_get.php"
-
-        val body = FormBody.Builder(charset("UTF-8"))
-            .add("refrigerator_id", now_refrigerator_id)
-            .add("mail_address", mail_address)
-            .add("datetime", datetime)
-            .build()
-
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
-
-        OkHttpClient().newCall(request).enqueue(object : Callback {
-
-            // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
-
-            // リクエスト結果受取に成功
-            override fun onResponse(call: Call, response: Response) {
-
-                // 全体のJSONObjectをとる
-                val jsonObj = JSONObject(response.body()?.string())
-
-                // responseのstatusに対応する値（）を取得
-                val apiStatus = jsonObj.getString("status")
-
-                // responseのstatusによって次の画面に進むorエラーを表示する
-                when (apiStatus) {
-
-                    //  結果がyesなら
-                    "yes" -> {
-                        // メモ内容（タイトル）を取得
-                        val memo_title = jsonObj.getString("memo_title")
-                        // メモ内容（詳細）を取得
-                        val memo_contents = jsonObj.getString("memo_contents")
-
-                        handler.post {
-                            // 新規メモ作成を削除
-                            textView2.text = ""
-                            // メモ内容（タイトル）をセット
-                            memoTextTitleBox.setText(memo_title)
-                            // メモ内容（詳細）をセット
-                            memoTextBox.setText(memo_contents)
-                        }
-                    }
-                }
-            }
-        })
     }
 
     // メモのタイトルと内容を保存する
