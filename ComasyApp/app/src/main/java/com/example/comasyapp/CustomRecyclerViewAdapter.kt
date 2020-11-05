@@ -33,7 +33,7 @@ class CustomRecyclerViewAdapter(list : MutableList<OneItemMemoTitle>): RecyclerV
 
             val context=holder.itemView.context
             // メモ詳細画面(MemoTextActivity.kt)へ遷移する
-            val intent = Intent(context, MemoTextActivity::class.java)
+            val intent = Intent(context, MemoActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             // メールアドレスを渡す
             intent.putExtra("mail_address", item.textAddress)
