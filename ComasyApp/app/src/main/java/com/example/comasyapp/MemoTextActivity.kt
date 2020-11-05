@@ -49,6 +49,7 @@ class MemoTextActivity : AppCompatActivity() {
 
         // 前の画面からメールアドレスと日付を受け取ったら
         if (intent.getStringExtra("mail_address").toString() != null && intent.getStringExtra("datetime").toString() != null) {
+            // メモ一覧を表示
             setMemoDetails(intent.getStringExtra("mail_address").toString(), intent.getStringExtra("datetime").toString())
         }
 
@@ -60,10 +61,12 @@ class MemoTextActivity : AppCompatActivity() {
             startActivity(intent)
         }*/
 
-        /*
         //保存ボタンをクリックしたとき
-        saveButton.setOnClickListener {}
-        */
+        saveButton.setOnClickListener {
+            // メモのタイトルと内容を保存する
+            saveMemoDetails()
+        }
+
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
@@ -111,7 +114,7 @@ class MemoTextActivity : AppCompatActivity() {
     }
 
     // メモ詳細を表示
-    fun setMemoDetails(mail_address: String, datetime: String) {
+    private fun setMemoDetails(mail_address: String, datetime: String) {
 
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
@@ -164,6 +167,82 @@ class MemoTextActivity : AppCompatActivity() {
                             memoTextTitleBox.setText(memo_title)
                             // メモ内容（詳細）をセット
                             memoTextBox.setText(memo_contents)
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    // メモのタイトルと内容を保存する
+    private fun saveMemoDetails() {
+        // タイトルが入力されていないなら
+        if (memoTextTitleBox.text.toString() == "") {
+            errorTextTitle.text = "メモタイトルを入力してください！"
+            // タイトルが入力されていたら
+        } else {
+            // タイトルと内容を取得
+            val memo_title = memoTextTitleBox.text.toString()
+            val memo_contents = memoTextBox.text.toString()
+
+            Log.i("メモ", "${memo_title} ${memo_contents}")
+
+            // メモをデータベースに登録
+            RegisterMemo(memo_title, memo_contents)
+        }
+    }
+
+    // メモをデータベースに登録
+    private fun RegisterMemo(memo_title: String, memo_contents: String) {
+        // 本体からrefrigerator_idを取得
+        var pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        // 本体からメールアドレスを取得
+        pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "").toString()
+
+        val handler = Handler()
+
+        // リクエスト先URL
+        val url = "http://10.0.2.2/sotsuken/api/memo_add.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("refrigerator_id", now_refrigerator_id)
+            .add("mail_address", login_mail_address)
+            .add("memo_title", memo_title)
+            .add("memo_contents", memo_contents)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            // リクエスト結果受取に失敗
+            override fun onFailure(call: Call, e: IOException) {}
+
+            // リクエスト結果受取に成功
+            override fun onResponse(call: Call, response: Response) {
+
+                // 全体のJSONObjectをとる
+                val jsonObj = JSONObject(response.body()?.string())
+
+                // responseのstatusに対応する値（）を取得
+                val apiStatus = jsonObj.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  結果がyesなら
+                    "yes" -> {
+                        handler.post {
+                            // メモ画面(MemoActivity.kt)へ遷移
+                            val intent = Intent(applicationContext, MemoActivity::class.java)
+                                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            startActivity(intent)
                         }
                     }
                 }

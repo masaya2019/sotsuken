@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
 import kotlinx.android.synthetic.main.activity_member_registration_form.*
 import kotlinx.android.synthetic.main.activity_memo.*
+import kotlinx.android.synthetic.main.activity_memo_text.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
