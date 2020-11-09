@@ -199,6 +199,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
     // 検索結果（カテゴリーorキーワード）を表示するAPI
     // =======================================
     fun viewSearchData(search_data: String) {
+
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
 
