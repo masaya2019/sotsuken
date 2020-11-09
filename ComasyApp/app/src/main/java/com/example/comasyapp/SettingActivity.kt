@@ -24,6 +24,10 @@ class SettingActivity : AppCompatActivity() {
         val login_password = pref.getString("password", "")
 
 
+        // 冷蔵庫の切り替え/招待ボタンが押されたとき
+        changeButton.setOnClickListener {
+
+        }
 
         // ログアウトボタンが押されたとき
         logoutButton.setOnClickListener {
