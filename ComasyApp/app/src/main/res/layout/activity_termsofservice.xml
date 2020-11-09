@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="406dp"
+        android:layout_height="590dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- スクロールさせたいTextView -->
+        <TextView
+            android:id="@+id/tv_TOS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MenuBarConstraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/imageColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/transitionRefrigeratorButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_refrigerator" />
+
+            <ImageView
+                android:id="@+id/transitionColumnButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_column" />
+
+            <ImageView
+                android:id="@+id/transitionSearchButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_search" />
+
+            <ImageView
+                android:id="@+id/transitionMemoButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_sel_memo" />
+
+            <ImageView
+                android:id="@+id/transitionSettingButton"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_setting" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
