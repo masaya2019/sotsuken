@@ -47,4 +47,5 @@
     <string name="popText">旬</string>
     <string name="TitleText">タイトル</string>
     <string name="MemoDetailText">詳細</string>
+    <string name="testString">テスト用</string>
 </resources>
