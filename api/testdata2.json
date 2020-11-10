@@ -1,0 +1,14 @@
+{
+  "status" : "yes",
+  "data" : [
+    {
+      "refrigerator_id" : "r0001"
+    },
+    {
+      "refrigerator_id" : "r0004"
+    },
+    {
+      "refrigerator_id" : "r0005"
+    }
+  ]
+}

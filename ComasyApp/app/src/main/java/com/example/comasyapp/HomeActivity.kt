@@ -45,14 +45,6 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         // 冷蔵庫の写真を表示
         viewRefrigeratorPicture()
 
-//        // 本体からメールアドレスと冷蔵庫IDを削除
-//        deleteButton.setOnClickListener {
-//            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-//                clear()
-//                commit()
-//            }
-//        }
-
         // ============================
         // ＋ボタンをクリックしたときの処理
         // ============================

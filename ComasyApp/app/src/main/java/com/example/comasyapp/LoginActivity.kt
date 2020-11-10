@@ -173,7 +173,7 @@ class LoginActivity : AppCompatActivity() {
                             val refrigerator_id = jsonData.getString("refrigerator_id")
 
                             // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
-                            saveRefrigeratorata(mail_address, refrigerator_id)
+                            saveRefrigeratorData(mail_address, refrigerator_id)
 
                             // ホーム画面（HomeActivity.kt）へ遷移する
                             val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -219,7 +219,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
-    fun saveRefrigeratorata(mail_address: String, refrigerator_id: String) {
+    fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
         getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("refrigerator_id", refrigerator_id)
