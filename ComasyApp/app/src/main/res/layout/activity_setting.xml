@@ -6,153 +6,180 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/settingTitle"
-        android:layout_width="267dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/settingTitleText"
-        android:textAlignment="center"
-        android:textSize="30sp"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-    <LinearLayout
-        android:id="@+id/buttonLayout1"
-        android:layout_width="328dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingTitle">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonRavel1"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="#FFC107"
-            android:text="@string/Blank" />
+            <TextView
+                android:id="@+id/settingTitle"
+                android:layout_width="328dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/settingTitleText"
+                android:textAlignment="center"
+                android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/termsOfServiceButton"
-            android:layout_width="317dp"
-            android:layout_height="54dp"
-            android:background="#DFDFDF"
-            android:text="@string/TermsOfServiceText"
-            android:textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/buttonLayout1"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/buttonRavel1"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#FFC107"
+                    android:text="@string/Blank" />
 
-    <LinearLayout
-        android:id="@+id/buttonLayout2"
-        android:layout_width="328dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout1">
+                <Button
+                    android:id="@+id/termsOfServiceButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/TermsOfServiceText"
+                    android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/buttonRavel2"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="#E91E63"
-            android:text="@string/Blank" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/privacyPolicyButton"
-            android:layout_width="317dp"
-            android:layout_height="54dp"
-            android:background="#DFDFDF"
-            android:text="@string/PrivacyPolicyText"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buttonLayout2"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/buttonLayout3"
-        android:layout_width="328dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout2">
+                <Button
+                    android:id="@+id/buttonRavel2"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#E91E63"
+                    android:text="@string/Blank" />
 
-        <Button
-            android:id="@+id/buttonRavel3"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="#9C27B0"
-            android:text="@string/Blank" />
+                <Button
+                    android:id="@+id/privacyPolicyButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/PrivacyPolicyText"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/reviewButton"
-            android:layout_width="317dp"
-            android:layout_height="54dp"
-            android:background="#DFDFDF"
-            android:text="@string/ReviewText"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buttonLayout3"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/buttonLayout4"
-        android:layout_width="328dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout3">
+                <Button
+                    android:id="@+id/buttonRavel3"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#9C27B0"
+                    android:text="@string/Blank" />
 
-        <Button
-            android:id="@+id/buttonRavel4"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="#009688"
-            android:text="@string/Blank" />
+                <Button
+                    android:id="@+id/reviewButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/ReviewText"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/customizeButton"
-            android:layout_width="317dp"
-            android:layout_height="54dp"
-            android:background="#DFDFDF"
-            android:text="@string/customizeText"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buttonLayout4"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/buttonLayout5"
-        android:layout_width="328dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout4">
+                <Button
+                    android:id="@+id/buttonRavel4"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#29B6F6"
+                    android:text="@string/Blank" />
 
-        <Button
-            android:id="@+id/buttonRavel5"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="#ACACAC"
-            android:text="@string/Blank" />
+                <Button
+                    android:id="@+id/changeButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/changeText"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="317dp"
-            android:layout_height="54dp"
-            android:background="#DFDFDF"
-            android:text="@string/logoutText"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buttonLayout5"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonRavel5"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#009688"
+                    android:text="@string/Blank" />
+
+                <Button
+                    android:id="@+id/customizeButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/customizeText"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonLayout6"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonRavel6"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="#ACACAC"
+                    android:text="@string/Blank" />
+
+                <Button
+                    android:id="@+id/logoutButton"
+                    android:layout_width="317dp"
+                    android:layout_height="54dp"
+                    android:background="#DFDFDF"
+                    android:text="@string/logoutText"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MenuBarConstraintLayout"
