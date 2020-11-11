@@ -39,6 +39,15 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        // 削除ボタン（テスト用）が押されたとき
+        deleteButton.setOnClickListener {
+            // 本体からメールアドレスと冷蔵庫IDを削除
+            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+                clear()
+                commit()
+            }
+        }
+
         // デフォルトは所持アイテムを全部表示
         viewSearchData("cat00")
 
