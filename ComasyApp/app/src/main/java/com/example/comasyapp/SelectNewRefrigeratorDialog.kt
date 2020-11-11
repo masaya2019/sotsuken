@@ -38,7 +38,7 @@ class SelectNewRefrigeratorDialog: DialogFragment() {
             val strList = bundle.getStringArray("KEY_DATA_ARRAY")
 
             // Dialogの設定
-            builder.setTitle("何 を し ま す か ？")
+            builder.setTitle("どの冷蔵庫に切り替えますか？")
             builder.setItems(strList) { dialog, which ->
                 this.listener.onSelectNewRefrigeratorDialogClick(this, strList?.get(which).toString())
             }

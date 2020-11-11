@@ -251,6 +251,8 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                             // 冷蔵庫IDを入れる配列
                             val refrigeratorDataArray: Array<String?> = arrayOfNulls(datas.length() - 1)
 
+                            var j = 0
+
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
 
@@ -266,7 +268,8 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                                     Log.i("r_id", refrigerator_id)
 
                                     // 冷蔵庫IDを配列に追加
-                                    refrigeratorDataArray[i] = refrigerator_id
+                                    refrigeratorDataArray[j] = refrigerator_id
+                                    j++
                                 }
                             }
                             // 切り替え可能な冷蔵庫を表示
