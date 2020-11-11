@@ -19,7 +19,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -270,7 +270,17 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                                 }
                             }
                             // 切り替え可能な冷蔵庫を表示
-
+                            handler.post {
+                                // Bundleのインスタンスを作成する
+                                val bundle = Bundle()
+                                // Key/Pairの形で値をセットする
+                                bundle.putStringArray("KEY_DATA_ARRAY", refrigeratorDataArray)
+                                // Fragmentに値をセットする
+                                val dialog = SelectNewRefrigeratorDialog()
+                                dialog.setArguments(bundle)
+                                // SelectNewRefrigeratorDialogを表示
+                                dialog.show(supportFragmentManager, "SelectNewRefrigeratorDialog")
+                            }
                         }
                     }
 //                    // 以下はエラー用に仮作成
@@ -287,5 +297,30 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     override fun onNoOtherRefrigeratorDialogPositiveClick(dialog: DialogFragment) {
+    }
+
+    // 冷蔵庫を切り替える
+    override fun onSelectNewRefrigeratorDialogClick(dialog: DialogFragment, new_refrigerator_id: String) {
+
+        // 本体からメールアドレスと冷蔵庫IDを削除
+        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+            clear()
+            commit()
+        }
+
+        // 本体からメールアドレスを取得
+        var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "").toString()
+
+        // 本体に新しい冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
+        saveRefrigeratorData(login_mail_address, new_refrigerator_id)
+
+        // Home画面(HomeActivity.kt)へ遷移
+        val intent = Intent(applicationContext, HomeActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        startActivity(intent)
+    }
+
+    override fun onSelectNewRefrigeratorDialogNegativeClick(dialog: DialogFragment) {
     }
 }
