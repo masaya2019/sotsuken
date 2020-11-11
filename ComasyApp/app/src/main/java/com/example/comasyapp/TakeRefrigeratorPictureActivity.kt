@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -60,6 +61,8 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
     // 写真をアップロードする
     fun upload() {
 
+        val handler = Handler()
+
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
         val refrigerator_id = pref.getString("refrigerator_id", "").toString()
@@ -91,6 +94,12 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
                 Log.e("Success","成功？")
                 val s = response.body()!!.string()
                 Log.e("HI", s)
+                handler.post {
+                    // Home画面(HomeActivity.kt)へ遷移
+                    val intent = Intent(applicationContext, HomeActivity::class.java)
+                        .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                }
             }
         })
     }
