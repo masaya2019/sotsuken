@@ -15,8 +15,8 @@
 // デフォルトステータスをdefaultに設定
 $status = "default";
 
-// check_mail_address.phpを呼び出す
-require('not_api/check_mail_address.php');
+// connect_db.phpを呼び出す（データベースに接続）
+require('not_api/connect_db.php');
 
 // query_sql.phpを呼び出す
 require('not_api/query_sql.php');
@@ -35,7 +35,7 @@ if($row["num"]){
     // レコードが存在する場合、{ “status” : “yes” }を返す。
     $status = "yes";
 }else{
-    // レコードが存在しないときは、{ “status” : “no_recode” }を返す。
+    // レコードが存在しないときはレコードを追加して、{ “status” : “yes” }を返す。
     $sql = "INSERT INTO refrigerator (refrigerator_id,mail_address) VALUES ('". $refrigerator_id ."','". $mail_address ."');";
     $result = querySql($db, $sql);
     $status = "yes";
