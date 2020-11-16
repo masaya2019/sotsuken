@@ -105,10 +105,10 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                 // Toastを表示
                 Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
             }
-            // 招待する処理
+            // ほかのユーザーを同じ冷蔵庫に招待する処理
             3 -> {
-                // Toastを表示
-                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+                // ほかのユーザーを同じ冷蔵庫に招待する処理
+                inviteRefrigerator()
             }
         }
     }
@@ -128,10 +128,10 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/testdata1.json"
+        val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-            .add("refrigerator_id", now_refrigerator_id)
+            .add("mail_address", login_mail_address)
             .build()
 
         val request = Request.Builder()
@@ -205,7 +205,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val handler = Handler()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/testdata2.json"
+        val url = "http://10.0.2.2/sotsuken/api/refrigerator_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -325,5 +325,10 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     override fun onSelectNewRefrigeratorDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // ほかのユーザーを同じ冷蔵庫に招待する処理
+    private fun inviteRefrigerator() {
+
     }
 }
