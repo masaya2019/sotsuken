@@ -19,7 +19,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -105,10 +105,10 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                 // Toastを表示
                 Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
             }
-            // 招待する処理
+            // ほかのユーザーを同じ冷蔵庫に招待する処理
             3 -> {
-                // Toastを表示
-                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+                // ほかのユーザーを同じ冷蔵庫に招待する処理
+                inviteRefrigerator()
             }
         }
     }
@@ -128,10 +128,10 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/testdata1.json"
+        val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
-            .add("refrigerator_id", now_refrigerator_id)
+            .add("mail_address", login_mail_address)
             .build()
 
         val request = Request.Builder()
@@ -205,7 +205,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val handler = Handler()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/testdata2.json"
+        val url = "http://10.0.2.2/sotsuken/api/refrigerator_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -325,5 +325,76 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     override fun onSelectNewRefrigeratorDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // 他のユーザーを同じ冷蔵庫に招待する処理
+    private fun inviteRefrigerator() {
+        // メールアドレスを入力する
+        // Fragmentに値をセットする
+        val dialog = InviteRefrigeratorDialog()
+        // InviteRefrigeratorDialogを表示
+        dialog.show(supportFragmentManager, "InviteRefrigeratorDialog")
+    }
+
+    // 入力されたメールアドレスを登録
+    override fun onInviteRefrigeratorDialogPositiveClick(
+        dialog: DialogFragment,
+        invite_mail_address: String
+    ) {
+
+        // 本体からrefrigerator_idを取得
+        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        val url = "http://10.0.2.2/sotsuken/api/refrigerator_join.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("mail_address", invite_mail_address)
+            .add("refrigerator_id", now_refrigerator_id)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        // エラーを表示
+                        Log.e("めるあど", "登録！")
+                        }
+                    }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+            }
+        })
+    }
+
+    override fun onInviteRefrigeratorDialogNegativeClick(dialog: DialogFragment) {
     }
 }
