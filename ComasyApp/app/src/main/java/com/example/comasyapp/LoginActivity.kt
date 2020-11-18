@@ -27,6 +27,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
+//            clear()
+//            commit()
+//        }
+
         // 背景のレイアウトを取得
         background = findViewById(R.id.background)
 
