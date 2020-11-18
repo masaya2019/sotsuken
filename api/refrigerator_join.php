@@ -19,7 +19,8 @@ $status = "default";
 require('not_api/connect_db.php');
 
 // query_sql.phpを呼び出す
-require('not_api/query_sql.php');
+// require('not_api/query_sql.php');
+require('not_api/connect_database.php');
 
 // 冷蔵庫ID、メールアドレスを受け取る
 $refrigerator_id = $_POST["refrigerator_id"];
@@ -31,10 +32,10 @@ $result = querySql($db, $sql);
 $row = mysqli_fetch_assoc($result);
 
 // レコードの真偽判定
-if($row["num"]){
+if ($row["num"]) {
     // レコードが存在する場合、{ “status” : “yes” }を返す。
     $status = "yes";
-}else{
+} else {
     // レコードが存在しないときはレコードを追加して、{ “status” : “yes” }を返す。
     $sql = "INSERT INTO refrigerator (refrigerator_id,mail_address) VALUES ('". $refrigerator_id ."','". $mail_address ."');";
     $result = querySql($db, $sql);

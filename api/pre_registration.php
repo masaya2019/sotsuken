@@ -23,7 +23,8 @@ $status = "default";
 require('not_api/check_mail_address.php');
 
 // query_sql.phpを呼び出す
-require('not_api/query_sql.php');
+// require('not_api/query_sql.php');
+require('not_api/connect_database.php');
 
 // mail_addressが存在し、メールアドレスの形式になっているなら
 if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
