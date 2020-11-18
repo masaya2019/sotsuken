@@ -120,7 +120,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/memo_check.php"
+        val url = "http://r02isc2t119.sub.jp/api/memo_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)
@@ -195,7 +195,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/memo_get.php"
+        val url = "http://r02isc2t119.sub.jp/api/memo_get.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)

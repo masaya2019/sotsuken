@@ -128,7 +128,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
+        val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -205,7 +205,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val handler = Handler()
 
         // ダミーデータ
-        val url = "http://10.0.2.2/sotsuken/api/refrigerator_check.php"
+        val url = "http://r02isc2t119.sub.jp/api/refrigerator_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -346,7 +346,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "http://10.0.2.2/sotsuken/api/refrigerator_join.php"
+        val url = "http://r02isc2t119.sub.jp/api/refrigerator_join.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", invite_mail_address)

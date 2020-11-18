@@ -186,7 +186,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
+        val url = "http://r02isc2t119.sub.jp/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -398,7 +398,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/my_refrigerator_picture.php"
+        val url = "http://r02isc2t119.sub.jp/api/my_refrigerator_picture.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)
@@ -460,7 +460,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 pictureLinearLayoutContainer.addView(imageView)
                                 // 冷蔵庫の画像を取ってくる
                                 Picasso.get()
-                                    .load("http://10.0.2.2/sotsuken/api/images/${pictureName}.png")
+                                    .load("http://r02isc2t119.sub.jp/api/images/${pictureName}.png")
                                     .resize(0, constraintLayout.height)
                                     .into(imageView)
                                 imageView.layoutParams =
@@ -540,7 +540,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
         val handler = Handler()
 
-        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
+        val url = "http://r02isc2t119.sub.jp/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)

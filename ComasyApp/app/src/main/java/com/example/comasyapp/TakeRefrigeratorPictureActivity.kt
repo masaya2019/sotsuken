@@ -82,7 +82,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
             .addFormDataPart("image", "${refrigerator_id}_tmp${randomNumbr}.png",
                 RequestBody.create(MediaType.parse("image/*png"),byteArray)).build()
 
-        val r = Request.Builder().url("http://10.0.2.2/sotsuken/api/upload_image.php").post(requestBody).build()
+        val r = Request.Builder().url("http://r02isc2t119.sub.jp/api/upload_image.php").post(requestBody).build()
 
         c.newCall(r).enqueue(object: Callback{
 

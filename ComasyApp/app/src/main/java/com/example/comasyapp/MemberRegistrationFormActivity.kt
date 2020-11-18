@@ -118,7 +118,7 @@ class MemberRegistrationFormActivity : AppCompatActivity() {
     // メールアドレスと認証コードをチェックするAPIにリクエストを投げる
     private fun checkTokenApi(mail_address: String, token: String , handler: Handler, errorText: TextView) {
 
-        val url = "http://10.0.2.2/sotsuken/api/token_check.php"
+        val url = "http://r02isc2t119.sub.jp/api/token_check.php"
 
         Log.i("メールアドレス", token)
 

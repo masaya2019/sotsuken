@@ -52,7 +52,7 @@ class MemberRegistrationActivity : AppCompatActivity() {
     private fun sendMailApi(mail_address: String, handler: Handler, errorText: TextView) {
 
 
-        val url = "http://10.0.2.2/sotsuken/api/pre_registration.php"
+        val url = "http://r02isc2t119.sub.jp/api/pre_registration.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)
