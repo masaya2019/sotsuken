@@ -12,7 +12,9 @@ if (isset($_POST['refrigerator_id']) && isset($_POST['goods_id']) && isset($_POS
     require('not_api/query_sql.php');
 
     // connect_db.phpを呼び出す（データベースに接続）
-    require('not_api/connect_db.php');
+    // require('not_api/connect_db.php');
+    require('not_api/connect_database.php');
+
 
     // refrigerator_contentsテーブルにrefrigerator_idのgoods_idのレコードあるかどうか
     $sql = "SELECT COUNT(*) AS cnt FROM refrigerator_contents "

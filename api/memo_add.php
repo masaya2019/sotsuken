@@ -24,7 +24,8 @@ $memo_contents = $_POST['memo_contents'];
 require('not_api/query_sql.php');
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 //get_now_datetime.phpを呼び出し
 require('not_api/get_now_datetime.php');
