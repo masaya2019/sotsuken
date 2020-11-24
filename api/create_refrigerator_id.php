@@ -11,7 +11,9 @@ if (isset($_POST['mail_address'])) {
     require('not_api/query_sql.php');
 
     // connect_db.phpを呼び出す（データベースに接続）
-    require('not_api/connect_db.php');
+    // require('not_api/connect_db.php');
+    require('not_api/connect_database.php');
+
 
     // refrigeratorテーブルから全てのrefrigerator_idを取得
     $sql = "SELECT DISTINCT refrigerator_id FROM refrigerator";

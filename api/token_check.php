@@ -37,7 +37,8 @@ if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
         $token = $_POST['token'];
 
         // connect_db.phpを呼び出す（データベースに接続）
-        require('not_api/connect_db.php');
+        // require('not_api/connect_db.php');
+        require('not_api/connect_database.php');
 
         // pre_registrationにメールアドレスが登録済かどうかを確認する
         $sql = "SELECT COUNT(*) AS cnt FROM pre_registration WHERE mail_address = '" . $mail_address . "'";

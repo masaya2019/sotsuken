@@ -209,7 +209,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
+        val url = "http://r02isc2t119.sub.jp/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -420,7 +420,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         val handler = Handler()
 
-        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
+        val url = "http://r02isc2t119.sub.jp/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)

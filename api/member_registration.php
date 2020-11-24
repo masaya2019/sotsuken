@@ -13,7 +13,8 @@ $address = $_POST["mail_address"];
 $name = $_POST["user_name"];
 $pass = $_POST["password"];
 
-$db = mysqli_connect('localhost', 'root', '', 'comasy') or die(mysqli_connect_error());
+// $db = mysqli_connect('localhost', 'root', '', 'comasy') or die(mysqli_connect_error());
+require('not_api/connect_database.php');
 
 $sql = "INSERT INTO member_information VALUES('".$address."','".$name."','".$pass."')";
 

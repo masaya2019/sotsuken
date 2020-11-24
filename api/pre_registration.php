@@ -25,6 +25,7 @@ require('not_api/check_mail_address.php');
 // query_sql.phpを呼び出す
 require('not_api/query_sql.php');
 
+
 // mail_addressが存在し、メールアドレスの形式になっているなら
 if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
     $mail_address = $_POST['mail_address'];
@@ -34,7 +35,8 @@ if (isset($_POST['mail_address']) && checkAddress($_POST['mail_address'])) {
     $pre_registration_date = get_now_datetime();
 
     // connect_db.phpを呼び出す（データベースに接続）
-    require('not_api/connect_db.php');
+    // require('not_api/connect_db.php');
+    require('not_api/connect_database.php');
 
     // pre_registrationにメールアドレスが登録済かどうかを確認する
     $sql = "SELECT COUNT(*) AS cnt FROM pre_registration WHERE mail_address = '" . $mail_address . "'";
