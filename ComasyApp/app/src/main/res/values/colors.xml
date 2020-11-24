@@ -15,4 +15,5 @@
     <color name="allColor">#52504F</color>
     <color name="pictureListBarBackgroundColor">#424242</color>
     <color name="circleColor">#EB2222</color>
+    <color name="mainColor">#FFEE58</color>
 </resources>

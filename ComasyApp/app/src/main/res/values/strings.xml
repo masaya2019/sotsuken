@@ -28,7 +28,8 @@
     <string name="cat04_btnText">魚 介 類</string>
     <string name="cat05_btnText">デ ザ ー ト</string>
     <string name="cat06_btnText">調 味 料</string>
-    <string name="cat07_btnText">そ の 他</string>
+    <string name="cat07_btnText">主 食</string>
+    <string name="cat08_btnText">そ の 他</string>
     <string name="memo">メモ</string>
     <string name="backButton"><![CDATA[< 戻る]]></string>
     <string name="momoTextHint">タイトルを入力</string>
