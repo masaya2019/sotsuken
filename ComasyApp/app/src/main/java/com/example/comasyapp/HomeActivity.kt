@@ -123,13 +123,21 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
             // 調味料カテゴリを表示
             viewSearchData("cat06")
         }
-        // その他categoryボタンをクリックしたら
+        // 主食categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
             // スクロールの一番上に戻す
             homeScrollView.scrollTo(0,0)
 
             // その他カテゴリを表示
             viewSearchData("cat07")
+        }
+        // その他categoryボタンをクリックしたら
+        cat08_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
+
+            // その他カテゴリを表示
+            viewSearchData("cat08")
         }
 
         // ==============================
