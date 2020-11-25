@@ -325,8 +325,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
-                                        // 仮の画像としてみかん（未完）を配置
-                                        imageView.setImageResource(R.drawable.test_pic_mikan)
+                                        // 画像を配置
+                                        imageView.setImageResource(resources.getIdentifier("${AllDataArray[(i - j) * 3 + 0].toString()}", "drawable", getPackageName()))
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
                                         linearLayoutPic.addView(imageView)
