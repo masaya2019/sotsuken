@@ -62,7 +62,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
 
         // 前の画面からメールアドレスと日付を受け取ったら
         if (intent.getStringExtra("mail_address").toString() != null && intent.getStringExtra("datetime").toString() != null) {
-            // メモ一覧を表示
+            // メモ詳細を表示
             setMemoDetails(intent.getStringExtra("mail_address").toString(), intent.getStringExtra("datetime").toString())
         }
 
