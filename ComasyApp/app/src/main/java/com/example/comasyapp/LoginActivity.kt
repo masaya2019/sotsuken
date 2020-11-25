@@ -27,6 +27,22 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//        // 削除ボタン（テスト用）が押されたとき
+//        deleteButton.setOnClickListener {
+//            // 本体からメールアドレスと冷蔵庫IDを削除
+//            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//                clear()
+//                commit()
+//            }
+//        }
+
+//        // 削除ボタンを間違って押したとき（復旧用）
+//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//            putString("mail_address", "bjmk1290313@gn.iwasaki.ac.jp")
+//            putString("refrigerator_id", "r0001")
+//            commit()
+//        }
+
 //        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
 //            clear()
 //            commit()
