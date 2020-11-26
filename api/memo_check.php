@@ -50,7 +50,7 @@ if ($status == "yes") {
     //{“status” : “yes” }なら'refrigerator_id'と一致する'mail_address'、'datetime'、'memo_title'を返す。
     
     //使用者の'refrigerator_id'に一致するレコードを日付順に抽出
-    $sql = "SELECT * FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' ORDER BY datetime DESC;";
+    $sql = "SELECT * FROM memo INNER JOIN member_information ON memo.mail_address = member_information.mail_address WHERE refrigerator_id = '". $refrigerator_id ."' ORDER BY datetime DESC;";
     $result = querySql($db, $sql);
 
     //レコードを配列に格納
@@ -58,13 +58,15 @@ if ($status == "yes") {
         $mail_address = $row["mail_address"];
         $datetime = $row["datetime"];
         $memo_title = $row["memo_title"];
+        $user_name = $row["person_name"];
 
         array_push(
             $data['data'],
             array(
             'mail_address' => $mail_address,
             'datetime' => $datetime,
-            'memo_title' => $memo_title
+            'memo_title' => $memo_title,
+            'user_name' => $user_name
             )
         );
     }
