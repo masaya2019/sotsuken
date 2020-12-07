@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,9 +37,8 @@ import java.io.IOException
 class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetailsDialogListener,
     Parcelable {
 
-    private lateinit var adapter:CustomRecyclerViewAdapter
-    private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var itemDecoration: DividerItemDecoration
+    lateinit var mAdapter: MemoTitleCustomAdapter
+    lateinit var mMemoList: ArrayList<MemoTitle>
 
     constructor(parcel: Parcel) : this() {
 
@@ -48,23 +48,8 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memo)
 
-        //区切り線
-        itemDecoration = DividerItemDecoration(this,DividerItemDecoration.VERTICAL)
-        memoTitleTextView.addItemDecoration(itemDecoration)
-
-        //LayoutManager
-        layoutManager = LinearLayoutManager(this)
-        memoTitleTextView.layoutManager = layoutManager
-
-        //Adapter
-        adapter = CustomRecyclerViewAdapter(makeRecyclerData())
-        memoTitleTextView.adapter = this.adapter
-
-        // 前の画面からメールアドレスと日付を受け取ったら
-        if (intent.getStringExtra("mail_address").toString() != null && intent.getStringExtra("datetime").toString() != null) {
-            // メモ一覧を表示
-            setMemoDetails(intent.getStringExtra("mail_address").toString(), intent.getStringExtra("datetime").toString())
-        }
+        // メモタイトルを表示
+        makeRecyclerData()
 
         //追加ボタンを押したときの処理
         MemoAddButton.setOnClickListener {
@@ -110,8 +95,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
     // ================
     // メモタイトルを表示
     // ================
-    fun makeRecyclerData():MutableList<OneItemMemoTitle> {
-        var recyclerData :MutableList<OneItemMemoTitle> = mutableListOf()
+    fun makeRecyclerData() {
 
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
@@ -153,28 +137,75 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
                         //　dataをjson配列に入れる
                         val datas = jsonObj.getJSONArray("data")
 
+                        handler.post {
                             // データを1個づつ取り出す
                             for (i in 0 until datas.length()) {
 
                                 // 1レコードをjsonObjectに入れる
                                 val zeroJsonObj = datas.getJSONObject(i)
 
+                                // ユーザー名
+                                val user_name = zeroJsonObj.getString("user_name")
                                 // メールアドレスを取得
                                 val mail_address = zeroJsonObj.getString("mail_address")
                                 // 日付を取得
-                                val datetime = zeroJsonObj.getString("datetime")
+                                val post_datetime = zeroJsonObj.getString("datetime")
                                 // メモタイトルと取得
                                 val memo_title = zeroJsonObj.getString("memo_title")
 
-                                Log.i("取得レコード", "${datetime} ${mail_address} ${memo_title}")
+                                Log.i(
+                                    "取得レコード",
+                                    "${user_name} ${post_datetime} ${mail_address} ${memo_title}"
+                                )
 
-                                var oneitem: OneItemMemoTitle = OneItemMemoTitle()
-                                oneitem.textDatetime = datetime
-                                oneitem.textMemoTitle = memo_title
-                                oneitem.textAddress = mail_address
-                                recyclerData.add(oneitem)
-
+                                if (i == 0) {
+                                    mMemoList = arrayListOf(
+                                        MemoTitle(
+                                            user_name,
+                                            mail_address,
+                                            post_datetime,
+                                            memo_title
+                                        )
+                                    )
+                                } else {
+                                    mMemoList.add(
+                                        MemoTitle(
+                                            user_name,
+                                            mail_address,
+                                            post_datetime,
+                                            memo_title
+                                        )
+                                    )
+                                }
                             }
+                            // RecyclerViewの取得
+                            val recyclerView = findViewById<RecyclerView>(R.id.memoTitleTextView)
+
+                            // 区切り線の設定
+                            val itemDecoration = DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL)
+                            recyclerView.addItemDecoration(itemDecoration)
+
+                            // LayoutManagerの設定
+                            recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+
+                            // CustomAdapterの生成と設定
+                            mAdapter = MemoTitleCustomAdapter(mMemoList)
+                            recyclerView.adapter = mAdapter
+
+                            mAdapter.setOnItemClickListener(object:MemoTitleCustomAdapter.OnItemClickListener {
+                                override fun onItemClickListener(
+                                    view: View,
+                                    position: Int,
+                                    mail_address: String,
+                                    post_datetime: String
+                                ) {
+                                    Log.e("クリック確認", "${mail_address} ${post_datetime}")
+
+                                    // メモ詳細を表示
+                                    setMemoDetails(mail_address, post_datetime)
+                                }
+                            })
+                        }
                     }
 //                    // レコードがなければ
 //                    "no_recode_error" -> {
@@ -182,7 +213,6 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
                 }
             }
         })
-        return recyclerData
     }
 
     // メモ詳細を表示
@@ -258,10 +288,6 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         return 0
     }
 
-    override fun onViewMemoDetailsDialogPositiveClick(dialog: DialogFragment) {
-        Log.i("Dialog", "OK!!")
-    }
-
     companion object CREATOR : Parcelable.Creator<MemoActivity> {
         override fun createFromParcel(parcel: Parcel): MemoActivity {
             return MemoActivity(parcel)
@@ -270,5 +296,9 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         override fun newArray(size: Int): Array<MemoActivity?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun onViewMemoDetailsDialogPositiveClick(dialog: DialogFragment) {
+        Log.i("Dialog", "OK!!")
     }
 }

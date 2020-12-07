@@ -39,15 +39,6 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // 削除ボタン（テスト用）が押されたとき
-        deleteButton.setOnClickListener {
-            // 本体からメールアドレスと冷蔵庫IDを削除
-            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-                clear()
-                commit()
-            }
-        }
-
         // デフォルトは所持アイテムを全部表示
         viewSearchData("cat00")
 
@@ -123,13 +114,21 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
             // 調味料カテゴリを表示
             viewSearchData("cat06")
         }
-        // その他categoryボタンをクリックしたら
+        // 主食categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
             // スクロールの一番上に戻す
             homeScrollView.scrollTo(0,0)
 
             // その他カテゴリを表示
             viewSearchData("cat07")
+        }
+        // その他categoryボタンをクリックしたら
+        cat08_btn.setOnClickListener {
+            // スクロールの一番上に戻す
+            homeScrollView.scrollTo(0,0)
+
+            // その他カテゴリを表示
+            viewSearchData("cat08")
         }
 
         // ==============================
@@ -315,8 +314,8 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
-                                        // 仮の画像としてみかん（未完）を配置
-                                        imageView.setImageResource(R.drawable.test_pic_mikan)
+                                        // 画像を配置
+                                        imageView.setImageResource(resources.getIdentifier("${AllDataArray[(i - j) * 4 + 0]}", "drawable", getPackageName()))
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
                                         FrameLayoutPic.addView(imageView)

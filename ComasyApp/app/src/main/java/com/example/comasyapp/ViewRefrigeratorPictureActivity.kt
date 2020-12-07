@@ -153,7 +153,7 @@ class ViewRefrigeratorPictureActivity : AppCompatActivity(), DeleteVerificationD
                                 pictureLinearLayoutContainer2.addView(imageView)
                                 // 冷蔵庫の画像を取ってくる
                                 Picasso.get()
-                                    .load("http://10.0.2.2/sotsuken/api/images/${pictureName}.png")
+                                    .load("http://r02isc2t119.sub.jp/api/images/${pictureName}.png")
                                     .resize(0, constraintLayout.height)
                                     .into(imageView)
                                 imageView.layoutParams =
