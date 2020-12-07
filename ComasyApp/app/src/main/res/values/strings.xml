@@ -49,4 +49,5 @@
     <string name="TitleText">タイトル</string>
     <string name="MemoDetailText">詳細</string>
     <string name="changeText">冷蔵庫切り替え/招待</string>
+    <string name="sendPictureText">送信</string>
 </resources>

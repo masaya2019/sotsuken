@@ -39,10 +39,10 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
             startActivityForResult(cameraIntent, cameraRequest)
         }
 
-        // 送信ボタンをクリックしたら
-        send.setOnClickListener {
-            upload()
-        }
+//        // 送信ボタンをクリックしたら
+//        send.setOnClickListener {
+//            upload()
+//        }
 
     }
 
@@ -55,6 +55,8 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         if (requestCode == cameraRequest && resultCode == Activity.RESULT_OK && data != null) {
             photo = data.extras?.get("data") as Bitmap
             imageView.setImageBitmap(photo)
+            // 写真をアップロードする
+            upload()
         }
     }
 

@@ -16,11 +16,12 @@
 $status = "default";
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 // query_sql.phpを呼び出す
-// require('not_api/query_sql.php');
-require('not_api/connect_database.php');
+require('not_api/query_sql.php');
+
 
 // 冷蔵庫ID、メールアドレスを受け取る
 $refrigerator_id = $_POST["refrigerator_id"];
