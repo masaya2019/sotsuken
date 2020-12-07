@@ -1,7 +1,7 @@
 package com.example.comasyapp
 
 data class Columns(
-    val column_id: Int,
-    val column_title: String,
-    val column_contents: String
+    val cNum: String,
+    val name: String,
+    val imageId: Int
 )

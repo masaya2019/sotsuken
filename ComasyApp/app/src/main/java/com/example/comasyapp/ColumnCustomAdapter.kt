@@ -9,25 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ColumnCustomAdapter(private val columnList: ArrayList<Columns>): RecyclerView.Adapter<ColumnCustomAdapter.ViewHolder>() {
 
-    //Viewの初期化
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    // Viewの初期化
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView
+        val name: TextView
+        val cNum: TextView
 
-        //定義
-        val title: TextView
-
-        //つなげたレイアウトxmlのidを探す
         init {
-             title = view.findViewById(R.id.columnRecycleView)
+            image = view.findViewById(R.id.image)
+            name = view.findViewById(R.id.name)
+            cNum = view.findViewById(R.id.cNum)
         }
     }
 
 
     //レイアウトの設定
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):ViewHolder{
-
         //レイアウトxmlとつなげる
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.activity_column, viewGroup, false)
-
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.column_list_item, viewGroup, false)
         //上のViewHolderクラスに返す
         return ViewHolder(view)
     }
@@ -35,11 +34,14 @@ class ColumnCustomAdapter(private val columnList: ArrayList<Columns>): RecyclerV
 
     //Viewの設定
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val columns = columnList[position]
+        val column = columnList[position]
 
-        viewHolder.title.text = columns.column_title
+        viewHolder.image.setImageResource(column.imageId)
+        viewHolder.name.text = column.name
+        viewHolder.cNum.text = column.cNum.toString()
     }
 
     // 表示数を返す_最大まで表示
     override fun getItemCount() = columnList.size
+
 }
