@@ -132,7 +132,7 @@ if (isset($_POST['search_data'])) {
 
         $status = "yes";
     } else {
-        // 検索語句を含むレコードが存在委するか
+        // 検索語句を含むレコードが存在するか
         $sql = "SELECT COUNT(*) AS cnt FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
 
         // 接続したDBに対してSQL文を実行する
