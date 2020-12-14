@@ -96,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
 
             val handler = Handler()
 
+            Log.e("確認", mailAddress + " " + inputPassword)
+
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
             LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
         }
