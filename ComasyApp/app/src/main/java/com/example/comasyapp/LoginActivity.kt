@@ -37,12 +37,12 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //        }
 
-        // 削除ボタンを間違って押したとき（復旧用①）
-        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-            putString("mail_address", "bjmk1290313@gn.iwasaki.ac.jp")
-            putString("refrigerator_id", "r0001")
-            commit()
-        }
+//        // 削除ボタンを間違って押したとき（復旧用①）
+//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//            putString("mail_address", "bjmk1290313@gn.iwasaki.ac.jp")
+//            putString("refrigerator_id", "r0001")
+//            commit()
+//        }
 
 //        // 削除ボタンを間違って押したとき（復旧用②）
 //        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
