@@ -40,7 +40,7 @@ class SelectNewRefrigeratorDialog: DialogFragment() {
             // Dialogの設定
             builder.setTitle("どの冷蔵庫に切り替えますか？")
             builder.setItems(strList) { dialog, which ->
-                this.listener.onSelectNewRefrigeratorDialogClick(this, strList?.get(which).toString())
+                this.listener.onSelectNewRefrigeratorDialogClick(this, strList?.get(which).toString().substring(strList?.get(which).toString().length - 6, strList?.get(which).toString().length - 1))
             }
             builder.setNegativeButton("キャンセル") { dialog, id ->
                 this.listener.onSelectNewRefrigeratorDialogNegativeClick(this)

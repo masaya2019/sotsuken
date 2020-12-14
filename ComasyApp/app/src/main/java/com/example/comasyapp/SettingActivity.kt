@@ -262,13 +262,18 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
                                 // 冷蔵庫ID
                                 val refrigerator_id = zeroJsonObj.getString("refrigerator_id")
 
+                                // 冷蔵庫名
+                                val refrigerator_name = zeroJsonObj.getString("refrigerator_name")
+
+                                Log.e("冷蔵庫名", refrigerator_name.toString())
+
                                 // 現在の冷蔵庫でなければ
                                 if (refrigerator_id != now_refrigerator_id) {
 
                                     Log.i("r_id", refrigerator_id)
 
-                                    // 冷蔵庫IDを配列に追加
-                                    refrigeratorDataArray[j] = refrigerator_id
+                                    // 冷蔵庫IDと冷蔵庫名を配列に追加
+                                    refrigeratorDataArray[j] = refrigerator_name + "(${refrigerator_id})"
                                     j++
                                 }
                             }
@@ -304,6 +309,8 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 
     // 冷蔵庫を切り替える
     override fun onSelectNewRefrigeratorDialogClick(dialog: DialogFragment, new_refrigerator_id: String) {
+
+        Log.e("new_refrigerator_id確認", new_refrigerator_id)
 
         // 本体からメールアドレスと冷蔵庫IDを削除
         getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
