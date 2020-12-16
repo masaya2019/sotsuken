@@ -27,6 +27,9 @@ require('not_api/query_sql.php');
 $refrigerator_id = $_POST["refrigerator_id"];
 $mail_address = $_POST["mail_address"];
 
+// 仮の冷蔵庫名を登録
+$refrigerator_name = "招待された冷蔵庫";
+
 // refrigeratorテーブルに使用者の'refrigerator_id'があるか確認して結果を$rowに格納
 $sql = "SELECT EXISTS(SELECT * FROM refrigerator WHERE refrigerator_id = '". $refrigerator_id ."' AND mail_address = '". $mail_address ."') AS num;";
 $result = querySql($db, $sql);
@@ -38,7 +41,11 @@ if ($row["num"]) {
     $status = "yes";
 } else {
     // レコードが存在しないときはレコードを追加して、{ “status” : “yes” }を返す。
-    $sql = "INSERT INTO refrigerator (refrigerator_id,mail_address) VALUES ('". $refrigerator_id ."','". $mail_address ."');";
+    $sql = "INSERT INTO refrigerator(refrigerator_id, mail_address,refrigerator_name) VALUES('"
+        . $refrigerator_id . "', '"
+        . $mail_address . "', '"
+        . $refrigerator_name . "')";
+
     $result = querySql($db, $sql);
     $status = "yes";
 }
