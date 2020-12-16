@@ -19,7 +19,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -102,12 +102,14 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
             }
             // 冷蔵庫の名前を変更する処理
             2 -> {
-                // Toastを表示
-                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+//                // Toastを表示
+//                Toast.makeText(this, "その処理まだできてないんですよー", Toast.LENGTH_LONG).show()
+                // 冷蔵庫の名前を変更するAPI
+                renameRefrigeratorName()
             }
             // ほかのユーザーを同じ冷蔵庫に招待する処理
             3 -> {
-                // ほかのユーザーを同じ冷蔵庫に招待する処理
+                // ほかのユーザーを同じ冷蔵庫に招待するAPI
                 inviteRefrigerator()
             }
         }
@@ -403,5 +405,79 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     override fun onInviteRefrigeratorDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    // 冷蔵庫の名前を変更する処理
+    private fun renameRefrigeratorName() {
+        // NoOtherRefrigeratorDialogを表示
+        val dialog = RenameRefrigeratorNameDialog()
+        dialog.show(supportFragmentManager, "RenameRefrigeratorNameDialog")
+    }
+
+    // 入力された冷蔵庫名に変更
+    override fun onRenameRefrigeratorNameDialogPositiveClick(
+        dialog: DialogFragment,
+        new_refrigerator_name: String
+    ) {
+        Log.e("接続確認", "OK")
+        // 本体からメールアドレスを取得
+        var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+        val login_mail_address = pref.getString("mail_address", "").toString()
+
+        // 本体からrefrigerator_idを取得
+        pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+        val url = "http://r02isc2t119.sub.jp/api/rename_refrigerator_name.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("mail_address", login_mail_address)
+            .add("refrigerator_id", now_refrigerator_id)
+            .add("new_refrigerator_name", new_refrigerator_name)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    //  データベースに登録された場合
+                    "yes" -> {
+                        // エラーを表示
+                        Log.e("冷蔵庫名", "更新成功！")
+                    }
+                }
+//                    // 以下はエラー用に仮作成
+//                    // えらー１
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+            }
+        })
+    }
+
+    override fun onRenameRefrigeratorNameDialogNegativeClick(dialog: DialogFragment) {
     }
 }

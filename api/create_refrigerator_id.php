@@ -52,10 +52,25 @@ if (isset($_POST['mail_address'])) {
     // 新しいrefrigerator_idを発行
     $refrigerator_id = "r" . $new_refrigerator_id_str;
 
+    // 仮の冷蔵庫名を作成
+    // member_informationテーブルからperson_nameを取得
+    $sql = "SELECT DISTINCT person_name FROM member_information WHERE mail_address = '" . $mail_address . "'";
+
+    // 接続したDBに対してSQL文を実行する
+    $result = querySql($db, $sql);
+
+    $row = mysqli_fetch_assoc($result);
+
+    // レコードの真偽判定
+    if ($row["person_name"]) {
+        $refrigerator_name = $row["person_name"] . "の冷蔵庫";
+    }
+
     // refrigeratorテーブルにmail_addressとrefrigerator_idを登録する
-    $sql = "INSERT INTO refrigerator(refrigerator_id, mail_address) VALUES('"
+    $sql = "INSERT INTO refrigerator(refrigerator_id, mail_address,refrigerator_name) VALUES('"
         . $refrigerator_id . "', '"
-        . $mail_address . "')";
+        . $mail_address . "', '"
+        . $refrigerator_name . "')";
 
     // 接続したDBに対してSQL文を実行する
     $result = querySql($db, $sql);
