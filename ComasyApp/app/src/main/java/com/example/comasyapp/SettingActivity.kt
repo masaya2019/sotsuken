@@ -19,7 +19,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -455,8 +455,15 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 
                     //  データベースに登録された場合
                     "yes" -> {
-                        // エラーを表示
-                        Log.e("冷蔵庫名", "更新成功！")
+                        // Bundleのインスタンスを作成する
+                        val bundle = Bundle()
+                        // Key/Pairの形で値をセットする
+                        bundle.putString("KEY_NEW_NAME", new_refrigerator_name)
+
+                        // selectNextActionDialogを呼び出す
+                        val dialog = RenameRefrigeratorNameResultDialog()
+                        dialog.setArguments(bundle)
+                        dialog.show(supportFragmentManager, "RenameRefrigeratorNameResultDialog")
                     }
                 }
 //                    // 以下はエラー用に仮作成
@@ -479,5 +486,8 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     override fun onRenameRefrigeratorNameDialogNegativeClick(dialog: DialogFragment) {
+    }
+
+    override fun onRenameRefrigeratorNameResultDialogPositiveClick(dialog: DialogFragment) {
     }
 }
