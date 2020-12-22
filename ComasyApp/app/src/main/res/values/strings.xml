@@ -44,8 +44,7 @@
     <string name="sampleRecipiText">▲詰め物トマトのオーブン焼き</string>
     <string name="sampleButton">オススメ</string>
     <string name="sampleButton2">定番</string>
-    <string name="Shun">旬</string>
-    <string name="popText">旬</string>
+    <string name="potText">旬</string>
     <string name="TitleText">タイトル</string>
     <string name="MemoDetailText">詳細</string>
     <string name="changeText">冷蔵庫切り替え/招待</string>
