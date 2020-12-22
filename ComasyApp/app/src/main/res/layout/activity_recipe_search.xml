@@ -2,32 +2,59 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecipeSearchActivity">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="356dp"
-        android:layout_height="61dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
         android:layout_marginTop="8dp"
-        android:background="@android:drawable/editbox_dropdown_light_frame"
-        android:queryHint="料理名、食材、目的"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView">
 
-    </SearchView>
+        <ImageView
+            android:id="@+id/searchImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/inputSearchText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputSearchText"
+            app:srcCompat="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/inputSearchText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="64dp"
+            android:ems="10"
+            android:hint="@string/searchGoodshint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.495" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +88,6 @@
                         android:autoText="false"
                         android:background="@drawable/background_circle"
                         android:gravity="center"
-                        android:text="@string/popText"
                         android:textColor="@color/colorWhite"
                         android:textSize="40dp"
                         android:textStyle="bold" />
@@ -195,7 +221,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <LinearLayout
             android:layout_width="0dp"
