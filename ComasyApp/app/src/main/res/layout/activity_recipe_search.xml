@@ -49,7 +49,6 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,11 +60,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/recipeContainer"
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:text="@string/TagText"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/titlesize"
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -89,16 +92,6 @@
                         android:text="@string/Blank" />
 
                     <Button
-                        android:id="@+id/trendTag2"
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="217dp"
-                        android:layout_marginTop="@dimen/trendTagMargin"
-                        android:layout_marginBottom="@dimen/trendTagMargin"
-                        android:background="#DFDFDF"
-                        android:text="@string/Blank" />
-
-                    <Button
                         android:id="@+id/trendTag1"
                         android:layout_width="130dp"
                         android:layout_height="50dp"
@@ -115,6 +108,16 @@
                         android:layout_marginTop="@dimen/trendTagMargin"
                         android:layout_marginBottom="@dimen/trendTagMargin"
                         android:background="#1E90FF"
+                        android:text="@string/Blank" />
+
+                    <Button
+                        android:id="@+id/trendTag2"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="217dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
                         android:text="@string/Blank" />
 
                 </FrameLayout>
@@ -143,16 +146,6 @@
                         android:text="@string/Blank" />
 
                     <Button
-                        android:id="@+id/trendTag4"
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="217dp"
-                        android:layout_marginTop="@dimen/trendTagMargin"
-                        android:layout_marginBottom="@dimen/trendTagMargin"
-                        android:background="#DFDFDF"
-                        android:text="@string/Blank" />
-
-                    <Button
                         android:id="@+id/trendTag3"
                         android:layout_width="130dp"
                         android:layout_height="50dp"
@@ -171,9 +164,25 @@
                         android:background="#DA70D6"
                         android:text="@string/Blank" />
 
+                    <Button
+                        android:id="@+id/trendTag4"
+                        android:layout_width="130dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="217dp"
+                        android:layout_marginTop="@dimen/trendTagMargin"
+                        android:layout_marginBottom="@dimen/trendTagMargin"
+                        android:background="#DFDFDF"
+                        android:text="@string/Blank" />
+
                 </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/recipeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>
