@@ -50,5 +50,6 @@
     <string name="changeText">冷蔵庫切り替え/招待</string>
     <string name="columns">コラム一覧</string>
     <string name="sendPictureText">送信</string>
-    <string name="TagText">▽▽　人気のタグから探す　▽▽</string>
+    <string name="TagText">▼▼　人気のタグから探す　▼▼</string>
+    <string name="searchRefrigeratorItemText">▶ ▶ 登録アイテムから探す ◀ ◀\n</string>
 </resources>

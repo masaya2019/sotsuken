@@ -61,12 +61,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/searchRefrigeratorItemText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/searchRefrigeratorItemText"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_primary_dark"
+                android:textSize="@dimen/titlesize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/TagText"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
+                android:textColor="@color/red"
                 android:textSize="@dimen/titlesize"
                 android:textStyle="bold" />
 
@@ -99,7 +110,8 @@
                         android:layout_marginTop="@dimen/trendTagMargin"
                         android:layout_marginBottom="@dimen/trendTagMargin"
                         android:background="#DFDFDF"
-                        android:text="@string/Blank" />
+                        android:text="@string/Blank"
+                        android:textSize="@dimen/trendTagSize" />
 
                     <Button
                         android:layout_width="17dp"
@@ -118,7 +130,8 @@
                         android:layout_marginTop="@dimen/trendTagMargin"
                         android:layout_marginBottom="@dimen/trendTagMargin"
                         android:background="#DFDFDF"
-                        android:text="@string/Blank" />
+                        android:text="@string/Blank"
+                        android:textSize="@dimen/trendTagSize" />
 
                 </FrameLayout>
 
@@ -153,7 +166,8 @@
                         android:layout_marginTop="@dimen/trendTagMargin"
                         android:layout_marginBottom="@dimen/trendTagMargin"
                         android:background="#DFDFDF"
-                        android:text="@string/Blank" />
+                        android:text="@string/Blank"
+                        android:textSize="@dimen/trendTagSize" />
 
                     <Button
                         android:layout_width="17dp"
@@ -172,7 +186,8 @@
                         android:layout_marginTop="@dimen/trendTagMargin"
                         android:layout_marginBottom="@dimen/trendTagMargin"
                         android:background="#DFDFDF"
-                        android:text="@string/Blank" />
+                        android:text="@string/Blank"
+                        android:textSize="@dimen/trendTagSize" />
 
                 </FrameLayout>
 

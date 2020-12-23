@@ -5,4 +5,5 @@
     <dimen name="trendTagMargin">8dp</dimen>
     <dimen name="popMargin">16dp</dimen>
     <dimen name="titlesize">24sp</dimen>
+    <dimen name="trendTagSize">18sp</dimen>
 </resources>
