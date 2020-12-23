@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +46,14 @@ class ColumnActivity : AppCompatActivity(){
         cAdapter = ColumnCustomAdapter(cColumnList)
         recyclerView.adapter = cAdapter
 
-
+        //インターフェースの実装(コラム一覧クリック)
+        cAdapter.setOnColumnClickListener(object :ColumnCustomAdapter.OnColumnClickListener{
+            override fun onColumnClickListener(view: View, position: Int, clickedText: Columns) {
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                    .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
+            }
+        })
 
 
         //区切り線
