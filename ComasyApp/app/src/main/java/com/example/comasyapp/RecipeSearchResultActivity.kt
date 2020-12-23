@@ -10,13 +10,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.constraintLayout
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
@@ -24,12 +30,15 @@ import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
 import kotlinx.android.synthetic.main.activity_recipe_search_result.*
 import kotlinx.android.synthetic.main.activity_registration_click.*
+import kotlinx.android.synthetic.main.activity_registration_click.inputSearchText
 import kotlinx.android.synthetic.main.activity_registration_click.searchImageView
+import kotlinx.android.synthetic.main.activity_view_refrigerator_picture.*
+import kotlinx.android.synthetic.main.activity_view_refrigerator_picture.pictureLinearLayoutContainer2
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class RecipeSearchActivity : AppCompatActivity() {
+class RecipeSearchResultActivity : AppCompatActivity() {
 
     private lateinit var background: ConstraintLayout
 
@@ -38,7 +47,7 @@ class RecipeSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recipe_search)
+        setContentView(R.layout.activity_recipe_search_result)
 
         // 背景のレイアウトを取得
         background = findViewById(R.id.background)
@@ -46,7 +55,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         // InputMethodManagerを取得
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // おすすめレシピを表示（１つ）
+        // レシピタイトルを表示
         makeSearchData()
 
         // メニューバーをクリックしたときの処理
@@ -86,18 +95,13 @@ class RecipeSearchActivity : AppCompatActivity() {
         // ==============================
         searchImageView.setOnClickListener {
 
-            // 仮遷移
-            val intent = Intent(this, RecipeSearchResultActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
+            // 入力された検索キーワードを取得
+            val inputSearchKeyword = inputSearchText.text.toString()
 
-//            // 入力された検索キーワードを取得
-//            val inputSearchKeyword = inputSearchText.text.toString()
-//
-//            // 入力された値が空でなければ
-//            if (inputSearchKeyword != "") {
-//                // 食材、キーワードをDBから検索する
-//            }
+            // 入力された値が空でなければ
+            if (inputSearchKeyword != "") {
+                // 食材、キーワードをDBから検索する
+            }
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -126,11 +130,6 @@ class RecipeSearchActivity : AppCompatActivity() {
 
         // リクエスト先URL（テスト用）
         val url = "http://r02isc2t119.sub.jp/api/test.json"
-
-        // トップ表示するレシピをランダムで決める（１～４）
-        val randomNumber = (0..3).random()
-
-        Log.e("random", randomNumber.toString())
 
         val body = FormBody.Builder(charset("UTF-8"))
 //            .add("refrigerator_id", now_refrigerator_id)
@@ -164,53 +163,64 @@ class RecipeSearchActivity : AppCompatActivity() {
                     scrollView2.scrollTo(0, 0)
 
                     // データを1個づつ取り出す
-                    // 1レコードをjsonObjectに入れる
-                    val zeroJsonObj = datas.getJSONObject(randomNumber)
+                    for (i in 0 until datas.length()) {
 
-                    // レシピ画像を取得
-                    val foodImageUrl = zeroJsonObj.getString("foodImageUrl")
-                    // レシピ名を取得
-                    val recipeTitle = zeroJsonObj.getString("recipeTitle")
-                    // レシピURLを取得
-                    val recipeUrl = zeroJsonObj.getString("recipeUrl")
+                        // 1レコードをjsonObjectに入れる
+                        val zeroJsonObj = datas.getJSONObject(i)
 
-                    Log.i(
-                        "取得レコード",
-                        "${foodImageUrl} ${recipeTitle} ${recipeUrl}"
-                    )
+                        // レシピ画像を取得
+                        val foodImageUrl = zeroJsonObj.getString("foodImageUrl")
+                        // レシピ名を取得
+                        val recipeTitle = zeroJsonObj.getString("recipeTitle")
+                        // レシピURLを取得
+                        val recipeUrl = zeroJsonObj.getString("recipeUrl")
 
-                    // レシピタイトルを配置
-                    val textView = TextView(applicationContext)
-                    textView.text = "▼　" + recipeTitle
-                    textView.textSize = 24F
-                    textView.setTypeface(Typeface.DEFAULT_BOLD)
-                    textView.setTextColor(Color.BLACK)
-                    recipeContainer.addView(textView)
-                    // テキストがクリックされたら
-                    textView.setOnClickListener {
-                        Log.e("URL", recipeUrl)
-                        // 楽天レシピのページを開く
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                        startActivity(intent)
-                    }
+                        Log.i(
+                            "取得レコード",
+                            "${foodImageUrl} ${recipeTitle} ${recipeUrl}"
+                        )
 
-                    // レシピ画像を配置
-                    val imageView = ImageView(applicationContext)
-                    recipeContainer.addView(imageView)
-                    // レシピの画像を取ってくる
-                    Picasso.get()
-                        .load(foodImageUrl)
-                        .resize(0, background.width)
-                        .into(imageView)
-                    imageView.layoutParams =
-                        LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    imageView.adjustViewBounds = true
-                    // 画像がクリックされたら
-                    imageView.setOnClickListener {
-                        Log.e("URL", recipeUrl)
-                        // 楽天レシピのページを開く
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                        startActivity(intent)
+                        // 最初以外は1行空白を入れる
+                        if (i != 0) {
+                            val textView = TextView(applicationContext)
+                            textView.text = ""
+                            textView.textSize = 24F
+                            recipeContainer.addView(textView)
+                        }
+
+                        // レシピタイトルを配置
+                        val textView = TextView(applicationContext)
+                        textView.text = "▼　" + recipeTitle
+                        textView.textSize = 24F
+                        textView.setTypeface(Typeface.DEFAULT_BOLD)
+                        textView.setTextColor(Color.BLACK)
+                        recipeContainer.addView(textView)
+                        // テキストがクリックされたら
+                        textView.setOnClickListener {
+                            Log.e("URL", recipeUrl)
+                            // 楽天レシピのページを開く
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                            startActivity(intent)
+                        }
+
+                        // レシピ画像を配置
+                        val imageView = ImageView(applicationContext)
+                        recipeContainer.addView(imageView)
+                        // レシピの画像を取ってくる
+                        Picasso.get()
+                            .load(foodImageUrl)
+                            .resize(0, background.width)
+                            .into(imageView)
+                        imageView.layoutParams =
+                            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                        imageView.adjustViewBounds = true
+                        // 画像がクリックされたら
+                        imageView.setOnClickListener {
+                            Log.e("URL", recipeUrl)
+                            // 楽天レシピのページを開く
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                            startActivity(intent)
+                        }
                     }
                 }
             }
