@@ -56,7 +56,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // レシピタイトルを表示
-        makeRecyclerData()
+        makeSearchData()
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
@@ -113,7 +113,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
     // ================
     // レシピタイトルを表示
     // ================
-    fun makeRecyclerData() {
+    fun makeSearchData() {
 
         val handler = Handler()
 

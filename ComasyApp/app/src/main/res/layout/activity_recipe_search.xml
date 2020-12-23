@@ -65,29 +65,7 @@
                 android:id="@+id/recipeContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/recipeImageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/tomato" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/recipiTitleText"
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp"
-                    android:gravity="center"
-                    android:text="@string/sampleRecipiText"
-                    android:textSize="24sp" />
-            </LinearLayout>
+                android:orientation="vertical"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
