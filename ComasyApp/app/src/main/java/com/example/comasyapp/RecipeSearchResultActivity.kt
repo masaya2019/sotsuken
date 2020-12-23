@@ -95,13 +95,18 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         // ==============================
         searchImageView.setOnClickListener {
 
-            // 入力された検索キーワードを取得
-            val inputSearchKeyword = inputSearchText.text.toString()
+            // 仮遷移
+            val intent = Intent(this, RecipeSearchResultActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
 
-            // 入力された値が空でなければ
-            if (inputSearchKeyword != "") {
-                // 食材、キーワードをDBから検索する
-            }
+//            // 入力された検索キーワードを取得
+//            val inputSearchKeyword = inputSearchText.text.toString()
+//
+//            // 入力された値が空でなければ
+//            if (inputSearchKeyword != "") {
+//                // 食材、キーワードをDBから検索する
+//            }
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -190,7 +195,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
 
                         // レシピタイトルを配置
                         val textView = TextView(applicationContext)
-                        textView.text = "▼　" + recipeTitle
+                        textView.text = recipeTitle
                         textView.textSize = 24F
                         textView.setTypeface(Typeface.DEFAULT_BOLD)
                         textView.setTextColor(Color.BLACK)

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -16,14 +17,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
 import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
-import kotlinx.android.synthetic.main.activity_recipe_search_result.*
-import kotlinx.android.synthetic.main.activity_registration_click.*
+import kotlinx.android.synthetic.main.activity_recipe_search.*
+import kotlinx.android.synthetic.main.activity_recipe_search_result.recipeContainer
+import kotlinx.android.synthetic.main.activity_recipe_search_result.scrollView2
 import kotlinx.android.synthetic.main.activity_registration_click.searchImageView
 import okhttp3.*
 import org.json.JSONObject
@@ -36,6 +37,12 @@ class RecipeSearchActivity : AppCompatActivity() {
     // キーボード表示を制御するためのオブジェクト
     private lateinit var inputMethodManager: InputMethodManager
 
+    // トレンドタグのカテゴリIDを初期設定
+    private var trendTagCategoryType1 = ""
+    private var trendTagCategoryType2 = ""
+    private var trendTagCategoryType3 = ""
+    private var trendTagCategoryType4 = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_search)
@@ -46,10 +53,15 @@ class RecipeSearchActivity : AppCompatActivity() {
         // InputMethodManagerを取得
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // おすすめレシピを表示（１つ）
-        makeSearchData()
+        // トレンドタグの表示（４つ）
+        makeTrendTags()
 
+        // おすすめレシピを表示（１つ）
+        makePickUpData()
+
+        // ==============================
         // メニューバーをクリックしたときの処理
+        // ==============================
         transitionRefrigeratorButton.setOnClickListener {
             // Home画面(HomeActivity.kt)へ遷移
             val intent = Intent(this, HomeActivity::class.java)
@@ -81,6 +93,33 @@ class RecipeSearchActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // =====================================
+        // 登録アイテムから探すをクリックしたときの処理
+        // =====================================
+        searchRefrigeratorItemText.setOnClickListener {
+            Log.e("確認", "登録アイテム")
+        }
+
+        // ==============================
+        // トレンドタグをクリックしたときの処理
+        // ==============================
+        // トレンドタグ１（今日の献立）
+        trendTag1.setOnClickListener {
+            Log.e("確認", trendTagCategoryType1)
+        }
+        // トレンドタグ2（季節のイベント）
+        trendTag2.setOnClickListener {
+            Log.e("確認", trendTagCategoryType2)
+        }
+        // トレンドタグ3（旬の食材（野菜））
+        trendTag3.setOnClickListener {
+            Log.e("確認", trendTagCategoryType3)
+        }
+        // トレンドタグ4（旬の食材（魚介））
+        trendTag4.setOnClickListener {
+            Log.e("確認", trendTagCategoryType4)
+        }
+
         // ==============================
         // 検索アイコンをクリックしたときの処理
         // ==============================
@@ -106,10 +145,35 @@ class RecipeSearchActivity : AppCompatActivity() {
         }
     }
 
-    // ================
-    // レシピタイトルを表示
-    // ================
-    fun makeSearchData() {
+    // ===============
+    // トレンドタグを表示
+    // ===============
+    private fun makeTrendTags() {
+
+        // トレンドタグ１（今日の献立）
+        trendTag1.text = "今日の献立"
+        trendTagCategoryType1 = "38"
+
+        // トレンドタグ2（季節のイベント）
+        val trendtag2 = GetRecipeCategoryType().gettrendTagSeasonEvent()
+        trendTag2.text = trendtag2.first
+        trendTagCategoryType2 = trendtag2.second
+
+        // トレンドタグ3（旬の食材（野菜））
+        val trendtag3 = GetRecipeCategoryType().gettrendTagSeasonVegetableFood()
+        trendTag3.text = trendtag3.first
+        trendTagCategoryType3 = trendtag3.second
+
+        // トレンドタグ4（旬の食材（魚介））
+        val trendtag4 = GetRecipeCategoryType().gettrendTagSeasonSeaFood()
+        trendTag4.text = trendtag4.first
+        trendTagCategoryType4 = trendtag4.second
+    }
+
+    // ===================
+    // PICK　UP　レシピを表示
+    // ===================
+    fun makePickUpData() {
 
         val handler = Handler()
 
@@ -117,17 +181,21 @@ class RecipeSearchActivity : AppCompatActivity() {
 //        val applicationId = RakutenRecipeApplicationId().getApplicationId()
 //
 //        // カテゴリID
-//        val categoryId = "10-66-50"
+//        val categoryId = RandomRecipeCategoryType().getrecipeId()
+//
+//        Log.e("カテゴリID", categoryId)
 //
 //        Log.e("ID確認", applicationId + " " + categoryId)
 //
 //        // リクエスト先URL
 //        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
+//
+//        Log.e("url", url)
 
         // リクエスト先URL（テスト用）
         val url = "http://r02isc2t119.sub.jp/api/test.json"
 
-        // トップ表示するレシピをランダムで決める（１～４）
+        // トップ表示するレシピをランダムで決める
         val randomNumber = (0..3).random()
 
         Log.e("random", randomNumber.toString())
@@ -144,7 +212,25 @@ class RecipeSearchActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("エラー", "失敗")
+                handler.post {
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle)
+                }
+            }
 
             // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {
@@ -180,8 +266,17 @@ class RecipeSearchActivity : AppCompatActivity() {
                     )
 
                     // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\n▼▼　PICK　UP　レシピ　▼▼"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.RED)
+                    recipeContainer.addView(textViewTitle)
+
+                    // レシピタイトルを配置
                     val textView = TextView(applicationContext)
-                    textView.text = "▼　" + recipeTitle
+                    textView.text = recipeTitle
                     textView.textSize = 24F
                     textView.setTypeface(Typeface.DEFAULT_BOLD)
                     textView.setTextColor(Color.BLACK)

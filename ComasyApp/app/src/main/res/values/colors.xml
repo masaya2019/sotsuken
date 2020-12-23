@@ -17,4 +17,5 @@
     <color name="circleColor">#EB2222</color>
     <color name="mainColor">#FFEE58</color>
     <color name="comasyColor">#00A5E9</color>
+    <color name="red">#FF0000</color>
 </resources>
