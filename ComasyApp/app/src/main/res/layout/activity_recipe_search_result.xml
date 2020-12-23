@@ -67,18 +67,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/recipeImageView1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/recipeImageView1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/tomato" />
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/tomato" />
 
                 <TextView
                     android:id="@+id/recipiTitleText1"
@@ -88,18 +82,12 @@
                     android:text="@string/sampleRecipiText"
                     android:textSize="24sp" />
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/recipeImageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/recipeImageView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/tomato" />
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/tomato" />
 
                 <TextView
                     android:id="@+id/recipiTitleText2"
@@ -109,18 +97,12 @@
                     android:text="@string/sampleRecipiText"
                     android:textSize="24sp" />
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/recipeImageView3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/recipeImageView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/tomato" />
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/tomato" />
 
                 <TextView
                     android:id="@+id/recipiTitleText3"
@@ -130,18 +112,12 @@
                     android:text="@string/sampleRecipiText"
                     android:textSize="24sp" />
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/recipeImageView4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/recipeImageView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/tomato" />
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/tomato" />
 
                 <TextView
                     android:id="@+id/recipiTitleText4"
