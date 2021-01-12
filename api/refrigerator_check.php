@@ -47,7 +47,7 @@ $data = array(
 //$data にJSON形式で結果を格納
 if ($status == "yes") {
     //{“status” : “yes” }なら'mail_address'と一致する'refrigerator_id'を返す。
-    
+
     //使用者の'mail_address'に一致するレコードを日付順に抽出
     $sql = "SELECT * FROM refrigerator WHERE mail_address = '". $mail_address ."' ORDER BY refrigerator_id;";
     $result = querySql($db, $sql);
@@ -55,11 +55,13 @@ if ($status == "yes") {
     //レコードを配列に格納
     while ($row = mysqli_fetch_assoc($result)) {
         $refrigerator_id = $row["refrigerator_id"];
+        $refrigerator_name = $row["refrigerator_name"];
 
         array_push(
             $data['data'],
             array(
-            'refrigerator_id' => $refrigerator_id
+              'refrigerator_id' => $refrigerator_id,
+              'refrigerator_name' => $refrigerator_name
             )
         );
     }

@@ -19,6 +19,7 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
+        <activity android:name=".RecipeSearchResultActivity" />
         <activity android:name=".MemoActivity" />
         <activity android:name=".MemoTextActivity" />
         <activity android:name=".SettingActivity" />
