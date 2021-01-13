@@ -16,7 +16,8 @@ $status = "default";
 require('not_api/query_sql.php');
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 // search_dataを受け取ったら
 if (isset($_POST['search_data'])) {
@@ -36,6 +37,7 @@ if (isset($_POST['search_data'])) {
                 . "FROM refrigerator_contents INNER JOIN goods ON refrigerator_contents.goods_id = goods.goods_id "
                 . "WHERE refrigerator_id = '" . $refrigerator_id . "'";
         }
+
         // 接続したDBに対してSQL文を実行する
         $result = querySql($db, $sql);
 
@@ -76,7 +78,7 @@ if (isset($_POST['search_data'])) {
         $status = "yes";
     } elseif (
       $search_data == "cat01" || $search_data == "cat02" || $search_data == "cat03"
-        || $search_data == "cat04" || $search_data == "cat05" || $search_data == "cat06" || $search_data == "cat07"
+        || $search_data == "cat04" || $search_data == "cat05" || $search_data == "cat06" || $search_data == "cat07" || $search_data == "cat08"
     ) {
         // 該当カテゴリーのgoodsをすべて出す（カテゴリ別）
         $sql = "SELECT * FROM goods WHERE category_id = '" . $search_data . "'";
@@ -130,7 +132,7 @@ if (isset($_POST['search_data'])) {
 
         $status = "yes";
     } else {
-        // 検索語句を含むレコードが存在委するか
+        // 検索語句を含むレコードが存在するか
         $sql = "SELECT COUNT(*) AS cnt FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
 
         // 接続したDBに対してSQL文を実行する

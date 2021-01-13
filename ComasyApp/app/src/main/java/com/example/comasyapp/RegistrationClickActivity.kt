@@ -16,12 +16,22 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
 import kotlinx.android.synthetic.main.activity_home.transitionMemoButton
 import kotlinx.android.synthetic.main.activity_home.transitionRefrigeratorButton
 import kotlinx.android.synthetic.main.activity_home.transitionSearchButton
 import kotlinx.android.synthetic.main.activity_home.transitionSettingButton
 import kotlinx.android.synthetic.main.activity_registration_click.*
+import kotlinx.android.synthetic.main.activity_registration_click.cat00_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat01_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat02_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat03_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat04_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat05_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat06_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat07_btn
+import kotlinx.android.synthetic.main.activity_registration_click.cat08_btn
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -128,16 +138,26 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
             // 背景にフォーカスを移す
             cat06_btn.requestFocus()
         }
-        // その他categoryボタンをクリックしたら
+        // 主食categoryボタンをクリックしたら
         cat07_btn.setOnClickListener {
 
-            // その他カテゴリを表示
+            // 主食カテゴリを表示
             viewSearchData("cat07")
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(cat07_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
             // 背景にフォーカスを移す
             cat07_btn.requestFocus()
+        }
+        // その他categoryボタンをクリックしたら
+        cat08_btn.setOnClickListener {
+            // その他カテゴリを表示
+            viewSearchData("cat08")
+
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(cat08_btn.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            // 背景にフォーカスを移す
+            cat08_btn.requestFocus()
         }
 
         // ==============================
@@ -208,8 +228,10 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         val handler = Handler()
 
+        Log.e("s_data", search_data)
+
         // リクエスト先URL
-        val url = "http://10.0.2.2/sotsuken/api/response_all_goods.php"
+        val url = "http://r02isc2t119.sub.jp/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -303,8 +325,8 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
                                         // グッズ画像を配置
                                         val imageView = ImageView(applicationContext)
-                                        // 仮の画像としてみかん（未完）を配置
-                                        imageView.setImageResource(R.drawable.test_pic_mikan)
+                                        // 画像を配置
+                                        imageView.setImageResource(resources.getIdentifier("${AllDataArray[(i - j) * 3 + 0].toString()}", "drawable", getPackageName()))
                                         // 仮のidとしてデータベースから取得したレコードの順番(i - j)に10000を足したものを用意（idのかぶりをなくすため）
                                         imageView.id = 10000 + i - j
                                         linearLayoutPic.addView(imageView)
@@ -420,7 +442,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         val handler = Handler()
 
-        val url = "http://10.0.2.2/sotsuken/api/change_goods_quantity_database.php"
+        val url = "http://r02isc2t119.sub.jp/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)

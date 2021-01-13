@@ -9,7 +9,8 @@ $status = "default";
 require('not_api/query_sql.php');
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 // member_informationにメールアドレスが登録済かどうかを確認する
 $sql = "SELECT COUNT(*) AS cnt FROM member_information WHERE mail_address = '" . $mail_address . "'";

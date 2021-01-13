@@ -16,14 +16,19 @@
 $status = "default";
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 // query_sql.phpを呼び出す
 require('not_api/query_sql.php');
 
+
 // 冷蔵庫ID、メールアドレスを受け取る
 $refrigerator_id = $_POST["refrigerator_id"];
 $mail_address = $_POST["mail_address"];
+
+// 仮の冷蔵庫名を登録
+$refrigerator_name = "招待された冷蔵庫";
 
 // refrigeratorテーブルに使用者の'refrigerator_id'があるか確認して結果を$rowに格納
 $sql = "SELECT EXISTS(SELECT * FROM refrigerator WHERE refrigerator_id = '". $refrigerator_id ."' AND mail_address = '". $mail_address ."') AS num;";
@@ -31,12 +36,16 @@ $result = querySql($db, $sql);
 $row = mysqli_fetch_assoc($result);
 
 // レコードの真偽判定
-if($row["num"]){
+if ($row["num"]) {
     // レコードが存在する場合、{ “status” : “yes” }を返す。
     $status = "yes";
-}else{
+} else {
     // レコードが存在しないときはレコードを追加して、{ “status” : “yes” }を返す。
-    $sql = "INSERT INTO refrigerator (refrigerator_id,mail_address) VALUES ('". $refrigerator_id ."','". $mail_address ."');";
+    $sql = "INSERT INTO refrigerator(refrigerator_id, mail_address,refrigerator_name) VALUES('"
+        . $refrigerator_id . "', '"
+        . $mail_address . "', '"
+        . $refrigerator_name . "')";
+
     $result = querySql($db, $sql);
     $status = "yes";
 }

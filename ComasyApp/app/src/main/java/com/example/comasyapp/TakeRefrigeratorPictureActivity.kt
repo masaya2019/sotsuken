@@ -39,10 +39,10 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
             startActivityForResult(cameraIntent, cameraRequest)
         }
 
-        // 送信ボタンをクリックしたら
-        send.setOnClickListener {
-            upload()
-        }
+//        // 送信ボタンをクリックしたら
+//        send.setOnClickListener {
+//            upload()
+//        }
 
     }
 
@@ -55,6 +55,8 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         if (requestCode == cameraRequest && resultCode == Activity.RESULT_OK && data != null) {
             photo = data.extras?.get("data") as Bitmap
             imageView.setImageBitmap(photo)
+            // 写真をアップロードする
+            upload()
         }
     }
 
@@ -82,7 +84,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
             .addFormDataPart("image", "${refrigerator_id}_tmp${randomNumbr}.png",
                 RequestBody.create(MediaType.parse("image/*png"),byteArray)).build()
 
-        val r = Request.Builder().url("http://10.0.2.2/sotsuken/api/upload_image.php").post(requestBody).build()
+        val r = Request.Builder().url("http://r02isc2t119.sub.jp/api/upload_image.php").post(requestBody).build()
 
         c.newCall(r).enqueue(object: Callback{
 

@@ -24,7 +24,8 @@ $datetime = $_POST['datetime'];
 require('not_api/query_sql.php');
 
 // connect_db.phpを呼び出す（データベースに接続）
-require('not_api/connect_db.php');
+// require('not_api/connect_db.php');
+require('not_api/connect_database.php');
 
 //memoテーブルにrefrigerator_id、mail_address、datetimeと一致するレコードがあるか確認して結果を$rowに格納
 $sql = "SELECT EXISTS(SELECT * FROM memo WHERE refrigerator_id = '". $refrigerator_id ."' AND mail_address = '". $mail_address ."' AND datetime = '". $datetime ."') AS num;";

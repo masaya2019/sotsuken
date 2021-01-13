@@ -19,6 +19,7 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
+        <activity android:name=".RecipeSearchResultActivity" />
         <activity android:name=".MemoActivity" />
         <activity android:name=".MemoTextActivity" />
         <activity android:name=".SettingActivity" />
@@ -27,7 +28,11 @@
         <activity android:name=".MemberRegistrationFormActivity" />
         <activity android:name=".MemberRegistrationActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Launcher"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

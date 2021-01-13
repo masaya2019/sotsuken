@@ -24,8 +24,37 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+//        // 削除ボタン（テスト用）が押されたとき
+//        deleteButton.setOnClickListener {
+//            // 本体からメールアドレスと冷蔵庫IDを削除
+//            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//                clear()
+//                commit()
+//            }
+//        }
+
+//        // 削除ボタンを間違って押したとき（復旧用①）
+//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//            putString("mail_address", "bjmk1290313@gn.iwasaki.ac.jp")
+//            putString("refrigerator_id", "r0001")
+//            commit()
+//        }
+
+//        // 削除ボタンを間違って押したとき（復旧用②）
+//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+//            putString("mail_address", "info.comasy@gmail.com")
+//            putString("refrigerator_id", "r0007")
+//            commit()
+//        }
+
+//        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
+//            clear()
+//            commit()
+//        }
 
         // 背景のレイアウトを取得
         background = findViewById(R.id.background)
@@ -67,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
 
             val handler = Handler()
 
+            Log.e("確認", mailAddress + " " + inputPassword)
+
             // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
             LoginCheck(mailAddress, inputPassword, handler, errortextLogin)
         }
@@ -75,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
     // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
     private fun LoginCheck(mail_address: String, password: String, handler: Handler, errorText: TextView) {
 
-        val url = "http://10.0.2.2/sotsuken/api/login_check.php"
+        val url = "http://r02isc2t119.sub.jp/api/login_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)
@@ -141,7 +172,7 @@ class LoginActivity : AppCompatActivity() {
         // もし、refrigerator_idが保存されていなかったら
         if (login_mail_address == "" && now_refrigerator_id == "") {
 
-            val url = "http://10.0.2.2/sotsuken/api/create_refrigerator_id.php"
+            val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
 
             val body = FormBody.Builder(charset("UTF-8"))
                 .add("mail_address", mail_address)

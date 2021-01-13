@@ -28,7 +28,8 @@
     <string name="cat04_btnText">魚 介 類</string>
     <string name="cat05_btnText">デ ザ ー ト</string>
     <string name="cat06_btnText">調 味 料</string>
-    <string name="cat07_btnText">そ の 他</string>
+    <string name="cat07_btnText">主 食</string>
+    <string name="cat08_btnText">そ の 他</string>
     <string name="memo">メモ</string>
     <string name="backButton"><![CDATA[< 戻る]]></string>
     <string name="momoTextHint">タイトルを入力</string>
@@ -43,9 +44,12 @@
     <string name="sampleRecipiText">▲詰め物トマトのオーブン焼き</string>
     <string name="sampleButton">オススメ</string>
     <string name="sampleButton2">定番</string>
-    <string name="Shun">旬</string>
-    <string name="popText">旬</string>
+    <string name="potText">旬</string>
     <string name="TitleText">タイトル</string>
     <string name="MemoDetailText">詳細</string>
     <string name="changeText">冷蔵庫切り替え/招待</string>
+    <string name="columns">コラム一覧</string>
+    <string name="sendPictureText">送信</string>
+    <string name="TagText">▼▼　人気のタグから探す　▼▼</string>
+    <string name="searchRefrigeratorItemText">▶ ▶ 登録アイテムから探す ◀ ◀\n</string>
 </resources>

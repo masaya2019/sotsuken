@@ -51,7 +51,7 @@ class MemberRegistrationConfirmActivity : AppCompatActivity() {
     // データベースにメールアドレス、ニックネーム、パスワードを登録するＡＰＩ
     private fun memberRegistrationAPI(mail_address: String, user_name:String, password: String, handler: Handler, errorText: TextView) {
 
-        val url = "http://10.0.2.2/sotsuken/api/member_registration.php"
+        val url = "http://r02isc2t119.sub.jp/api/member_registration.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)

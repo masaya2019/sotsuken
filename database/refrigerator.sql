@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-10-21 02:06:31
+-- 生成日時: 2020-12-14 02:21:35
 -- サーバのバージョン： 10.4.11-MariaDB
 -- PHP のバージョン: 7.4.2
 
@@ -30,8 +30,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `refrigerator` (
   `refrigerator_id` varchar(5) NOT NULL,
-  `mail_address` varchar(100) NOT NULL
+  `mail_address` varchar(100) NOT NULL,
+  `refrigerator_name` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- テーブルのデータのダンプ `refrigerator`
+--
+
+INSERT INTO `refrigerator` (`refrigerator_id`, `mail_address`, `refrigerator_name`) VALUES
+('r0001', 'bjmk1290313@gn.iwasaki.ac.jp', ''),
+('r0002', 'bjmk1290313@gn.iwasaki.ac.jp', '');
 
 --
 -- ダンプしたテーブルのインデックス

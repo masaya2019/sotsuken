@@ -158,24 +158,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/otherColor"
+                android:background="@color/mainColor"
                 android:text="@string/cat07_btnText"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/category_navigation_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/cat08_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/otherColor"
+                android:text="@string/cat08_btnText"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/category_navigation_size"
                 android:textStyle="bold" />
 
         </LinearLayout>
     </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="refrigeratorIdDeleteButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayoutView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
