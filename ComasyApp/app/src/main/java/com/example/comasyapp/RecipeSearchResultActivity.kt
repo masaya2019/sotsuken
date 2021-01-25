@@ -55,8 +55,27 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         // InputMethodManagerを取得
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // レシピタイトルを表示
-        makeSearchData()
+        // 前の画面から検索キーワードを受け取る
+        val inputSearchKeyword = intent.getStringExtra("inputSearchKeyword").toString()
+
+        Log.e("inputSearchKeyword", inputSearchKeyword)
+
+        if (inputSearchKeyword != "null") {
+            // レシピタイトルを表示（検索結果）
+            makeSearchData(inputSearchKeyword)
+            Log.e("inputSearchKeyword結果", inputSearchKeyword)
+        }
+
+        // 前の画面から検索キーワードを受け取る
+        val selectTag = intent.getStringExtra("selectTag").toString()
+
+        Log.e("selectTag", selectTag)
+
+        if (selectTag != "null") {
+            // レシピタイトルを表示（検索結果）
+            makeTagSearchData(selectTag)
+            Log.e("selectTag結果", selectTag)
+        }
 
         // メニューバーをクリックしたときの処理
         transitionRefrigeratorButton.setOnClickListener {
@@ -95,18 +114,14 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         // ==============================
         searchImageView.setOnClickListener {
 
-            // 仮遷移
-            val intent = Intent(this, RecipeSearchResultActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
+            // 入力された検索キーワードを取得
+            val inputSearchKeyword = inputSearchText.text.toString()
 
-//            // 入力された検索キーワードを取得
-//            val inputSearchKeyword = inputSearchText.text.toString()
-//
-//            // 入力された値が空でなければ
-//            if (inputSearchKeyword != "") {
-//                // 食材、キーワードをDBから検索する
-//            }
+            // 入力された値が空でなければ
+            if (inputSearchKeyword != "") {
+                // 食材、キーワードをDBから検索する
+                makeSearchData(inputSearchKeyword)
+            }
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
@@ -115,26 +130,134 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         }
     }
 
-    // ================
-    // レシピタイトルを表示
-    // ================
-    fun makeSearchData() {
+    // =======================
+    // レシピタイトルを表示（検索）
+    // =======================
+    fun makeSearchData(search_data: String) {
 
         val handler = Handler()
 
-//        // アプリID（ディベロッパーID）
-//        val applicationId = RakutenRecipeApplicationId().getApplicationId()
-//
-//        // カテゴリID
-//        val categoryId = "10-66-50"
-//
-//        Log.e("ID確認", applicationId + " " + categoryId)
-//
-//        // リクエスト先URL
-//        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
+        // リクエスト先URL
+        val url = "http://r02isc2t119.sub.jp/api/recipe_search.php"
+
+//        // リクエスト先URL（テスト用）
+//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+
+        Log.e("seaech_data", search_data)
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("search_data", search_data)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            // リクエスト結果受取に失敗
+            override fun onFailure(call: Call, e: IOException) {}
+
+            // リクエスト結果受取に成功
+            override fun onResponse(call: Call, response: Response) {
+
+                // 全体のJSONObjectをとる
+                val jsonObj = JSONObject(response.body()?.string())
+
+                //　dataをjson配列に入れる
+                val datas = jsonObj.getJSONArray("result")
+
+                handler.post {
+
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // データを1個づつ取り出す
+                    for (i in 0 until datas.length()) {
+
+                        // 1レコードをjsonObjectに入れる
+                        val zeroJsonObj = datas.getJSONObject(i)
+
+                        // レシピ画像を取得
+                        val foodImageUrl = zeroJsonObj.getString("foodImageUrl")
+                        // レシピ名を取得
+                        val recipeTitle = zeroJsonObj.getString("recipeTitle")
+                        // レシピURLを取得
+                        val recipeUrl = zeroJsonObj.getString("recipeUrl")
+
+                        Log.i(
+                            "取得レコード",
+                            "${foodImageUrl} ${recipeTitle} ${recipeUrl}"
+                        )
+
+                        // 最初以外は1行空白を入れる
+                        if (i != 0) {
+                            val textView = TextView(applicationContext)
+                            textView.text = ""
+                            textView.textSize = 24F
+                            recipeContainer.addView(textView)
+                        }
+
+                        // レシピタイトルを配置
+                        val textView = TextView(applicationContext)
+                        textView.text = recipeTitle
+                        textView.textSize = 24F
+                        textView.setTypeface(Typeface.DEFAULT_BOLD)
+                        textView.setTextColor(Color.BLACK)
+                        recipeContainer.addView(textView)
+                        // テキストがクリックされたら
+                        textView.setOnClickListener {
+                            Log.e("URL", recipeUrl)
+                            // 楽天レシピのページを開く
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                            startActivity(intent)
+                        }
+
+                        // レシピ画像を配置
+                        val imageView = ImageView(applicationContext)
+                        recipeContainer.addView(imageView)
+                        // レシピの画像を取ってくる
+                        Picasso.get()
+                            .load(foodImageUrl)
+                            .resize(0, background.width)
+                            .into(imageView)
+                        imageView.layoutParams =
+                            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                        imageView.adjustViewBounds = true
+                        // 画像がクリックされたら
+                        imageView.setOnClickListener {
+                            Log.e("URL", recipeUrl)
+                            // 楽天レシピのページを開く
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                            startActivity(intent)
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    // ======================
+    // レシピタイトルを表示（タグ）
+    // ======================
+    fun makeTagSearchData(categoryId: String) {
+
+        val handler = Handler()
+
+        // アプリID（ディベロッパーID）
+        val applicationId = RakutenRecipeApplicationId().getApplicationId()
+
+        Log.e("ID確認", applicationId + " " + categoryId)
+
+        // リクエスト先URL
+        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
 
         // リクエスト先URL（テスト用）
-        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "http://r02isc2t119.sub.jp/api/test.json"
 
         val body = FormBody.Builder(charset("UTF-8"))
 //            .add("refrigerator_id", now_refrigerator_id)
