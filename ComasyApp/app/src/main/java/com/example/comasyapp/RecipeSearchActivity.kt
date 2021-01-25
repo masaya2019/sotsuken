@@ -106,18 +106,42 @@ class RecipeSearchActivity : AppCompatActivity() {
         // トレンドタグ１（今日の献立）
         trendTag1.setOnClickListener {
             Log.e("確認", trendTagCategoryType1)
+            // レシピ一覧表示へ遷移
+            val intent = Intent(this, RecipeSearchResultActivity::class.java)
+            // 検索ワードを渡す
+            intent.putExtra("selectTag", trendTagCategoryType1)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
         // トレンドタグ2（季節のイベント）
         trendTag2.setOnClickListener {
             Log.e("確認", trendTagCategoryType2)
+            // レシピ一覧表示へ遷移
+            val intent = Intent(this, RecipeSearchResultActivity::class.java)
+            // 検索ワードを渡す
+            intent.putExtra("selectTag", trendTagCategoryType2)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
         // トレンドタグ3（旬の食材（野菜））
         trendTag3.setOnClickListener {
             Log.e("確認", trendTagCategoryType3)
+            // レシピ一覧表示へ遷移
+            val intent = Intent(this, RecipeSearchResultActivity::class.java)
+            // 検索ワードを渡す
+            intent.putExtra("selectTag", trendTagCategoryType3)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
         // トレンドタグ4（旬の食材（魚介））
         trendTag4.setOnClickListener {
             Log.e("確認", trendTagCategoryType4)
+            // レシピ一覧表示へ遷移
+            val intent = Intent(this, RecipeSearchResultActivity::class.java)
+            // 検索ワードを渡す
+            intent.putExtra("selectTag", trendTagCategoryType4)
+                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
 
         // ==============================
@@ -125,18 +149,18 @@ class RecipeSearchActivity : AppCompatActivity() {
         // ==============================
         searchImageView.setOnClickListener {
 
-            // 仮遷移
-            val intent = Intent(this, RecipeSearchResultActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
+            // 入力された検索キーワードを取得
+            val inputSearchKeyword = inputSearchText.text.toString()
 
-//            // 入力された検索キーワードを取得
-//            val inputSearchKeyword = inputSearchText.text.toString()
-//
-//            // 入力された値が空でなければ
-//            if (inputSearchKeyword != "") {
-//                // 食材、キーワードをDBから検索する
-//            }
+            // 入力された値が空でなければ
+            if (inputSearchKeyword != "") {
+                // 食材、キーワードをDB検索する（遷移）
+                val intent = Intent(this, RecipeSearchResultActivity::class.java)
+                // 検索ワードを渡す
+                intent.putExtra("inputSearchKeyword", inputSearchKeyword)
+                    .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
+            }
 
             // キーボードを隠す
             inputMethodManager.hideSoftInputFromWindow(searchImageView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
