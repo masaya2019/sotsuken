@@ -27,7 +27,7 @@
 
             <!-- タイトル -->
             <TextView
-                android:text="@string/clm2_title"
+                android:text="@string/clm3_title"
                 android:id="@+id/columnTitle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -37,7 +37,7 @@
 
             <!-- コラム内容 -->
             <TextView
-                android:text="@string/clm2_contents"
+                android:text="@string/clm3_contents"
                 android:id="@+id/clmContents"
                 android:textSize="20dp"
                 android:layout_marginTop="22dp"
