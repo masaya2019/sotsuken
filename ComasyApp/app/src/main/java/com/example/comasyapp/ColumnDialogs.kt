@@ -8,8 +8,10 @@ import androidx.fragment.app.DialogFragment
 
 class ColumnDialogs : DialogFragment(){
     interface Listener {
-        //閉じる
         //お気に入り
+        fun favorite()
+        //閉じる
+        fun closeD()
     }
 
     //リスナー用変数
@@ -28,7 +30,13 @@ class ColumnDialogs : DialogFragment(){
 
         builder.setMessage("コラム内容(test)")
 
+        builder.setPositiveButton("お気に入り"){ dialog, which ->
+            listener?.favorite()
+        }
 
-        return super.onCreateDialog(savedInstanceState)
+        builder.setNegativeButton("閉じる"){ dialog, which ->
+            listener?.closeD()
+        }
+        return builder.create()
     }
 }

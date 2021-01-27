@@ -5,16 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ColumnActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/MenuBarConstraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/columnTitle"
+                android:layout_width="328dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/columnTitleText"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+            <!-- コラム１-->
+            <Button
+                android:id="@+id/clmB1"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="@string/clmTitle_refrigeratorCare"
+                android:textSize="14sp" />
+
+            <!-- コラム2-->
+            <Button
+                android:id="@+id/clmB2"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="@string/clmTitle_refrigeratorDay"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clmB3"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clmB4"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clmB5"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clmB6"
+                android:layout_width="328dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="32dp"
+                android:background="#DFDFDF"
+                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    //ここにフラグメント（コラム内容）を挿入
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MenuBarConstraintLayout"
         android:layout_width="0dp"
