@@ -51,8 +51,18 @@
     <string name="columns">コラム一覧</string>
     <string name="sendPictureText">送信</string>
     <string name="columnTitleText">コラム一覧</string>
-    <string name="clmTitle_refrigeratorCare">冷蔵庫のお手入れ</string>
-    <string name="clmTitle_refrigeratorDay">冷蔵庫の日</string>
+    <string name="clm1_title">冷蔵庫のお手入れ</string>
+    <string name="clm1_contents">掃除の際は電気を落とす必要があるため、中の食材をできるだけ少ない状態で行いましょう。\n中性洗剤を含ませた布で壁面を拭きます。その後、水拭きを行います。空拭きも加えると効果的です。卵ラックや肉ケース、ドアポケットなどは汚れやすいので特に注意しましょう。\n月に１回など、定期的に掃除を行うことが大切です。</string>
+    <string name="clm2_title">冷蔵庫の日</string>
+    <string name="clm2_contents">梅雨から夏にかけて冷蔵庫が活躍することから、夏至の日にあたることの多い6月21日が「冷蔵庫の日」と決められました。\nこれは日本電機工業会（JEMA）によって制定された日であり、「冷蔵庫の日」特設サイトも公開されています。\nhttps://www.reizoukonohi-cp.jp/</string>
+    <string name="clm3_title">冷蔵庫の気になる音</string>
+    <string name="clm3_contents">冷蔵庫の音が大きく、気になってしまう方も少なくないでしょう。冷蔵庫にはコンプレッサーが内蔵されており、特定の振動数で動いています。この振動数に合わせて音が出ないように設計されているので、基本的には静かです。\nしかし、それでも気になる音が出ている場合は、部屋の構造やそもそもの設置場所によって音が大きくなっているかもしれません。とれる対策は冷蔵庫の位置をずらす。また、近くのものをどかすことです。\n他にも霜の付着による音の可能性もあるので、お手入れは欠かさず行いましょう。</string>
+    <string name="clm4_title">コラム4 (未)</string>
+    <string name="clm4_contents">コラム4　内容</string>
+    <string name="clm5_title">コラム5 (未)</string>
+    <string name="clm5_contents">コラム5　内容</string>
+    <string name="clm6_title">コラム6 (未)</string>
+    <string name="clm6_contents">コラム6　内容</string>
     <string name="TagText">▼▼　人気のタグから探す　▼▼</string>
     <string name="searchRefrigeratorItemText">▶ ▶ 登録アイテムから探す ◀ ◀\n</string>
 </resources>

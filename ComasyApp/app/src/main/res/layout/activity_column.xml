@@ -39,7 +39,7 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="@string/clmTitle_refrigeratorCare"
+                android:text="@string/clm1_title"
                 android:textSize="14sp" />
 
             <!-- コラム2-->
@@ -49,7 +49,7 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="@string/clmTitle_refrigeratorDay"
+                android:text="@string/clm2_title"
                 android:textSize="14sp" />
 
             <Button
@@ -58,7 +58,7 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:text="@string/clm3_title"
                 android:textSize="14sp" />
 
             <Button
@@ -67,7 +67,7 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:text="@string/clm4_title"
                 android:textSize="14sp" />
 
             <Button
@@ -76,7 +76,7 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:text="@string/clm5_title"
                 android:textSize="14sp" />
 
             <Button
@@ -85,14 +85,14 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="32dp"
                 android:background="#DFDFDF"
-                android:text="＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊"
+                android:text="@string/clm6_title"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    //ここにフラグメント（コラム内容）を挿入
+    <!--ここにフラグメント（コラム内容）を挿入 container-->
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

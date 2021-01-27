@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <!-- #e1f6cf -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e1f6cf">
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,22 +25,27 @@
                 android:layout_marginTop="16dp"
                 android:text="コラム一覧に戻る"/>
 
-            <!-- タイトル -->
             <TextView
-                android:text="@string/clmTitle_refrigeratorCare"
+                android:text="@string/clm1_title"
                 android:id="@+id/columnTitle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="33dp"
                 android:textAlignment="center"
                 android:textSize="30sp" />
 
             <!-- コラム内容 -->
             <TextView
-                android:text="TextView"
+                android:text="@string/clm1_contents"
                 android:id="@+id/clmContents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="20dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/flame_style"/>
         </LinearLayout>
 
 
