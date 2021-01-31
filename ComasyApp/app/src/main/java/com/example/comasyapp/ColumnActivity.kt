@@ -39,12 +39,18 @@ class ColumnActivity : AppCompatActivity(){
         val clmB1 = findViewById<Button>(R.id.clmB1)
         val clmB2 = findViewById<Button>(R.id.clmB2)
         val clmB3 = findViewById<Button>(R.id.clmB3)
+        val clmB4 = findViewById<Button>(R.id.clmB4)
+        val clmB5 = findViewById<Button>(R.id.clmB5)
+        val clmB6 = findViewById<Button>(R.id.clmB6)
             //val clmBx = findViewById<Button>(R.id.clmBx)
 
         //２．Clm1FragmentActivityクラスをインスタンス化、その下も同様
         val clmF1 = ClmFragment1Activity()
         val clmF2 = ClmFragment2Activity()
         val clmF3 = ClmFragment3Activity()
+        val clmF4 = ClmFragment4Activity()
+        val clmF5 = ClmFragment5Activity()
+        val clmF6 = ClmFragment6Activity()
             //val clmFx = ClmFragmentxActivity()
 
         //３．ButtonをクリックしたときにreplaceFragmentメソッドを実行
@@ -56,6 +62,15 @@ class ColumnActivity : AppCompatActivity(){
         }
         clmB3.setOnClickListener {
             replaceFragment(clmF3)
+        }
+        clmB4.setOnClickListener {
+            replaceFragment(clmF4)
+        }
+        clmB5.setOnClickListener {
+            replaceFragment(clmF5)
+        }
+        clmB6.setOnClickListener {
+            replaceFragment(clmF6)
         }
             //clmBx.setOnClickListener {
             //    replaceFragment(clmFx)
