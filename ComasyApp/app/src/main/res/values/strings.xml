@@ -57,12 +57,12 @@
     <string name="clm2_contents">梅雨から夏にかけて冷蔵庫が活躍することから、夏至の日にあたることの多い6月21日が「冷蔵庫の日」と決められました。\nこれは日本電機工業会（JEMA）によって制定された日であり、「冷蔵庫の日」特設サイトも公開されています。\nhttps://www.reizoukonohi-cp.jp/</string>
     <string name="clm3_title">冷蔵庫の気になる音</string>
     <string name="clm3_contents">冷蔵庫の音が大きく、気になってしまう方も少なくないでしょう。冷蔵庫にはコンプレッサーが内蔵されており、特定の振動数で動いています。この振動数に合わせて音が出ないように設計されているので、基本的には静かです。\nしかし、それでも気になる音が出ている場合は、部屋の構造やそもそもの設置場所によって音が大きくなっているかもしれません。とれる対策は冷蔵庫の位置をずらす。また、近くのものをどかすことです。\n他にも霜の付着による音の可能性もあるので、お手入れは欠かさず行いましょう。</string>
-    <string name="clm4_title">コラム4 (未)</string>
-    <string name="clm4_contents">コラム4　内容</string>
-    <string name="clm5_title">コラム5 (未)</string>
-    <string name="clm5_contents">コラム5　内容</string>
-    <string name="clm6_title">コラム6 (未)</string>
-    <string name="clm6_contents">コラム6　内容</string>
+    <string name="clm4_title">冷蔵室と野菜室</string>
+    <string name="clm4_contents">それぞれの部屋の主な違いは温度、そして湿度の２つです。\nメーカーや機種にもよりますが、冷蔵室は２℃～６℃、野菜室は３℃～８℃くらいに設定されています。湿度は野菜室のほうが高くなっており、野菜の鮮度を保ちます。（野菜によっては入れない方がいいものも…？）\nただ、野菜室の湿度は機種によって差が大きいため、気になる場合は調べましょう。</string>
+    <string name="clm5_title">更新をお待ちください</string>
+    <string name="clm5_contents">Coming Soon...</string>
+    <string name="clm6_title">更新をお待ちください</string>
+    <string name="clm6_contents">Coming Soon...</string>
     <string name="TagText">▼▼　人気のタグから探す　▼▼</string>
     <string name="searchRefrigeratorItemText">▶ ▶ 登録アイテムから探す ◀ ◀\n</string>
 </resources>
