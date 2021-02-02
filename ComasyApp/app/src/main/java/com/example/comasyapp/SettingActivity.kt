@@ -33,7 +33,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 
         // ログアウトボタンが押されたとき
         logoutButton.setOnClickListener {
-            // 本体からログイン情報（メールアドレスとパスワード）を削除
+            // 保存しているユーザーデータの削除
             deleteUserData()
 
             // ログイン画面（LoginActivity.kt）へ遷移
@@ -75,11 +75,17 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         }
     }
 
-    // 本体からログイン情報（メールアドレスとパスワード）を削除
+    // 保存しているユーザーデータの削除
     // https://maku77.github.io/android/fw/shared-preference.html
     fun deleteUserData() {
-        // ログイン情報削除用（削除しないとログインしたままになります）
+        // 本体からログイン情報（メールアドレスとパスワード）を削除
         getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
+            clear()
+            commit()
+        }
+
+        // 本体からメールアドレスと冷蔵庫IDを削除
+        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
             clear()
             commit()
         }
