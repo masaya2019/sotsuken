@@ -201,23 +201,23 @@ class RecipeSearchActivity : AppCompatActivity() {
 
         val handler = Handler()
 
-//        // アプリID（ディベロッパーID）
-//        val applicationId = RakutenRecipeApplicationId().getApplicationId()
-//
-//        // カテゴリID
-//        val categoryId = RandomRecipeCategoryType().getrecipeId()
-//
-//        Log.e("カテゴリID", categoryId)
-//
-//        Log.e("ID確認", applicationId + " " + categoryId)
-//
-//        // リクエスト先URL
-//        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
-//
-//        Log.e("url", url)
+        // アプリID（ディベロッパーID）
+        val applicationId = RakutenRecipeApplicationId().getApplicationId()
 
-        // リクエスト先URL（テスト用）
-        val url = "http://r02isc2t119.sub.jp/api/test.json"
+        // カテゴリID
+        val categoryId = GetRecipeCategoryType().getrecipeId()
+
+        Log.e("カテゴリID", categoryId)
+
+        Log.e("ID確認", applicationId + " " + categoryId)
+
+        // リクエスト先URL
+        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
+
+        Log.e("url", url)
+
+//        // リクエスト先URL（テスト用）
+//        val url = "http://r02isc2t119.sub.jp/api/test.json"
 
         // トップ表示するレシピをランダムで決める
         val randomNumber = (0..3).random()
