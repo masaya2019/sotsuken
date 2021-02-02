@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -157,7 +155,25 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("エラー", "失敗")
+                handler.post {
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle)
+                }
+            }
 
             // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {
@@ -271,7 +287,38 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("エラー", "失敗")
+                handler.post {
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle)
+
+                    val retryButton = Button(applicationContext)
+                    retryButton.text = "レシピを読み込む"
+                    retryButton.gravity = Gravity.CENTER
+                    recipeContainer.addView(retryButton)
+                    retryButton.setOnClickListener {
+                        // レシピ検索画面(RecipeSearchActivity.kt)へ遷移
+                        val intent = Intent(applicationContext, RecipeSearchResultActivity::class.java)
+                        // 検索ワードを渡す
+                        intent.putExtra("selectTag", categoryId)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    }
+                }
+            }
 
             // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {
