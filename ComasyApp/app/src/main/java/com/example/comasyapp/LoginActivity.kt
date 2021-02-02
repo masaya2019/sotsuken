@@ -28,34 +28,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-//        // 削除ボタン（テスト用）が押されたとき
-//        deleteButton.setOnClickListener {
-//            // 本体からメールアドレスと冷蔵庫IDを削除
-//            getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-//                clear()
-//                commit()
-//            }
-//        }
-
-//        // 削除ボタンを間違って押したとき（復旧用①）
-//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-//            putString("mail_address", "bjmk1290313@gn.iwasaki.ac.jp")
-//            putString("refrigerator_id", "r0001")
-//            commit()
-//        }
-
-//        // 削除ボタンを間違って押したとき（復旧用②）
-//        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
-//            putString("mail_address", "info.comasy@gmail.com")
-//            putString("refrigerator_id", "r0007")
-//            commit()
-//        }
-
-//        getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
-//            clear()
-//            commit()
-//        }
-
         // 背景のレイアウトを取得
         background = findViewById(R.id.background)
 
@@ -139,8 +111,8 @@ class LoginActivity : AppCompatActivity() {
                         // 本体にメールアドレスとパスワードを保存
                         saveUserData(mail_address, password)
 
-                        // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、冷蔵庫IDを本体に登録する
-                        addRefrigeratorId(mail_address)
+                        // mail_addressと対応するrefrigerator_idを本体に登録する
+                        registerRefrigeratorId(mail_address)
                     }
 //                    // 以下はエラー用に仮作成
 //                    // えらー１
@@ -162,6 +134,64 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // mail_addressと対応するrefrigerator_idを本体に登録する
+    private fun registerRefrigeratorId(mail_address: String) {
+
+        val url = "http://r02isc2t119.sub.jp/api/check_refrigerator_id.php"
+
+        val body = FormBody.Builder(charset("UTF-8"))
+            .add("mail_address", mail_address)
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+
+            // レスポンスが帰ってきたら、
+            override fun onResponse(call: Call, response: Response) {
+
+                // responseのstatusに対応する値（）を取得
+                val jsonData = JSONObject(response.body()?.string())
+                val apiStatus = jsonData.getString("status")
+
+                // responseのstatusによって次の画面に進むorエラーを表示する
+                when (apiStatus) {
+
+                    // データベースに登録されている場合
+                    "yes" -> {
+                        // refrigerator_idを取得（若い番号）
+                        val refrigerator_id = jsonData.getString("refrigerator_id")
+
+                        // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
+                        saveRefrigeratorData(mail_address, refrigerator_id)
+
+                        // ホーム画面（HomeActivity.kt）へ遷移する
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    }
+                    // データベースに登録されていない場合
+                    "no_recode" -> {
+                        // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、登録するAPIにリクエストを送る
+                        addRefrigeratorId(mail_address)
+                    }
+//                    // えらー２
+//                    "" -> {
+//                        // エラーを表示
+//                        handler.post {
+//                            errorText.text = ""
+//                        }
+//                    }
+                }
+            }
+        })
+    }
+
     // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、登録するAPIにリクエストを送る
     private fun addRefrigeratorId(mail_address: String) {
         // 本体からmail_addressとrefrigerator_idを取得
@@ -169,8 +199,6 @@ class LoginActivity : AppCompatActivity() {
         val login_mail_address = pref.getString("mail_address", "").toString()
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        // もし、refrigerator_idが保存されていなかったら
-        if (login_mail_address == "" && now_refrigerator_id == "") {
 
             val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
 
@@ -229,13 +257,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             })
-            // 保存されていたら、
-        } else {
-            // ホーム画面（HomeActivity.kt）へ遷移する
-            val intent = Intent(applicationContext, HomeActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
-        }
     }
 
 
