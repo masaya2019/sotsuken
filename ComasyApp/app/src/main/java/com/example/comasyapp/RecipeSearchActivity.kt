@@ -238,6 +238,7 @@ class RecipeSearchActivity : AppCompatActivity() {
             // リクエスト結果受取に失敗
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("エラー", "失敗")
+                Log.e("カテゴリID", categoryId)
                 handler.post {
                     // 今あるrecipeContainer下のviewを消す
                     recipeContainer.removeAllViewsInLayout()
