@@ -13,10 +13,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -307,6 +304,19 @@ class RecipeSearchResultActivity : AppCompatActivity() {
                     textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
                     textViewTitle.setTextColor(Color.BLACK)
                     recipeContainer.addView(textViewTitle)
+
+                    val retryButton = Button(applicationContext)
+                    retryButton.text = "レシピを読み込む"
+                    retryButton.gravity = Gravity.CENTER
+                    recipeContainer.addView(retryButton)
+                    retryButton.setOnClickListener {
+                        // レシピ検索画面(RecipeSearchActivity.kt)へ遷移
+                        val intent = Intent(applicationContext, RecipeSearchResultActivity::class.java)
+                        // 検索ワードを渡す
+                        intent.putExtra("selectTag", categoryId)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    }
                 }
             }
 
