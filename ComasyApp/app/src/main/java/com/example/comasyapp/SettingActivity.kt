@@ -6,7 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
@@ -20,9 +25,21 @@ import org.json.JSONObject
 import java.io.IOException
 
 class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener {
+
+    private lateinit var background: ScrollView
+
+    // キーボード表示を制御するためのオブジェクト
+    private lateinit var inputMethodManager: InputMethodManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+
+        // 背景のレイアウトを取得
+        background = findViewById(R.id.background)
+
+        // InputMethodManagerを取得
+        inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // 冷蔵庫の切り替え/招待ボタンが押されたとき
         changeButton.setOnClickListener {
@@ -89,6 +106,18 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
             clear()
             commit()
         }
+    }
+
+    // 画面タップ時に呼ばれる
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        // キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(background.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+
+        // 背景にフォーカスを移す
+        background.requestFocus()
+
+        return false
     }
 
     // 冷蔵庫切り替え/招待ボタンを押したときの処理（選択された値による）
