@@ -37,8 +37,8 @@ import java.io.IOException
 class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetailsDialogListener,
     Parcelable {
 
-    lateinit var mAdapter: MemoTitleCustomAdapter
-    lateinit var mMemoList: ArrayList<MemoTitle>
+    private lateinit var mAdapter: MemoTitleCustomAdapter
+    private lateinit var mMemoList: ArrayList<MemoTitle>
 
     constructor(parcel: Parcel) : this() {
 
@@ -95,7 +95,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
     // ================
     // メモタイトルを表示
     // ================
-    fun makeRecyclerData() {
+    private fun makeRecyclerData() {
 
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
@@ -104,7 +104,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/memo_check.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/memo_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)
@@ -225,7 +225,7 @@ class MemoActivity() : AppCompatActivity(), ViewMemoDetailsDialog.ViewMemoDetail
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/memo_get.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/memo_get.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)

@@ -198,7 +198,7 @@ class RecipeSearchActivity : AppCompatActivity() {
     // ===================
     // PICK　UP　レシピを表示
     // ===================
-    fun makePickUpData() {
+    private fun makePickUpData() {
 
         val handler = Handler()
 
@@ -218,7 +218,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         Log.e("url", url)
 
 //        // リクエスト先URL（テスト用）
-//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
         // トップ表示するレシピをランダムで決める
         val randomNumber = (0..3).random()

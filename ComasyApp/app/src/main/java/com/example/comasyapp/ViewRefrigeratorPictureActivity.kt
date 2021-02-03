@@ -50,7 +50,7 @@ class ViewRefrigeratorPictureActivity : AppCompatActivity(), DeleteVerificationD
         refrigeratorPictureView.addView(imageView)
         // 冷蔵庫の画像を取ってくる
         Picasso.get()
-            .load("http://r02isc2t119.sub.jp/api/images/${picture_name}.png")
+            .load("${GetApiUrl().getApiUrl()}/api/images/${picture_name}.png")
             .resize(0, get_w_height())
             .into(imageView)
         imageView.layoutParams =
@@ -153,7 +153,7 @@ class ViewRefrigeratorPictureActivity : AppCompatActivity(), DeleteVerificationD
                                 pictureLinearLayoutContainer2.addView(imageView)
                                 // 冷蔵庫の画像を取ってくる
                                 Picasso.get()
-                                    .load("http://r02isc2t119.sub.jp/api/images/${pictureName}.png")
+                                    .load("${GetApiUrl().getApiUrl()}/api/images/${pictureName}.png")
                                     .resize(0, constraintLayout.height)
                                     .into(imageView)
                                 imageView.layoutParams =
@@ -187,7 +187,7 @@ class ViewRefrigeratorPictureActivity : AppCompatActivity(), DeleteVerificationD
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/my_refrigerator_picture.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/my_refrigerator_picture.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)
@@ -364,7 +364,7 @@ class ViewRefrigeratorPictureActivity : AppCompatActivity(), DeleteVerificationD
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/delete_my_refrigerator_picture.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/delete_my_refrigerator_picture.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)

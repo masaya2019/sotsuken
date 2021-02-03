@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MemoTitleCustomAdapter(private val memoList: ArrayList<MemoTitle>): RecyclerView.Adapter<MemoTitleCustomAdapter.ViewHolder>() {
 
     // リスナー格納変数
-    lateinit var listener: OnItemClickListener
+    private lateinit var listener: OnItemClickListener
 
     // Viewの初期化
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

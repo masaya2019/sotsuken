@@ -36,7 +36,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeDialogListener, ChangeGoodsQuantityResultDialog.NoticeChangeGoodsResultDialogListener {
+class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.NoticeAddGoodsQuantityDialogListener, ChangeGoodsQuantityResultDialog.NoticeChangeGoodsResultDialogListener {
 
     private lateinit var background: ConstraintLayout
     private lateinit var categoryBtnContainer: LinearLayout
@@ -218,7 +218,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
     // =======================================
     // 検索結果（カテゴリーorキーワード）を表示するAPI
     // =======================================
-    fun viewSearchData(search_data: String) {
+    private fun viewSearchData(search_data: String) {
 
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
@@ -231,7 +231,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
         Log.e("s_data", search_data)
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/response_all_goods.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -425,7 +425,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
     // ====================
     // 追加個数をDBに登録する
     // ====================
-    fun addGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int) {
+    private fun addGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int) {
 
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
@@ -442,7 +442,7 @@ class RegistrationClickActivity : AppCompatActivity(), AddGoodsQuantityDialog.No
 
         val handler = Handler()
 
-        val url = "http://r02isc2t119.sub.jp/api/change_goods_quantity_database.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)

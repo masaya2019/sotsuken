@@ -131,15 +131,15 @@ class RecipeSearchResultActivity : AppCompatActivity() {
     // =======================
     // レシピタイトルを表示（検索）
     // =======================
-    fun makeSearchData(search_data: String) {
+    private fun makeSearchData(search_data: String) {
 
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/recipe_search.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/recipe_search.php"
 
 //        // リクエスト先URL（テスト用）
-//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
         Log.e("seaech_data", search_data)
 
@@ -260,7 +260,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
     // ======================
     // レシピタイトルを表示（タグ）
     // ======================
-    fun makeTagSearchData(categoryId: String) {
+    private fun makeTagSearchData(categoryId: String) {
 
         val handler = Handler()
 
@@ -273,7 +273,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
 
         // リクエスト先URL（テスト用）
-//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
         val body = FormBody.Builder(charset("UTF-8"))
 //            .add("refrigerator_id", now_refrigerator_id)

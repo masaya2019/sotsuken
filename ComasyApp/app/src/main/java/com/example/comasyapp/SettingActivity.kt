@@ -77,7 +77,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 
     // 保存しているユーザーデータの削除
     // https://maku77.github.io/android/fw/shared-preference.html
-    fun deleteUserData() {
+    private fun deleteUserData() {
         // 本体からログイン情報（メールアドレスとパスワード）を削除
         getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
             clear()
@@ -136,7 +136,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // ダミーデータ
-        val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/create_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -191,7 +191,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
-    fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
+    private fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
         getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("refrigerator_id", refrigerator_id)
@@ -213,7 +213,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val handler = Handler()
 
         // ダミーデータ
-        val url = "http://r02isc2t119.sub.jp/api/refrigerator_check.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/refrigerator_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -361,7 +361,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "http://r02isc2t119.sub.jp/api/refrigerator_join.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/refrigerator_join.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", invite_mail_address)
@@ -434,7 +434,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "http://r02isc2t119.sub.jp/api/rename_refrigerator_name.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/rename_refrigerator_name.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
