@@ -24,7 +24,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener, NoTextErrorDialog.NoticeNoTextErrorDialogListener {
 
     private lateinit var background: ScrollView
 
@@ -454,53 +454,55 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         dialog: DialogFragment,
         new_refrigerator_name: String
     ) {
-        Log.e("接続確認", "OK")
-        // 本体からメールアドレスを取得
-        var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
-        val login_mail_address = pref.getString("mail_address", "").toString()
+        // 空白じゃないなら
+        if (new_refrigerator_name != "") {
+            Log.e("接続確認", "OK")
+            // 本体からメールアドレスを取得
+            var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+            val login_mail_address = pref.getString("mail_address", "").toString()
 
-        // 本体からrefrigerator_idを取得
-        pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
-        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+            // 本体からrefrigerator_idを取得
+            pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+            val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "${GetApiUrl().getApiUrl()}/api/rename_refrigerator_name.php"
+            val url = "${GetApiUrl().getApiUrl()}/api/rename_refrigerator_name.php"
 
-        val body = FormBody.Builder(charset("UTF-8"))
-            .add("mail_address", login_mail_address)
-            .add("refrigerator_id", now_refrigerator_id)
-            .add("new_refrigerator_name", new_refrigerator_name)
-            .build()
+            val body = FormBody.Builder(charset("UTF-8"))
+                .add("mail_address", login_mail_address)
+                .add("refrigerator_id", now_refrigerator_id)
+                .add("new_refrigerator_name", new_refrigerator_name)
+                .build()
 
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
+            val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
 
-        OkHttpClient().newCall(request).enqueue(object : Callback {
+            OkHttpClient().newCall(request).enqueue(object : Callback {
 
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) {
+                override fun onFailure(call: Call, e: IOException) {}
+                override fun onResponse(call: Call, response: Response) {
 
-                // responseのstatusに対応する値（）を取得
-                val jsonData = JSONObject(response.body()?.string())
-                val apiStatus = jsonData.getString("status")
+                    // responseのstatusに対応する値（）を取得
+                    val jsonData = JSONObject(response.body()?.string())
+                    val apiStatus = jsonData.getString("status")
 
-                // responseのstatusによって次の画面に進むorエラーを表示する
-                when (apiStatus) {
+                    // responseのstatusによって次の画面に進むorエラーを表示する
+                    when (apiStatus) {
 
-                    //  データベースに登録された場合
-                    "yes" -> {
-                        // Bundleのインスタンスを作成する
-                        val bundle = Bundle()
-                        // Key/Pairの形で値をセットする
-                        bundle.putString("KEY_NEW_NAME", new_refrigerator_name)
+                        //  データベースに登録された場合
+                        "yes" -> {
+                            // Bundleのインスタンスを作成する
+                            val bundle = Bundle()
+                            // Key/Pairの形で値をセットする
+                            bundle.putString("KEY_NEW_NAME", new_refrigerator_name)
 
-                        // selectNextActionDialogを呼び出す
-                        val dialog = RenameRefrigeratorNameResultDialog()
-                        dialog.setArguments(bundle)
-                        dialog.show(supportFragmentManager, "RenameRefrigeratorNameResultDialog")
+                            // selectNextActionDialogを呼び出す
+                            val dialog = RenameRefrigeratorNameResultDialog()
+                            dialog.setArguments(bundle)
+                            dialog.show(supportFragmentManager, "RenameRefrigeratorNameResultDialog")
+                        }
                     }
-                }
 //                    // 以下はエラー用に仮作成
 //                    // えらー１
 //                    "" -> {
@@ -516,13 +518,23 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 //                            errorText.text = ""
 //                        }
 //                    }
-            }
-        })
+                }
+            })
+            // 未入力の場合
+        } else {
+            // 文字入力して！
+            val dialog = NoTextErrorDialog()
+            dialog.show(supportFragmentManager, "NoticeNoTextErrorDialog")
+        }
     }
 
     override fun onRenameRefrigeratorNameDialogNegativeClick(dialog: DialogFragment) {
     }
 
     override fun onRenameRefrigeratorNameResultDialogPositiveClick(dialog: DialogFragment) {
+    }
+
+    override fun onNoTextErrorDialogPositiveClick(dialog: DialogFragment) {
+        renameRefrigeratorName()
     }
 }
