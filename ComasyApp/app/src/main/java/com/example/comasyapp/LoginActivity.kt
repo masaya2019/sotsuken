@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
     // メールアドレスとパスワードが一致するかを返すＡＰＩにリクエストを送る
     private fun LoginCheck(mail_address: String, password: String, handler: Handler, errorText: TextView) {
 
-        val url = "http://r02isc2t119.sub.jp/api/login_check.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/login_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)
@@ -137,7 +137,7 @@ class LoginActivity : AppCompatActivity() {
     // mail_addressと対応するrefrigerator_idを本体に登録する
     private fun registerRefrigeratorId(mail_address: String) {
 
-        val url = "http://r02isc2t119.sub.jp/api/check_refrigerator_id.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/check_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", mail_address)
@@ -200,7 +200,7 @@ class LoginActivity : AppCompatActivity() {
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
 
-            val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
+            val url = "${GetApiUrl().getApiUrl()}/api/create_refrigerator_id.php"
 
             val body = FormBody.Builder(charset("UTF-8"))
                 .add("mail_address", mail_address)
@@ -262,7 +262,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 本体にログイン情報（メールアドレスとパスワード）を保存
     // https://maku77.github.io/android/fw/shared-preference.html
-    fun saveUserData(mail_address: String, password: String) {
+    private fun saveUserData(mail_address: String, password: String) {
         getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("password", password)
@@ -271,7 +271,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
-    fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
+    private fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
         getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("refrigerator_id", refrigerator_id)

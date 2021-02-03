@@ -148,7 +148,7 @@ class ColumnActivity : AppCompatActivity(){
         }
     }
     //R.id.containerに引数で渡されたフラグメントを入れる
-    fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 

@@ -138,7 +138,7 @@ class MemoTextActivity : AppCompatActivity() {
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/memo_add.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/memo_add.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)

@@ -11,11 +11,11 @@ import androidx.fragment.app.DialogFragment
 class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListener {
 
     // 親に渡すためのリスナー定義
-    private lateinit var listener: NoticeDialogListener
+    private lateinit var listener: NoticeAddGoodsQuantityDialogListener
     // 選択したアイテム格納
     private var selectedItem: Int = 0
 
-    interface NoticeDialogListener {
+    interface NoticeAddGoodsQuantityDialogListener {
         fun onNumberPickerDialogPositiveClick(dialog: DialogFragment, selectedItem: Int, goods_id: String, goods_name: String)
         fun onNumberPickerDialogNegativeClick(dialog: DialogFragment)
     }
@@ -23,9 +23,9 @@ class AddGoodsQuantityDialog: DialogFragment(), NumberPicker.OnValueChangeListen
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            this.listener = context as NoticeDialogListener
+            this.listener = context as NoticeAddGoodsQuantityDialogListener
         } catch (e: ClassCastException) {
-            throw ClassCastException(("$context must implement NoticeDialogListener"))
+            throw ClassCastException(("$context must implement NoticeAddGoodsQuantityDialogListener"))
         }
     }
 
