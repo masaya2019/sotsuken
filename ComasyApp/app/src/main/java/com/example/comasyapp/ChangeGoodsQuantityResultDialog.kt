@@ -41,7 +41,7 @@ class ChangeGoodsQuantityResultDialog: DialogFragment() {
 
         if (change_quantity.toInt() > 0) {
             val builder = AlertDialog.Builder(activity)
-            builder.setTitle("変　更　完　了　の　お　知　ら　せ")
+            builder.setTitle("変更完了のお知らせ")
                 .setMessage("\n${goods_name}を${change_quantity}個増やしました")
                 .setPositiveButton("確　認") { dialog, id ->
                     this.listener.onNoticeChangeGoodsResultPositiveClick(this, search_data)
@@ -49,7 +49,7 @@ class ChangeGoodsQuantityResultDialog: DialogFragment() {
             return builder.create()
         } else {
             val builder = AlertDialog.Builder(activity)
-            builder.setTitle("変 更 完　了　の　お　知　ら　せ")
+            builder.setTitle("変更完了のお知らせ")
                 .setMessage("\n${goods_name}を${0 - change_quantity.toInt()}個減らしました")
                 .setPositiveButton("確　認") { dialog, id ->
                     this.listener.onNoticeChangeGoodsResultPositiveClick(this, search_data)

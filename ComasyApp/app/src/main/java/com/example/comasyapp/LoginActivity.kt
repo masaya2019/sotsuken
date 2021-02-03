@@ -111,8 +111,21 @@ class LoginActivity : AppCompatActivity() {
                         // 本体にメールアドレスとパスワードを保存
                         saveUserData(mail_address, password)
 
-                        // mail_addressと対応するrefrigerator_idを本体に登録する
-                        registerRefrigeratorId(mail_address)
+                        // 本体からmail_addressとrefrigerator_idを取得
+                        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+                        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+
+                        // 冷蔵庫IDが保存されていない
+                        if (now_refrigerator_id == "") {
+                            // mail_addressと対応するrefrigerator_idを本体に登録する
+                            registerRefrigeratorId(mail_address)
+                            // 冷蔵庫IDが保存されている
+                        } else {
+                            // ホーム画面（HomeActivity.kt）へ遷移する
+                            val intent = Intent(applicationContext, HomeActivity::class.java)
+                                .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            startActivity(intent)
+                        }
                     }
 //                    // 以下はエラー用に仮作成
 //                    // えらー１
@@ -194,11 +207,6 @@ class LoginActivity : AppCompatActivity() {
 
     // refrigerator_idが保存されていなかったら、mail_addressと対応するrefrigerator_idを発行し、登録するAPIにリクエストを送る
     private fun addRefrigeratorId(mail_address: String) {
-        // 本体からmail_addressとrefrigerator_idを取得
-        val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
-        val login_mail_address = pref.getString("mail_address", "").toString()
-        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
-
 
             val url = "${GetApiUrl().getApiUrl()}/api/create_refrigerator_id.php"
 

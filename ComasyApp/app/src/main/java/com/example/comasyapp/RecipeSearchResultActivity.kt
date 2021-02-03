@@ -141,7 +141,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
 //        // リクエスト先URL（テスト用）
 //        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
-        Log.e("seaech_data", search_data)
+        Log.e("search_data", search_data)
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -209,7 +209,6 @@ class RecipeSearchResultActivity : AppCompatActivity() {
                             "取得レコード",
                             "${foodImageUrl} ${recipeTitle} ${recipeUrl}"
                         )
-
                         // 最初以外は1行空白を入れる
                         if (i != 0) {
                             val textView = TextView(applicationContext)
@@ -218,38 +217,51 @@ class RecipeSearchResultActivity : AppCompatActivity() {
                             recipeContainer.addView(textView)
                         }
 
-                        // レシピタイトルを配置
-                        val textView = TextView(applicationContext)
-                        textView.text = recipeTitle
-                        textView.textSize = 24F
-                        textView.setTypeface(Typeface.DEFAULT_BOLD)
-                        textView.setTextColor(Color.BLACK)
-                        recipeContainer.addView(textView)
-                        // テキストがクリックされたら
-                        textView.setOnClickListener {
-                            Log.e("URL", recipeUrl)
-                            // 楽天レシピのページを開く
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                            startActivity(intent)
-                        }
+                        // データがno_recode_errorではない
+                        if (recipeTitle != "no_recode_error") {
 
-                        // レシピ画像を配置
-                        val imageView = ImageView(applicationContext)
-                        recipeContainer.addView(imageView)
-                        // レシピの画像を取ってくる
-                        Picasso.get()
-                            .load(foodImageUrl)
-                            .resize(0, background.width)
-                            .into(imageView)
-                        imageView.layoutParams =
-                            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                        imageView.adjustViewBounds = true
-                        // 画像がクリックされたら
-                        imageView.setOnClickListener {
-                            Log.e("URL", recipeUrl)
-                            // 楽天レシピのページを開く
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                            startActivity(intent)
+                            // レシピタイトルを配置
+                            val textView = TextView(applicationContext)
+                            textView.text = recipeTitle
+                            textView.textSize = 24F
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.BLACK)
+                            recipeContainer.addView(textView)
+                            // テキストがクリックされたら
+                            textView.setOnClickListener {
+                                Log.e("URL", recipeUrl)
+                                // 楽天レシピのページを開く
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                                startActivity(intent)
+                            }
+
+                            // レシピ画像を配置
+                            val imageView = ImageView(applicationContext)
+                            recipeContainer.addView(imageView)
+                            // レシピの画像を取ってくる
+                            Picasso.get()
+                                .load(foodImageUrl)
+                                .resize(0, background.width)
+                                .into(imageView)
+                            imageView.layoutParams =
+                                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                            imageView.adjustViewBounds = true
+                            // 画像がクリックされたら
+                            imageView.setOnClickListener {
+                                Log.e("URL", recipeUrl)
+                                // 楽天レシピのページを開く
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                                startActivity(intent)
+                            }
+                        } else {
+                            // レシピタイトルを配置
+                            val textView = TextView(applicationContext)
+                            textView.text = "検索結果がありませんでした"
+                            textView.textSize = 24F
+                            textView.gravity = Gravity.CENTER
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.BLACK)
+                            recipeContainer.addView(textView)
                         }
                     }
                 }
