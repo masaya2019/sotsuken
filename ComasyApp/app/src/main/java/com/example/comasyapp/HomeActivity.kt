@@ -232,7 +232,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                             if (datas.length() == 0) {
                                 val textView = TextView(applicationContext)
-                                textView.text = "右下にある＋ボタンから\n冷蔵庫の中身を登録しよう！"
+                                textView.text = "右下にある＋ボタンから\n冷蔵庫の中身を登録しよう"
                                 textView.textSize = 20F
                                 textView.setTypeface(Typeface.DEFAULT_BOLD)
                                 textView.setTextColor(Color.BLACK)
@@ -504,8 +504,8 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                             // テキストを配置
                             val textView = TextView(applicationContext)
-                            textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう！"
-                            textView.textSize = 20F
+                            textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう"
+                            textView.textSize = 18F
                             textView.setTypeface(Typeface.DEFAULT_BOLD)
                             textView.setTextColor(Color.WHITE)
                             textView.gravity = Gravity.CENTER
