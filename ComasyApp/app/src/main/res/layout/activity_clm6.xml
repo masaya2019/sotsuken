@@ -36,17 +36,23 @@
                 android:textSize="30sp" />
 
             <!-- コラム内容 -->
-            <TextView
-                android:text="@string/clm6_contents"
-                android:id="@+id/clmContents"
-                android:textSize="20dp"
-                android:layout_marginTop="22dp"
+            <ScrollView
+                android:background="@drawable/flame_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:background="@drawable/flame_style"/>
+                android:layout_marginBottom="80dp"
+                >
+                <TextView
+                    android:id="@+id/clmContents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clm6_contents"
+                    android:textSize="20dp" />
+            </ScrollView>
         </LinearLayout>
 
 

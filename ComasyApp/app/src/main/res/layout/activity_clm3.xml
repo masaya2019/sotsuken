@@ -15,40 +15,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <!-- タイトル -->
             <Button
                 android:id="@+id/returnColumnButton"
                 android:layout_width="328dp"
                 android:layout_height="54dp"
-                android:textSize="24sp"
-                android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="コラム一覧に戻る"/>
+                android:text="コラム一覧に戻る"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
-            <!-- タイトル -->
             <TextView
-                android:text="@string/clm3_title"
                 android:id="@+id/columnTitle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="33dp"
+                android:text="@string/clm3_title"
                 android:textAlignment="center"
                 android:textSize="30sp" />
 
             <!-- コラム内容 -->
-            <TextView
-                android:text="@string/clm3_contents"
-                android:id="@+id/clmContents"
-                android:textSize="20dp"
-                android:layout_marginTop="22dp"
+            <ScrollView
+                android:background="@drawable/flame_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:background="@drawable/flame_style"/>
+                android:layout_marginBottom="80dp"
+                >
+                <TextView
+                    android:id="@+id/clmContents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clm3_contents"
+                    android:textSize="20dp" />
+            </ScrollView>
         </LinearLayout>
-
-
     </FrameLayout>
 </LinearLayout>
