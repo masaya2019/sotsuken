@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -133,17 +131,17 @@ class RecipeSearchResultActivity : AppCompatActivity() {
     // =======================
     // レシピタイトルを表示（検索）
     // =======================
-    fun makeSearchData(search_data: String) {
+    private fun makeSearchData(search_data: String) {
 
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/recipe_search.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/recipe_search.php"
 
 //        // リクエスト先URL（テスト用）
-//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
-        Log.e("seaech_data", search_data)
+        Log.e("search_data", search_data)
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -157,7 +155,25 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("エラー", "失敗")
+                handler.post {
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle)
+                }
+            }
 
             // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {
@@ -193,7 +209,6 @@ class RecipeSearchResultActivity : AppCompatActivity() {
                             "取得レコード",
                             "${foodImageUrl} ${recipeTitle} ${recipeUrl}"
                         )
-
                         // 最初以外は1行空白を入れる
                         if (i != 0) {
                             val textView = TextView(applicationContext)
@@ -202,38 +217,51 @@ class RecipeSearchResultActivity : AppCompatActivity() {
                             recipeContainer.addView(textView)
                         }
 
-                        // レシピタイトルを配置
-                        val textView = TextView(applicationContext)
-                        textView.text = recipeTitle
-                        textView.textSize = 24F
-                        textView.setTypeface(Typeface.DEFAULT_BOLD)
-                        textView.setTextColor(Color.BLACK)
-                        recipeContainer.addView(textView)
-                        // テキストがクリックされたら
-                        textView.setOnClickListener {
-                            Log.e("URL", recipeUrl)
-                            // 楽天レシピのページを開く
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                            startActivity(intent)
-                        }
+                        // データがno_recode_errorではない
+                        if (recipeTitle != "no_recode_error") {
 
-                        // レシピ画像を配置
-                        val imageView = ImageView(applicationContext)
-                        recipeContainer.addView(imageView)
-                        // レシピの画像を取ってくる
-                        Picasso.get()
-                            .load(foodImageUrl)
-                            .resize(0, background.width)
-                            .into(imageView)
-                        imageView.layoutParams =
-                            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                        imageView.adjustViewBounds = true
-                        // 画像がクリックされたら
-                        imageView.setOnClickListener {
-                            Log.e("URL", recipeUrl)
-                            // 楽天レシピのページを開く
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
-                            startActivity(intent)
+                            // レシピタイトルを配置
+                            val textView = TextView(applicationContext)
+                            textView.text = recipeTitle
+                            textView.textSize = 24F
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.BLACK)
+                            recipeContainer.addView(textView)
+                            // テキストがクリックされたら
+                            textView.setOnClickListener {
+                                Log.e("URL", recipeUrl)
+                                // 楽天レシピのページを開く
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                                startActivity(intent)
+                            }
+
+                            // レシピ画像を配置
+                            val imageView = ImageView(applicationContext)
+                            recipeContainer.addView(imageView)
+                            // レシピの画像を取ってくる
+                            Picasso.get()
+                                .load(foodImageUrl)
+                                .resize(0, background.width)
+                                .into(imageView)
+                            imageView.layoutParams =
+                                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                            imageView.adjustViewBounds = true
+                            // 画像がクリックされたら
+                            imageView.setOnClickListener {
+                                Log.e("URL", recipeUrl)
+                                // 楽天レシピのページを開く
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipeUrl))
+                                startActivity(intent)
+                            }
+                        } else {
+                            // レシピタイトルを配置
+                            val textView = TextView(applicationContext)
+                            textView.text = "検索結果がありませんでした"
+                            textView.textSize = 24F
+                            textView.gravity = Gravity.CENTER
+                            textView.setTypeface(Typeface.DEFAULT_BOLD)
+                            textView.setTextColor(Color.BLACK)
+                            recipeContainer.addView(textView)
                         }
                     }
                 }
@@ -244,7 +272,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
     // ======================
     // レシピタイトルを表示（タグ）
     // ======================
-    fun makeTagSearchData(categoryId: String) {
+    private fun makeTagSearchData(categoryId: String) {
 
         val handler = Handler()
 
@@ -257,7 +285,7 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
 
         // リクエスト先URL（テスト用）
-//        val url = "http://r02isc2t119.sub.jp/api/test.json"
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
         val body = FormBody.Builder(charset("UTF-8"))
 //            .add("refrigerator_id", now_refrigerator_id)
@@ -271,7 +299,38 @@ class RecipeSearchResultActivity : AppCompatActivity() {
         OkHttpClient().newCall(request).enqueue(object : Callback {
 
             // リクエスト結果受取に失敗
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("エラー", "失敗")
+                handler.post {
+                    // 今あるrecipeContainer下のviewを消す
+                    recipeContainer.removeAllViewsInLayout()
+
+                    // スクロールの一番上に戻す
+                    scrollView2.scrollTo(0, 0)
+
+                    // レシピタイトルを配置
+                    val textViewTitle = TextView(applicationContext)
+                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.textSize = 24F
+                    textViewTitle.gravity = Gravity.CENTER
+                    textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle)
+
+                    val retryButton = Button(applicationContext)
+                    retryButton.text = "レシピを読み込む"
+                    retryButton.gravity = Gravity.CENTER
+                    recipeContainer.addView(retryButton)
+                    retryButton.setOnClickListener {
+                        // レシピ検索画面(RecipeSearchActivity.kt)へ遷移
+                        val intent = Intent(applicationContext, RecipeSearchResultActivity::class.java)
+                        // 検索ワードを渡す
+                        intent.putExtra("selectTag", categoryId)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    }
+                }
+            }
 
             // リクエスト結果受取に成功
             override fun onResponse(call: Call, response: Response) {

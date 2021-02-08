@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -197,27 +198,27 @@ class RecipeSearchActivity : AppCompatActivity() {
     // ===================
     // PICK　UP　レシピを表示
     // ===================
-    fun makePickUpData() {
+    private fun makePickUpData() {
 
         val handler = Handler()
 
-//        // アプリID（ディベロッパーID）
-//        val applicationId = RakutenRecipeApplicationId().getApplicationId()
-//
-//        // カテゴリID
-//        val categoryId = RandomRecipeCategoryType().getrecipeId()
-//
-//        Log.e("カテゴリID", categoryId)
-//
-//        Log.e("ID確認", applicationId + " " + categoryId)
-//
-//        // リクエスト先URL
-//        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
-//
-//        Log.e("url", url)
+        // アプリID（ディベロッパーID）
+        val applicationId = RakutenRecipeApplicationId().getApplicationId()
 
-        // リクエスト先URL（テスト用）
-        val url = "http://r02isc2t119.sub.jp/api/test.json"
+        // カテゴリID
+        val categoryId = GetRecipeCategoryType().getrecipeId()
+
+        Log.e("カテゴリID", categoryId)
+
+        Log.e("ID確認", applicationId + " " + categoryId)
+
+        // リクエスト先URL
+        val url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&categoryId=${categoryId}&elements=foodImageUrl%2CrecipeTitle%2CrecipeUrl&applicationId=${applicationId}"
+
+        Log.e("url", url)
+
+//        // リクエスト先URL（テスト用）
+//        val url = "${GetApiUrl().getApiUrl()}/api/test.json"
 
         // トップ表示するレシピをランダムで決める
         val randomNumber = (0..3).random()
@@ -238,6 +239,7 @@ class RecipeSearchActivity : AppCompatActivity() {
             // リクエスト結果受取に失敗
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("エラー", "失敗")
+                Log.e("カテゴリID", categoryId)
                 handler.post {
                     // 今あるrecipeContainer下のviewを消す
                     recipeContainer.removeAllViewsInLayout()
@@ -247,12 +249,32 @@ class RecipeSearchActivity : AppCompatActivity() {
 
                     // レシピタイトルを配置
                     val textViewTitle = TextView(applicationContext)
-                    textViewTitle.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle.text = "\n▼▼　PICK　UP　レシピ　▼▼"
                     textViewTitle.textSize = 24F
                     textViewTitle.gravity = Gravity.CENTER
                     textViewTitle.setTypeface(Typeface.DEFAULT_BOLD)
-                    textViewTitle.setTextColor(Color.BLACK)
+                    textViewTitle.setTextColor(Color.RED)
                     recipeContainer.addView(textViewTitle)
+
+                    // レシピタイトルを配置
+                    val textViewTitle2 = TextView(applicationContext)
+                    textViewTitle2.text = "\nレシピの読み込みに失敗しました\n"
+                    textViewTitle2.textSize = 24F
+                    textViewTitle2.gravity = Gravity.CENTER
+                    textViewTitle2.setTypeface(Typeface.DEFAULT_BOLD)
+                    textViewTitle2.setTextColor(Color.BLACK)
+                    recipeContainer.addView(textViewTitle2)
+
+                    val retryButton = Button(applicationContext)
+                    retryButton.text = "レシピを読み込む"
+                    retryButton.gravity = Gravity.CENTER
+                    recipeContainer.addView(retryButton)
+                    retryButton.setOnClickListener {
+                        // レシピ検索画面(RecipeSearchActivity.kt)へ遷移
+                        val intent = Intent(applicationContext, RecipeSearchActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    }
                 }
             }
 

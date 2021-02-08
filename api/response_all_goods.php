@@ -24,6 +24,7 @@ if (isset($_POST['search_data'])) {
     // search_dataを受け取る
     $search_data = $_POST['search_data'];
 
+    // ALLカテゴリー
     if ($search_data == "cat00") {
         // 全部のgoodsをすべて出す（ALL）
         $sql = "SELECT * FROM goods";
@@ -76,6 +77,7 @@ if (isset($_POST['search_data'])) {
         }
 
         $status = "yes";
+    // カテゴリ別
     } elseif (
       $search_data == "cat01" || $search_data == "cat02" || $search_data == "cat03"
         || $search_data == "cat04" || $search_data == "cat05" || $search_data == "cat06" || $search_data == "cat07" || $search_data == "cat08"
@@ -133,7 +135,7 @@ if (isset($_POST['search_data'])) {
         $status = "yes";
     } else {
         // 検索語句を含むレコードが存在するか
-        $sql = "SELECT COUNT(*) AS cnt FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
+        $sql = "SELECT COUNT(*) AS cnt FROM search_index WHERE keyword LIKE '%" . $search_data . "%'";
 
         // 接続したDBに対してSQL文を実行する
         $result = querySql($db, $sql);
@@ -148,7 +150,9 @@ if (isset($_POST['search_data'])) {
             $status = "no_recode_error";
         } else {
             // 本番検索
-            $sql = "SELECT * FROM goods WHERE goods_name LIKE '%" . $search_data . "%'";
+            $sql = "SELECT DISTINCT goods.goods_id, goods_name "
+                . "FROM search_index INNER JOIN goods ON search_index.goods_id = goods.goods_id "
+                . "WHERE keyword LIKE '%" . $search_data . "%'";
 
             // 接続したDBに対してSQL文を実行する
             $result = querySql($db, $sql);

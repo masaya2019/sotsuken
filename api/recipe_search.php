@@ -31,8 +31,19 @@ if (isset($_POST['search_data'])) {
 
     // レコードナシなら
     if ($row["cnt"] == 0) {
-        $array = array();
-        $status = "no_recode_error";
+        // 返却値保存配列
+        $response_array = array();
+        // 配列の中に入れる
+        array_push(
+            $response_array,
+            array(
+                    "foodImageUrl" => "no_recode_error",
+                    "recipeUrl" => "no_recode_error",
+                    "recipeTitle" => "no_recode_error"
+                )
+        );
+    // print_r($response_array);
+
     // レコードがあれば
     } else {
         // 該当するcategory_typeを返す

@@ -6,7 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.transitionColumnButton
@@ -19,10 +24,22 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener {
+class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSelectChangeOrInviteDialogListener, NoOtherRefrigeratorDialog.NoticeNoOtherRefrigeratorDialogListener, SelectNewRefrigeratorDialog.NoticeSelectNewRefrigeratorDialogListener, InviteRefrigeratorDialog.InviteRefrigeratorDialogListener, RenameRefrigeratorNameDialog.RenameRefrigeratorNameDialogListener, RenameRefrigeratorNameResultDialog.RenameRefrigeratorNameResultDialogListener, NoTextErrorDialog.NoticeNoTextErrorDialogListener {
+
+    private lateinit var background: ScrollView
+
+    // キーボード表示を制御するためのオブジェクト
+    private lateinit var inputMethodManager: InputMethodManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+
+        // 背景のレイアウトを取得
+        background = findViewById(R.id.background)
+
+        // InputMethodManagerを取得
+        inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // 冷蔵庫の切り替え/招待ボタンが押されたとき
         changeButton.setOnClickListener {
@@ -33,7 +50,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 
         // ログアウトボタンが押されたとき
         logoutButton.setOnClickListener {
-            // 本体からログイン情報（メールアドレスとパスワード）を削除
+            // 保存しているユーザーデータの削除
             deleteUserData()
 
             // ログイン画面（LoginActivity.kt）へ遷移
@@ -75,14 +92,32 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         }
     }
 
-    // 本体からログイン情報（メールアドレスとパスワード）を削除
+    // 保存しているユーザーデータの削除
     // https://maku77.github.io/android/fw/shared-preference.html
-    fun deleteUserData() {
-        // ログイン情報削除用（削除しないとログインしたままになります）
+    private fun deleteUserData() {
+        // 本体からログイン情報（メールアドレスとパスワード）を削除
         getSharedPreferences("my_password", Context.MODE_PRIVATE).edit().apply {
             clear()
             commit()
         }
+
+        // 本体からメールアドレスと冷蔵庫IDを削除
+        getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
+            clear()
+            commit()
+        }
+    }
+
+    // 画面タップ時に呼ばれる
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        // キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(background.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+
+        // 背景にフォーカスを移す
+        background.requestFocus()
+
+        return false
     }
 
     // 冷蔵庫切り替え/招待ボタンを押したときの処理（選択された値による）
@@ -130,7 +165,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
         // ダミーデータ
-        val url = "http://r02isc2t119.sub.jp/api/create_refrigerator_id.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/create_refrigerator_id.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -185,7 +220,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
     }
 
     // 本体に冷蔵庫情報（メールアドレスと冷蔵庫ID）を保存
-    fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
+    private fun saveRefrigeratorData(mail_address: String, refrigerator_id: String) {
         getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE).edit().apply {
             putString("mail_address", mail_address)
             putString("refrigerator_id", refrigerator_id)
@@ -207,7 +242,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val handler = Handler()
 
         // ダミーデータ
-        val url = "http://r02isc2t119.sub.jp/api/refrigerator_check.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/refrigerator_check.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", login_mail_address)
@@ -355,7 +390,7 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
         val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "http://r02isc2t119.sub.jp/api/refrigerator_join.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/refrigerator_join.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("mail_address", invite_mail_address)
@@ -419,53 +454,55 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
         dialog: DialogFragment,
         new_refrigerator_name: String
     ) {
-        Log.e("接続確認", "OK")
-        // 本体からメールアドレスを取得
-        var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
-        val login_mail_address = pref.getString("mail_address", "").toString()
+        // 空白じゃないなら
+        if (new_refrigerator_name != "") {
+            Log.e("接続確認", "OK")
+            // 本体からメールアドレスを取得
+            var pref = getSharedPreferences("my_password", Context.MODE_PRIVATE)
+            val login_mail_address = pref.getString("mail_address", "").toString()
 
-        // 本体からrefrigerator_idを取得
-        pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
-        val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
+            // 本体からrefrigerator_idを取得
+            pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
+            val now_refrigerator_id = pref.getString("refrigerator_id", "").toString()
 
-        val url = "http://r02isc2t119.sub.jp/api/rename_refrigerator_name.php"
+            val url = "${GetApiUrl().getApiUrl()}/api/rename_refrigerator_name.php"
 
-        val body = FormBody.Builder(charset("UTF-8"))
-            .add("mail_address", login_mail_address)
-            .add("refrigerator_id", now_refrigerator_id)
-            .add("new_refrigerator_name", new_refrigerator_name)
-            .build()
+            val body = FormBody.Builder(charset("UTF-8"))
+                .add("mail_address", login_mail_address)
+                .add("refrigerator_id", now_refrigerator_id)
+                .add("new_refrigerator_name", new_refrigerator_name)
+                .build()
 
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
+            val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
 
-        OkHttpClient().newCall(request).enqueue(object : Callback {
+            OkHttpClient().newCall(request).enqueue(object : Callback {
 
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) {
+                override fun onFailure(call: Call, e: IOException) {}
+                override fun onResponse(call: Call, response: Response) {
 
-                // responseのstatusに対応する値（）を取得
-                val jsonData = JSONObject(response.body()?.string())
-                val apiStatus = jsonData.getString("status")
+                    // responseのstatusに対応する値（）を取得
+                    val jsonData = JSONObject(response.body()?.string())
+                    val apiStatus = jsonData.getString("status")
 
-                // responseのstatusによって次の画面に進むorエラーを表示する
-                when (apiStatus) {
+                    // responseのstatusによって次の画面に進むorエラーを表示する
+                    when (apiStatus) {
 
-                    //  データベースに登録された場合
-                    "yes" -> {
-                        // Bundleのインスタンスを作成する
-                        val bundle = Bundle()
-                        // Key/Pairの形で値をセットする
-                        bundle.putString("KEY_NEW_NAME", new_refrigerator_name)
+                        //  データベースに登録された場合
+                        "yes" -> {
+                            // Bundleのインスタンスを作成する
+                            val bundle = Bundle()
+                            // Key/Pairの形で値をセットする
+                            bundle.putString("KEY_NEW_NAME", new_refrigerator_name)
 
-                        // selectNextActionDialogを呼び出す
-                        val dialog = RenameRefrigeratorNameResultDialog()
-                        dialog.setArguments(bundle)
-                        dialog.show(supportFragmentManager, "RenameRefrigeratorNameResultDialog")
+                            // selectNextActionDialogを呼び出す
+                            val dialog = RenameRefrigeratorNameResultDialog()
+                            dialog.setArguments(bundle)
+                            dialog.show(supportFragmentManager, "RenameRefrigeratorNameResultDialog")
+                        }
                     }
-                }
 //                    // 以下はエラー用に仮作成
 //                    // えらー１
 //                    "" -> {
@@ -481,13 +518,23 @@ class SettingActivity : AppCompatActivity(), SelectChangeOrInviteDialog.NoticeSe
 //                            errorText.text = ""
 //                        }
 //                    }
-            }
-        })
+                }
+            })
+            // 未入力の場合
+        } else {
+            // 文字入力して！
+            val dialog = NoTextErrorDialog()
+            dialog.show(supportFragmentManager, "NoticeNoTextErrorDialog")
+        }
     }
 
     override fun onRenameRefrigeratorNameDialogNegativeClick(dialog: DialogFragment) {
     }
 
     override fun onRenameRefrigeratorNameResultDialogPositiveClick(dialog: DialogFragment) {
+    }
+
+    override fun onNoTextErrorDialogPositiveClick(dialog: DialogFragment) {
+        renameRefrigeratorName()
     }
 }

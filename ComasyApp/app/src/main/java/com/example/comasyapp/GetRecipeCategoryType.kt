@@ -10,7 +10,7 @@ class GetRecipeCategoryType {
     // ランダムでカテゴリIDを返す（レシピタイトル用）
     // =====================================
     // 定番のカテゴリー（0~9）
-    val classicCategory = listOf(
+    private val classicCategory = listOf(
         // 人気メニュー
         "30",
         // 定番の肉料理
@@ -33,7 +33,7 @@ class GetRecipeCategoryType {
         "17"
     )
     // 月ごとのカテゴリー(10～14)
-    val janCategory = listOf(
+    private val janCategory = listOf(
         // 冬
         "55",
         // 行事・イベント
@@ -45,7 +45,7 @@ class GetRecipeCategoryType {
         // ななくさ粥（七草粥）
         "55-673"
     )
-    val febCategory = listOf(
+    private val febCategory = listOf(
         // 冬
         "55",
         // 行事・イベント
@@ -57,7 +57,7 @@ class GetRecipeCategoryType {
         // バレンタイン
         "55-674"
     )
-    val marCategory = listOf(
+    private val marCategory = listOf(
         // 春
         "52",
         // 行事・イベント
@@ -69,7 +69,7 @@ class GetRecipeCategoryType {
         // ホワイトデー
         "52-660"
     )
-    val aprCategory = listOf(
+    private val aprCategory = listOf(
         // 春
         "52",
         // 行事・イベント
@@ -81,7 +81,7 @@ class GetRecipeCategoryType {
         // お疲れ気味の方
         "39-508"
     )
-    val mayCategory = listOf(
+    private val mayCategory = listOf(
         // 春
         "52",
         // 行事・イベント
@@ -93,7 +93,7 @@ class GetRecipeCategoryType {
         // 春の果物
         "34-692"
     )
-    val junCategory = listOf(
+    private val junCategory = listOf(
         // 夏
         "53",
         // 行事・イベント
@@ -105,7 +105,7 @@ class GetRecipeCategoryType {
         // お疲れ気味の方
         "39-508"
     )
-    val julCategory = listOf(
+    private val julCategory = listOf(
         // 夏
         "53",
         // 行事・イベント
@@ -117,7 +117,7 @@ class GetRecipeCategoryType {
         // 夏の果物
         "34-693"
     )
-    val augCategory = listOf(
+    private val augCategory = listOf(
         // 夏
         "53",
         // 行事・イベント
@@ -129,7 +129,7 @@ class GetRecipeCategoryType {
         // 夏の果物
         "34-693"
     )
-    val sepCategory = listOf(
+    private val sepCategory = listOf(
         // 秋
         "54",
         // 行事・イベント
@@ -141,7 +141,7 @@ class GetRecipeCategoryType {
         // 秋の果物
         "34-689"
     )
-    val octCategory = listOf(
+    private val octCategory = listOf(
         // 秋
         "54",
         // 行事・イベント
@@ -153,7 +153,7 @@ class GetRecipeCategoryType {
         // 秋の果物
         "34-689"
     )
-    val novCategory = listOf(
+    private val novCategory = listOf(
         // 秋
         "54",
         // 行事・イベント
@@ -165,7 +165,7 @@ class GetRecipeCategoryType {
         // 秋の果物
         "34-689"
     )
-    val decCategory = listOf(
+    private val decCategory = listOf(
         // 冬
         "55",
         // 行事・イベント
@@ -261,7 +261,7 @@ class GetRecipeCategoryType {
     // 季節のイベントのカテゴリIDを返す（トレンドタグ用）
     // ========================================
     // 季節のイベント名
-    val seasonEventName = listOf(
+    private val seasonEventName = listOf(
         // 1月
         "おせち料理",
         // 2月
@@ -289,7 +289,7 @@ class GetRecipeCategoryType {
     )
 
     // 季節のイベントカテゴリID
-    val seasonEventCategoryType = listOf(
+    private val seasonEventCategoryType = listOf(
         // 1月
         "49",
         // 2月
@@ -326,7 +326,7 @@ class GetRecipeCategoryType {
     // 旬の食材（野菜）のカテゴリIDを返す（トレンドタグ用）
     // =========================================
     // 1月の旬の食材（野菜）名/カテゴリID
-    val janVegetableFood = listOf(
+    private val janVegetableFood = listOf(
         "長ネギ（ねぎ）", "12-103-8",
         "ブロッコリー", "12-458",
         "カリフラワー", "12-103-34",
@@ -334,7 +334,7 @@ class GetRecipeCategoryType {
         "にんじん", "12-95"
     )
     // 2月の旬の食材（野菜）名/カテゴリID
-    val febVegetableFood = listOf(
+    private val febVegetableFood = listOf(
         "長ネギ（ねぎ）", "12-103-8",
         "ブロッコリー", "12-458",
         "カリフラワー", "12-103-34",
@@ -344,7 +344,7 @@ class GetRecipeCategoryType {
         "いちご", "34-692-1965"
     )
     // 3月の旬の食材（野菜）名/カテゴリID
-    val marVegetableFood = listOf(
+    private val marVegetableFood = listOf(
         "長ネギ（ねぎ）", "12-103-8",
         "ブロッコリー", "12-458",
         "カリフラワー", "12-103-34",
@@ -357,7 +357,7 @@ class GetRecipeCategoryType {
         "アスパラ", "12-100-11"
     )
     // 4月の旬の食材（野菜）名/カテゴリID
-    val aprVegetableFood = listOf(
+    private val aprVegetableFood = listOf(
         "じゃがいも", "12-97",
         "にら", "12-103-4",
         "いちご", "34-692-1965",
@@ -369,7 +369,7 @@ class GetRecipeCategoryType {
         "玉ねぎ", "12-96"
     )
     // 5月の旬の食材（野菜）名/カテゴリID
-    val mayVegetableFood = listOf(
+    private val mayVegetableFood = listOf(
         "じゃがいも", "12-97",
         "レタス", "12-100-2",
         "アスパラ", "12-100-11",
@@ -378,7 +378,7 @@ class GetRecipeCategoryType {
         "玉ねぎ", "12-96"
     )
     // 6月の旬の食材（野菜）名/カテゴリID
-    val junVegetableFood = listOf(
+    private val junVegetableFood = listOf(
         "アスパラ", "12-100-11",
         "いんげん", "12-101-22",
         "オクラ", "12-101-32",
@@ -388,7 +388,7 @@ class GetRecipeCategoryType {
         "ピーマン", "12-101-30"
     )
     // 7月の旬の食材（野菜）名/カテゴリID
-    val julVegetableFood = listOf(
+    private val julVegetableFood = listOf(
         "いんげん", "12-101-22",
         "オクラ", "12-101-32",
         "かぼちゃ", "12-448",
@@ -403,7 +403,7 @@ class GetRecipeCategoryType {
         "みょうが", "12-107-36"
     )
     // 8月の旬の食材（野菜）名/カテゴリID
-    val augVegetableFood = listOf(
+    private val augVegetableFood = listOf(
         "いんげん", "12-101-22",
         "オクラ", "12-101-32",
         "かぼちゃ", "12-448",
@@ -418,7 +418,7 @@ class GetRecipeCategoryType {
         "みょうが", "12-107-36"
     )
     // 9月の旬の食材（野菜）名/カテゴリID
-    val sepVegetableFood = listOf(
+    private val sepVegetableFood = listOf(
         "いんげん", "12-101-22",
         "オクラ", "12-101-32",
         "かぼちゃ", "12-448",
@@ -436,7 +436,7 @@ class GetRecipeCategoryType {
         "松茸", "12-105-337"
     )
     // 10月の旬の食材（野菜）名/カテゴリID
-    val octVegetableFood = listOf(
+    private val octVegetableFood = listOf(
         "じゃがいも", "12-97",
         "里芋", "12-103-308",
         "セロリ", "12-103-314",
@@ -454,7 +454,7 @@ class GetRecipeCategoryType {
         "りんご", "34-688"
     )
     // 11月の旬の食材（野菜）名/カテゴリID
-    val novVegetableFood = listOf(
+    private val novVegetableFood = listOf(
         "柿", "34-460",
         "かぶ", "12-102-16",
         "カリフラワー", "12-103-34",
@@ -475,7 +475,7 @@ class GetRecipeCategoryType {
         "れんこん", "12-102-15"
     )
     // 12月の旬の食材（野菜）名/カテゴリID
-    val decVegetableFood = listOf(
+    private val decVegetableFood = listOf(
         "長ネギ（ねぎ）", "12-103-8",
         "大根", "12-449",
         "白菜", "12-453",
@@ -558,7 +558,7 @@ class GetRecipeCategoryType {
     // 旬の食材（魚介）のカテゴリIDを返す（トレンドタグ用）
     // =========================================
     // 1月の旬の食材（魚介）名/カテゴリID
-    val janSeaFood = listOf(
+    private val janSeaFood = listOf(
         "あさり", "11-82-60",
         "まぐろ", "11-77",
         "カニ", "11-83",
@@ -567,18 +567,18 @@ class GetRecipeCategoryType {
         "たら", "11-443"
     )
     // 2月の旬の食材（魚介）名/カテゴリID
-    val febSeaFood = listOf(
+    private val febSeaFood = listOf(
         "あさり", "11-82-60",
         "まぐろ", "11-77",
         "カニ", "11-83"
     )
     // 3月の旬の食材（魚介）名/カテゴリID
-    val marSeaFood = listOf(
+    private val marSeaFood = listOf(
         "あさり", "11-82-60",
         "ヒラメ", "11-78-1499"
     )
     // 4月の旬の食材（魚介）名/カテゴリID
-    val aprSeaFood = listOf(
+    private val aprSeaFood = listOf(
         "あさり", "11-82-60",
         "かつお", "11-78-324",
         "にしん", "11-78-1497",
@@ -586,7 +586,7 @@ class GetRecipeCategoryType {
         "さば", "11-72"
     )
     // 5月の旬の食材（魚介）名/カテゴリID
-    val maySeaFood = listOf(
+    private val maySeaFood = listOf(
         "かつお", "11-78-324",
         "きす", "11-78-840",
         "にしん", "11-78-1497",
@@ -594,7 +594,7 @@ class GetRecipeCategoryType {
         "さば", "11-72"
     )
     // 6月の旬の食材（魚介）名/カテゴリID
-    val junSeaFood = listOf(
+    private val junSeaFood = listOf(
         "穴子", "11-78-472",
         "きす", "11-78-840",
         "にしん", "11-78-1497",
@@ -602,7 +602,7 @@ class GetRecipeCategoryType {
         "さば", "11-72"
     )
     // 7月の旬の食材（魚介）名/カテゴリID
-    val julSeaFood = listOf(
+    private val julSeaFood = listOf(
         "穴子", "11-78-472",
         "うなぎ", "11-78-334",
         "きす", "11-78-840",
@@ -610,7 +610,7 @@ class GetRecipeCategoryType {
         "あじ", "11-73"
     )
     // 8月の旬の食材（魚介）名/カテゴリID
-    val augSeaFood = listOf(
+    private val augSeaFood = listOf(
         "穴子", "11-78-472",
         "うなぎ", "11-78-334",
         "スズキ", "11-78-2029",
@@ -618,7 +618,7 @@ class GetRecipeCategoryType {
         "あじ", "11-73"
     )
     // 9月の旬の食材（魚介）名/カテゴリID
-    val sepSeaFood = listOf(
+    private val sepSeaFood = listOf(
         "あさり", "11-82-60",
         "さけ", "11-70",
         "さんま", "11-75",
@@ -628,7 +628,7 @@ class GetRecipeCategoryType {
         "いわし", "11-71"
     )
     // 10月の旬の食材（魚介）名/カテゴリID
-    val octSeaFood = listOf(
+    private val octSeaFood = listOf(
         "あさり", "11-82-60",
         "牡蠣", "11-444",
         "まぐろ", "11-77",
@@ -642,7 +642,7 @@ class GetRecipeCategoryType {
         "たこ", "11-81"
     )
     // 11月の旬の食材（魚介）名/カテゴリID
-    val novSeaFood = listOf(
+    private val novSeaFood = listOf(
         "あさり", "11-82-60",
         "牡蠣", "11-444",
         "まぐろ", "11-77",
@@ -658,7 +658,7 @@ class GetRecipeCategoryType {
         "たこ", "11-81"
     )
     // 12月の旬の食材（魚介）名/カテゴリID
-    val decSeaFood = listOf(
+    private val decSeaFood = listOf(
         "あさり", "11-82-60",
         "牡蠣", "11-444",
         "まぐろ", "11-77",
@@ -742,7 +742,7 @@ class GetRecipeCategoryType {
     // 汎用処理（現在月の取得）
     // ====================
     // 現在月の取得
-    fun getToday(): Int {
+    private fun getToday(): Int {
         val date = Date()
         val format = SimpleDateFormat("MM", Locale.getDefault())
         return format.format(date).toInt()

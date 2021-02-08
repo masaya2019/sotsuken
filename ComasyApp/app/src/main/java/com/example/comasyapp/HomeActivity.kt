@@ -185,7 +185,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/response_all_goods.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/response_all_goods.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("search_data", search_data)
@@ -232,7 +232,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                             if (datas.length() == 0) {
                                 val textView = TextView(applicationContext)
-                                textView.text = "右下にある＋ボタンから\n冷蔵庫の中身を登録しよう！"
+                                textView.text = "右下にある＋ボタンから\n冷蔵庫の中身を登録しよう"
                                 textView.textSize = 20F
                                 textView.setTypeface(Typeface.DEFAULT_BOLD)
                                 textView.setTextColor(Color.BLACK)
@@ -397,7 +397,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
         val handler = Handler()
 
         // リクエスト先URL
-        val url = "http://r02isc2t119.sub.jp/api/my_refrigerator_picture.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/my_refrigerator_picture.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", now_refrigerator_id)
@@ -459,7 +459,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
                                 pictureLinearLayoutContainer.addView(imageView)
                                 // 冷蔵庫の画像を取ってくる
                                 Picasso.get()
-                                    .load("http://r02isc2t119.sub.jp/api/images/${pictureName}.png")
+                                    .load("${GetApiUrl().getApiUrl()}/api/images/${pictureName}.png")
                                     .resize(0, constraintLayout.height)
                                     .into(imageView)
                                 imageView.layoutParams =
@@ -504,8 +504,8 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
                             // テキストを配置
                             val textView = TextView(applicationContext)
-                            textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう！"
-                            textView.textSize = 20F
+                            textView.text = "横にある＋ボタンから\n冷蔵庫の写真を登録しよう"
+                            textView.textSize = 18F
                             textView.setTypeface(Typeface.DEFAULT_BOLD)
                             textView.setTextColor(Color.WHITE)
                             textView.gravity = Gravity.CENTER
@@ -522,7 +522,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
     // ====================
     // 追加個数をDBに登録する
     // ====================
-    fun changeGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int, search_data: String) {
+    private fun changeGoodsQuantity(goods_id: String, goods_name: String, selectedItem: Int, search_data: String) {
 
         // 本体からrefrigerator_idを取得
         val pref = getSharedPreferences("now_refrigerator_id", Context.MODE_PRIVATE)
@@ -539,7 +539,7 @@ class HomeActivity : AppCompatActivity(), SelectNextActionDialog.NoticeNextActio
 
         val handler = Handler()
 
-        val url = "http://r02isc2t119.sub.jp/api/change_goods_quantity_database.php"
+        val url = "${GetApiUrl().getApiUrl()}/api/change_goods_quantity_database.php"
 
         val body = FormBody.Builder(charset("UTF-8"))
             .add("refrigerator_id", refrigerator_id)

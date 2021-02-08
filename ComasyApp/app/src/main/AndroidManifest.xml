@@ -16,13 +16,14 @@
         <activity android:name=".TakeRefrigeratorPictureActivity"></activity>
         <activity android:name=".ViewRefrigeratorPictureActivity" />
         <activity android:name=".RegistrationClickActivity" />
-        <activity android:name=".RegistrationActivity" />
         <activity android:name=".ColumnActivity" />
         <activity android:name=".RecipeSearchActivity" />
         <activity android:name=".RecipeSearchResultActivity" />
         <activity android:name=".MemoActivity" />
         <activity android:name=".MemoTextActivity" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".TermsOfServiceActivity" />
         <activity android:name=".MemberRegistrationConfirmActivity" />
         <activity android:name=".MemberRegistrationFormActivity" />
