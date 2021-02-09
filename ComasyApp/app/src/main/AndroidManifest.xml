@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.comasyapp">
+    package="com.jp.ac.isc.comasyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,24 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TakeRefrigeratorPictureActivity"></activity>
-        <activity android:name=".ViewRefrigeratorPictureActivity" />
-        <activity android:name=".RegistrationClickActivity" />
-        <activity android:name=".ColumnActivity" />
-        <activity android:name=".RecipeSearchActivity" />
-        <activity android:name=".RecipeSearchResultActivity" />
-        <activity android:name=".MemoActivity" />
-        <activity android:name=".MemoTextActivity" />
-        <activity android:name=".SettingActivity"
+        <activity android:name="com.jp.ac.isc.comasyapp.TakeRefrigeratorPictureActivity"></activity>
+        <activity android:name="com.jp.ac.isc.comasyapp.ViewRefrigeratorPictureActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.RegistrationClickActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.ColumnActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.RecipeSearchActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.RecipeSearchResultActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.MemoActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.MemoTextActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".TermsOfServiceActivity" />
-        <activity android:name=".MemberRegistrationConfirmActivity" />
-        <activity android:name=".MemberRegistrationFormActivity" />
-        <activity android:name=".MemberRegistrationActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.TermsOfServiceActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.MemberRegistrationConfirmActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.MemberRegistrationFormActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.MemberRegistrationActivity" />
+        <activity android:name="com.jp.ac.isc.comasyapp.HomeActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.jp.ac.isc.comasyapp.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher"
             android:screenOrientation="portrait">
