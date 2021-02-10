@@ -6,37 +6,49 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_take_refrigerator_picture.*
 import okhttp3.*
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 
 class TakeRefrigeratorPictureActivity : AppCompatActivity() {
-    private val cameraRequest = 1888
+    private val FILE_NAME = "photo.jpg"
+    private val REQUEST_CODE = 42
+    private lateinit var photoFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_refrigerator_picture)
 
-        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_DENIED)
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameraRequest)
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        photoFile = getPhotoFile(FILE_NAME)
 
-        // 初回アクセス時にカメラを起動
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, cameraRequest)
+        // This DOESN'T work for API >= 24 (starting 2016)
+        // takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
+
+        val fileProvider = FileProvider.getUriForFile(this, "com.jp.ac.isc.comasyapp.fileprovider", photoFile)
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+        if (takePictureIntent.resolveActivity(this.packageManager) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_CODE)
+        } else {
+            Toast.makeText(this, "Unable to open camera", Toast.LENGTH_SHORT).show()
+        }
 
         // 画像をクリックしたら
         imageView.setOnClickListener {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, cameraRequest)
+
         }
 
 //        // 送信ボタンをクリックしたら
@@ -46,18 +58,24 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
 
     }
 
-    var photo: Bitmap? = null
+    var takenImage: Bitmap? = null
 
-    // 撮った写真をimageViewにセットする
+    private fun getPhotoFile(fileName: String): File {
+        // Use `getExternalFilesDir` on Context to access package-specific directories.
+        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(fileName, ".jpg", storageDirectory)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == cameraRequest && resultCode == Activity.RESULT_OK && data != null) {
-            photo = data.extras?.get("data") as Bitmap
-            imageView.setImageBitmap(photo)
-            // 写真をアップロードする
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            val takenImage = data?.extras?.get("data") as Bitmap
+            takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
+//            imageView.setImageBitmap(takenImage)
             upload()
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
+
     }
 
     // 写真をアップロードする
@@ -76,7 +94,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         val c = OkHttpClient()
 
         val stream = ByteArrayOutputStream()
-        photo!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        takenImage!!.compress(Bitmap.CompressFormat.PNG, 50, stream)
         val byteArray = stream.toByteArray()
 
         val requestBody = MultipartBody.Builder()
