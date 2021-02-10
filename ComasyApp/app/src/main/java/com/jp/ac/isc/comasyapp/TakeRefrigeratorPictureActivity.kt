@@ -70,7 +70,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 //            val takenImage = data?.extras?.get("data") as Bitmap
             takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-            imageView.setImageBitmap(takenImage)
+//            imageView.setImageBitmap(takenImage)
             upload()
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -94,7 +94,7 @@ class TakeRefrigeratorPictureActivity : AppCompatActivity() {
         val c = OkHttpClient()
 
         val stream = ByteArrayOutputStream()
-        takenImage!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        takenImage!!.compress(Bitmap.CompressFormat.PNG, 50, stream)
         val byteArray = stream.toByteArray()
 
         val requestBody = MultipartBody.Builder()
